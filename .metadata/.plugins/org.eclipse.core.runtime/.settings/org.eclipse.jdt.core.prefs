@@ -1,5 +1,10 @@
 eclipse.preferences.version=1
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+org.eclipse.jdt.core.classpathVariable.M2_REPO=C\:/Users/kosmo/.m2/repository
+org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
+>>>>>>> 4ca73b4d5f28da2b6b6f8f5b6a60bb29fa612ece
 =======
 org.eclipse.jdt.core.classpathVariable.M2_REPO=C\:/Users/kosmo/.m2/repository
 org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
