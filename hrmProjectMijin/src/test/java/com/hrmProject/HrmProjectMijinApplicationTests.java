@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.hrmProject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FinalYeongmookApplicationTests {
+class HrmProjectMijinApplicationTests {
 
 	@Test
 	void contextLoads() {

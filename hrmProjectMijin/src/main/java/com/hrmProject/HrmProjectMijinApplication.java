@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.hrmProject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FinalYeongmookApplication {
+public class HrmProjectMijinApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FinalYeongmookApplication.class, args);
+		SpringApplication.run(HrmProjectMijinApplication.class, args);
 	}
 
 }
