@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sample.Entity.Member;
-import com.sample.dto.MemberFormDto;
 import com.sample.dto.PostsListResponseDto;
 import com.sample.dto.PostsResponseDto;
 import com.sample.service.MemberService;
