@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<!-- 사용자 스크립트 추가 -->
+<head>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+        	function postSave(){
+        		var data = {
+        				 title: $('#title').val(),
+        				 author: $('#author').val(),
+        				 contents: $('#contents').val()
+        			 };
+        		var token = $("meta[name='_csrf']").attr("content");
+        		var header = $("meta[name='_csrf_header']").attr("content")
+        			 $.ajax({
+        				 beforeSend: function(xhr){
+        			       xhr.setRequestHeader(header,token);
+        			     },
+        				 type : 'POST',
+        				 url : '/api/v1/posts',
+        				 dataType : 'json',
+        				 contentType : 'application/json; charset=utf-8',
+        				 data : JSON.stringify(data)
+        			 }).done(function(){
+        				 alert('글이 등록되었습니다.');
+        				 window.location.href = '/';
+        			 }).fail(function(error){
+        				 alert(JSON.stringify(error));
+        				 window.location.href = '/';
+        			 })
+        			 console.log(token);
+        			 console.log(header);
+        			 console.log(data.contents)
+        	};
+    </script>
+
+</th:block>
+<div layout:fragment="content">
+	<h1> 게시글 등록 </h1>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<form>
+				<div class="form-group">
+					<label for="title">제목</label>
+					<input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
+				</div>
+				<div class="form-group">
+					<label for="author">작성자</label>
+					<input type="text" class="form-control" id="author" th:value="${name}" readonly>
+				</div>
+				<div class="form-group">
+					<label for="contents">내용</label>
+					<textarea class="form-control" id="contents" placeholder="내용을 입력하세요"></textarea>
+				</div>
+			</form>
+			<a href="/" role="button" class="btn btn-secondary">취소</a>
+			<input type="button" class="btn btn-primary" id="btn-save" onclick="postSave()" value="등록">
+		</div>
+	</div>
+</div>
