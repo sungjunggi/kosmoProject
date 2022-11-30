@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.project.dao.IReportDAO">
+	<select id="listDAO" resultType="com.project.dao.IReportDAO">
+		SELECT * FROM COMMUNICATION ORDER BY COMMUNICATION_NUM DESC
+	</select>
+	<select id="viewDAO" resultType="com.project.dao.IReportDAO">
+		SELECT * FROM COMMUNICATION WHERE ID=#{0}
+	</select>
+	<insert id="writeDAO">
+		INSERT INTO COMMUNICATION (ID, WRITER, TITLE, CONTENT) VALUES (BASIC_BBS_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3})
+	</insert>
+	<delete id="deleteDAO">
+		DELETE FROM COMMUNICATION WHERE ID=#{_id}
+	</delete>
+	<update id=""></update>
+</mapper>
