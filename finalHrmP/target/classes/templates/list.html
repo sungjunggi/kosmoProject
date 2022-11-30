@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>List View</title>
+</head>
+<body>
+ 
+    <div>
+        <H1>DB 연동 확인</H1>
+ 
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>userCode</th>
+                    <th>userName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="row:${Alllist}">
+                    <th th:text="${row.ID}"></th>
+                    <th th:text="${row.PW}"></th>
+ 
+                </tr>
+            </tbody>
+ 
+        </table>
+ 
+    </div>
+ 
+</body>
+</html>
