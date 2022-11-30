@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script th:inline="javascript">
+		//heder checkbox event
+	$(document).ready(function() {
+	$("#chkAll").click(function() {
+		if($("#chkAll").is(":checked")) $("input[name=deleteId]").prop("checked", true);
+		else $("input[name=deleteId]").prop("checked", false);
+	});
+
+	$("input[name=deleteId]").click(function() {
+		var total = $("input[name=deleteId]").length;
+		var checked = $("input[name=deleteId]:checked").length;
+
+		if(total != checked) $("#chkAll").prop("checked", false);
+		else $("#chkAll").prop("checked", true); 
+	});
+});
+		//body checkbox event
+		$("input[name='deleteId']").click(function(){
+			let dellnpLen = $("input[name='deleteId']").length;
+			let dellnpChkLen = $("input[name='deleteId']:checked").length;
+			if(dellnpLen == dellnpChkLen){
+				$("#chkAll").prop("checked",true);
+			}else{
+				$("#chkAll").prop("checked",false);
+			}
+		});
+		
+		function fnDelete(){
+			let dellnpChkLen = $("input[name='deleteId']:checked").length;
+			if(dellnpChkLen > 0){
+				if(confirm("삭제하시겠습니까?")){
+					let frm = $("#frm");
+					frm.attr("action","/delete");
+					frm.attr("method","post");
+					frm.submit();
+				}
+			}else{
+				alert("선택해주세요.");
+			}
+			var idList=[];
+		$.each($checked, function(k,v){
+			idList.push($(this).val());
+		});
+		console.log(idList);
+		console.log(idList.join(','));
+		}
+		
+	
+		
+	</script>
+	
+</head>
+<body>
+<span><input type="button" name="allTodo" value="전체 할 일"></span>
+<span><input type="button" name="myTodo" value="내가 배정한 할 일"></span>
+<span><a href="write">+ 할일 만들기</a></span><br/>
+<input type="date" name="date" value="date"><br/>
+<button type="button" name="scheduled">진행예정</button>
+<button type="button" name="proceeding">진행중</button>
+<button type="button" name="finish">진행완료</button>
+	<form action="/delete" id="frm" method="post">
+	<table border="1" id="">
+		<tr>
+			<th><input type="checkbox" id="chkAll"/></th>
+			<th>No.</th>
+			<th>타이틀</th>
+			<th>시작일</th>
+			<th>종료일</th>
+			<th>배정대상</th>
+			<th>상태</th>
+			<th>작성자</th>
+		</tr>
+		<tr th:each="dto : ${list}" >
+			<td><input type="checkbox" class="chk" name="deleteId" th:value="${dto.communication_num}"></td>
+			<td th:text="${dto.communication_num}"></td>
+			<td>
+				<a th:href="@{'/view/'+${dto.communication_num}}">
+					<span th:text="${dto.communication_title}"></span>
+				</a>
+			</td>
+			<td th:text="${dto.communication_start}"></td>
+			<td th:text="${dto.communication_end}"></td>
+			<td th:text="${dto.communication_assign}"></td>
+			<td th:text="${dto.communication_state}"></td>
+			<td th:text="${dto.employee_name}"></td>
+		</tr>
+	</table>
+	<button type="button" onclick="fnDelete()">삭제</button>
+	</form>
+	
+
+
+</body>
+</html>

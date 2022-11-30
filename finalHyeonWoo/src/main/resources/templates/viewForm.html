@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<a th:href="@{/todo}">
+	<span th:text="'←'+${dto.communication_title}"></span>
+</a><br/>
+<span th:text="${dto.employee_name}"></span>
+<span th:text="${dto.communication_start}"></span>
+
+<h4>할 일 정보</h4>
+<div>
+<label>기간</label> &nbsp; &nbsp; | &nbsp; &nbsp;<label>배정 대상</label><br/>
+<span th:text="${dto.communication_start}">~</span>
+<span th:text="${dto.communication_end}"></span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<span th:text="${dto.communication_assign}"></span>
+</div>
+
+<h4>작업</h4>
+<span th:text="${dto.communication_content}"></span>
+
+</body>
+</html>

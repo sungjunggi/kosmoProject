@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimhw.dao.ITodoDAO">
+	<select id="listDAO" resultType="com.kimhw.dto.CommunicationDTO">
+    	select * from communication c, employee e where c.employee_num=e.employee_num 
+    	order by communication_num desc
+   	</select>
+   	
+   	<insert id="writeDAO">
+   		insert into communication (communication_num,communication_title,communication_start,communication_end,communication_content)
+       values (seq_board_num.nextval,#{title},#{start},#{end},#{content})	
+   	</insert>
+   	
+   	<select id="viewDAO" resultType="com.kimhw.dto.CommunicationDTO">
+      select * from communication where communication_num=#{0} <!-- 인덱스값 -->
+   </select>
+   
+   <delete id="deleteDAO">
+      delete from communication where communication_num = #{param1}
+   </delete>
+</mapper>
