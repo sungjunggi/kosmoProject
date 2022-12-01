@@ -17,7 +17,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+
 	<dependencies>
+	
+
+
 		<!-- thymeleaf -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
