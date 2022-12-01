@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface IHrmMapper {
 
-	//select * from Test_Table
+	//select * from employee
     public List<Map<String, Object>> SelectAllList() throws Exception;
+    
+    //select * from 
 }
