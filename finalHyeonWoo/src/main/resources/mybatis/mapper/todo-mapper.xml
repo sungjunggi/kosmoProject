@@ -10,7 +10,7 @@
    	
    	<insert id="writeDAO">
    		insert into communication (communication_num,communication_title,communication_start,communication_end,communication_content)
-       values (seq_board_num.nextval,#{title},#{start},#{end},#{content})	
+       values (seq_communication_num.nextval,#{title},#{start},#{end},#{content})	
    	</insert>
    	
    	<select id="viewDAO" resultType="com.kimhw.dto.CommunicationDTO">
@@ -20,4 +20,26 @@
    <delete id="deleteDAO">
       delete from communication where communication_num = #{param1}
    </delete>
+   
+   <update id="updateDAO" parameterType="com.kimhw.dto.CommunicationDTO">
+		update communication set communication_start=#{communication_start,jdbcType=VARCHAR},communication_end=#{communication_end,jdbcType=VARCHAR}
+		, communication_assign=#{communication_assign,jdbcType=VARCHAR},communication_content=#{communication_content,jdbcType=VARCHAR}
+		, communication_title=#{communication_title,jdbcType=VARCHAR} where communication_num=#{communication_num,jdbcType=NUMERIC}
+   </update>
+   
+   <delete id="deleteBoardDAO" parameterType="int">
+      delete from communication where communication_num=#{param1}
+   </delete>
+   
+   <select id="getList" resultType="com.kimhw.dto.CommunicationDTO">
+    	<![CDATA[
+    	select * from(select rownum r, communication_num,communication_title,communication_start,communication_end,communication_assign,communication_state,employee_name
+        from communication c, employee e where c.employee_num=e.employee_num and rownum <= #{pageNum} * #{amount})
+    	where r>(#{pageNum}-1) * #{amount} order by communication_num desc
+    	]]>
+   	</select>
+   	
+   	<select id="getTotal" resultType="int">
+    	select count(*) as total from communication
+   	</select>
 </mapper>

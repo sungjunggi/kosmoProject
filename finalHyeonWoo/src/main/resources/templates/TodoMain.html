@@ -64,7 +64,7 @@
 <button type="button" name="scheduled">진행예정</button>
 <button type="button" name="proceeding">진행중</button>
 <button type="button" name="finish">진행완료</button>
-	<form action="/delete" id="frm" method="post">
+<div>
 	<table border="1" id="">
 		<tr>
 			<th><input type="checkbox" id="chkAll"/></th>
@@ -91,6 +91,27 @@
 			<td th:text="${dto.employee_name}"></td>
 		</tr>
 	</table>
+	 <div th:object="${pageMaker}">
+                    <div class="big-width" style="text-align: center">
+                        <a class="changePage" th:if="*{prev}" th:href="*{startPage - 1}"><code>&lt;</code></a>
+                        <th:block th:each="num : ${#numbers.sequence(pageMaker.getStartPage(), pageMaker.getEndPage())}">
+                            <code th:if="${pageMaker.criteria.getPageNum() == num}" th:text="${num}"></code>
+                            <a class="changePage" th:unless="${pageMaker.criteria.getPageNum() == num}" th:href="${num}"><code th:text="${num}"></code></a>
+                        </th:block>
+                        <a class="changePage" th:if="*{next}" th:href="*{endPage + 1}"><code>&gt;</code></a>
+                    </div>
+                    <div class="small-width" style="text-align: center">
+                        <a class="changePage" th:if="*{criteria.pageNum > 1}" th:href="*{criteria.pageNum - 1}"><code>&lt;</code></a>
+                        <code th:text="*{criteria.pageNum}"></code>
+                        <a class="changePage" th:if="*{criteria.pageNum < realEnd}" th:href="*{criteria.pageNum + 1}"><code>&gt;</code></a>
+                    </div>
+                    <form action="todo" th:object="${criteria}" name="pageForm">
+                        <input type="hidden" name="pageNum" th:field="*{pageNum}">
+                        <input type="hidden" name="amount" th:field="*{amount}">
+                    </form>
+                </div>
+           </div>
+	<form action="/delete" id="frm" method="post">
 	<button type="button" onclick="fnDelete()">삭제</button>
 	</form>
 	

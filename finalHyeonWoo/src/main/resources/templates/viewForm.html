@@ -21,6 +21,15 @@
 
 <h4>작업</h4>
 <span th:text="${dto.communication_content}"></span>
+<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
+<a th:href="@{'/edit/'+ ${dto.communication_num}}">
+<button>수정하기</button>
+</a>
+<form th:action="@{/deleteBoard}" id='frm' method="get">
+<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
+<input type="submit" id="delete" value="삭제하기">
+</form>
+
 
 </body>
 </html>
