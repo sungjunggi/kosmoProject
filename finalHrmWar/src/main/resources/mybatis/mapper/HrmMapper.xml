@@ -8,5 +8,61 @@
     <select id="SelectAllList" resultType="hashmap">
        SELECT * FROM MEMEBER
     </select>
+    
+    <select id="findByUserId" resultType="com.hrm.finalpj.dto.HrmEmployeeDTO">
+		SELECT
+			u.password AS password,
+			u.name AS name,
+			r.role_name AS roleName
+		FROM usertest AS u
+		  INNER JOIN user_role_test AS ur
+		  ON u.user_no = ur.user_no
+		  INNER JOIN roletest AS r 
+		  ON r.role_no = ur.role_no
+		WHERE
+			u.id = #{id}
+    </select>
+	
+	<insert id="userSave" parameterType="com.hrm.finalpj.dto.HrmEmployeeDTO">
+	    INSERT INTO usertest
+        (
+            id,
+            password,
+            name
+        )
+        VALUES
+        (
+            #{id},
+            #{password},
+            #{name}
+        )
+	</insert>
+
+	<insert id="userRoleSave">
+		INSERT INTO user_role_test
+        (
+            user_no,
+            role_no
+        )
+        VALUES
+        (
+            #{userNo},
+            #{roleNo}
+        )
+	</insert>
+	
+	<select id="findUserNo" resultType="int">
+		SELECT 
+			user_no
+		FROM usertest
+		WHERE id = #{id}
+	</select>
+	
+	<select id="findRoleNo" resultType="int">
+		SELECT 
+			role_no
+		FROM roletest
+		WHERE role_name = #{roleName}
+	</select>
  	
 </mapper>

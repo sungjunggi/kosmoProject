@@ -1,21 +1,17 @@
-package com.hrm.finalpj.mapper;
+package com.hrm.finalpj.service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.hrm.finalpj.dto.HrmEmployeeDTO;
 
-
-@Mapper
-public interface IHrmMapper {
-
-	//select * from employee
-    public List<Map<String, Object>> SelectAllList() throws Exception;
-    
+public interface IHrmTableService {
+	//select * from Test_Table
+	public List<Map<String, Object>> SelectAllList() throws Exception;
+	
     //유저 정보
   	ArrayList<HrmEmployeeDTO> findByUserId(@Param("id") String id);
 
@@ -30,5 +26,6 @@ public interface IHrmMapper {
 
   	//권한 FK번호 알아내기
   	int findRoleNo(@Param("roleName") String roleName);
-  	
+	
+	
 }
