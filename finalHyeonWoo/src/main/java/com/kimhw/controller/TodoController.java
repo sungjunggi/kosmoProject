@@ -35,7 +35,6 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/todo")
 public class TodoController {
 	
 	@Autowired
@@ -43,26 +42,26 @@ public class TodoController {
 	@Autowired
 	TodoServiceImpl todoservice;
 	
-	@GetMapping("/todo")
-	public String todoMain(@ModelAttribute Criteria criteria, Model model) {
-//		model.addAttribute("list",dao.listDAO());
-		System.out.println(criteria);
-		System.out.println(todoservice.getTotal()+"=======");
-		model.addAttribute("list", todoservice.getList(criteria));
-		model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, criteria));
-		return "TodoMain";
-	}
+
+	 @GetMapping("todo/{num}")
+	 public String todoMain(@PathVariable("num") int num, Criteria criteria, Model model,HttpServletRequest req) {
+	    Criteria test = new Criteria(num,10);
+	    String start = req.getParameter("start");
+	    System.out.println(start);
+	    model.addAttribute("list", todoservice.getList(test));
+	    model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+	    return "TodoMain";
+	 }
 	
 	@GetMapping("/write")
 	public String writeForm() {
 		return "writeForm";
 	}
+	
 	@PostMapping("/writing")
 	public String write(HttpServletRequest req, Model model) {
-		
 		todoservice.write(req);
-
-		return "redirect:todo"; 
+		return "redirect:todo/1"; 
 	}
 	
 	@GetMapping("/view/{num}")
@@ -75,16 +74,14 @@ public class TodoController {
 	public String delete(Model model,HttpServletRequest req, HttpServletResponse resp)throws ServletException,IOException {
 		String[] str=req.getParameterValues("deleteId");
 		for(String s:str) {
-			System.out.println(s);
 			int communication_num= Integer.parseInt(s);
 			dao.deleteDAO(communication_num);
 		}
-		return "redirect:todo";
+		return "redirect:todo/1";
 	}
 	
 	@GetMapping("/edit/{num}")
 	public String editForm(@PathVariable("num") String num,Model model) {
-		System.out.println("겟방식");
 		model.addAttribute("dto",dao.viewDAO(num));
 		return "editForm";
 	}
@@ -96,15 +93,13 @@ public class TodoController {
 		dto.setCommunication_end(req.getParameter("end"));
 		dto.setCommunication_content(req.getParameter("content"));
 		dao.updateDAO(dto);
-		return "redirect:/todo";
+		return "redirect:/todo/1";
 	}
 	
 	@GetMapping("/deleteBoard")
 	public String deleteBoard(HttpServletRequest req,int communication_num, Model model) {
 		communication_num=Integer.parseInt(req.getParameter("communication_num"));
-		System.out.println("=====");
-		System.out.println(communication_num);
 		dao.deleteBoardDAO(communication_num);
-		return "redirect:todo";
+		return "redirect:todo/1";
 	}
 }

@@ -6,8 +6,8 @@
 </head>
 <body>
 <form th:action="@{'/edit/'+ ${dto.communication_num}}" method="post">
+<span><a th:href="@{/view/{num}(num=${dto.communication_num})}">← 할일 만들기</a>
 <input type="hidden" name="communication_num" th:value="${dto.communication_num}">
-<span><a href="todo">← 할일 만들기</a>
 	<input type="submit" value="저장">
 </span><br/>
 	<label>타이틀</label><br/>

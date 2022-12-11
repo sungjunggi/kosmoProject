@@ -18,7 +18,7 @@ import com.kimhw.dto.PageDTO;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+
 @Service
 public class TodoServiceImpl implements TodoService{
 	@Autowired

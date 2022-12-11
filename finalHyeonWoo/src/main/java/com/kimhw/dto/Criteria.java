@@ -5,7 +5,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Data;
 
-@Component
+
 @Data
 public class Criteria {
 	private int pageNum;
