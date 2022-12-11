@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<head>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<div layout:fragment="content">
+	<h1>스프링 테스트 게시판</h1>
+	<th:block th:if="${name != null}">
+		<h4><span th:text="${name}"></span>님 환영합니다.</h4>
+	</th:block>
+	<!-- 조회
+	1. 조회 쿼리 생성 코드 postRepository
+	2. 조회 결과를 dto 로 dto 를 list에 담아 반환 postsService
+	3. 조회 결과를 dto 객체로 변환 PostsListsResponseDto
+	4. 등록 버튼 클릭시 / 로 이동했을때 모든 posts 객체를 화면에 출력 
+	 -->
+	<table class="table table-horizontal table-bordered">
+		<thead class="thread-string">
+			<tr>
+				<th>게시글 번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>비고</th>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			<tr th:each="p : ${posts}" >
+				<td th:text="${p.id}"></td>
+				<td>
+					<a th:href="@{'/posts/info/' + ${p.id}}">
+		                <span th:text="${p.title}"></span>
+		            </a>
+				</td>
+				<td th:text="${p.author}"></td>
+				<td sec:authorize="isAuthenticated()">
+					<a th:href="@{/posts/update/{id}(id = ${p.id})}" >수정/삭제</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -6,13 +6,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TemplateDTO {
-	private int template_board_num;
-	
-	private int template_num;
-	private String template_title;
-	private String template_question;
-	private String template_explanation;
-	private String template_option;
-	private String template_image;
-	private String template_date;
+	private int gettemplate_num;
+	private String gettemplate_title;
+	private String gettemplate_question;
+	private String gettemplate_explanation;
+	private String gettemplate_option;
+	private String gettemplate_image;
+	private String gettemplate_date;
+	private String gettemplate_writer;
 }
