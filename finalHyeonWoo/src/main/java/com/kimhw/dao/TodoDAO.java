@@ -12,14 +12,14 @@
 //@Repository
 //@RequiredArgsConstructor
 //public class TodoDAO {
-//	
+//
 //	private final ITodoDAO mapper;
-//	
+//
 //	public List<CommunicationDTO> getList(Criteria cri){
 //		return mapper.getList(cri);
 //	}
-//	
-//	public String getTotal() {
+//
+//	public int getTotal() {
 //		return mapper.getTotal();
 //	}
 //}

@@ -1,131 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
 <head>
-<meta name="_csrf" th:content="${_csrf.token}"/>
-<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title>Admin Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
-<script type="text/javascript">
-	$(function() {
-		//form ¾øÀÌ Àü¼Û
-		$("#ajaxCall").click(function(){
-			ajaxCall();
-		});
-		//form »ç¿ëÇØ¼­ Àü¼Û
-		$("#formAjaxCall").click(function(){
-			ajaxFormCall();
-		});
-	});
-	
-	function ajaxCall(){
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		var name = $("#userName").val();
-		
-		var jsonData = {
-			"name" : name
-		}
-		
-		$.ajax({
-			type: 'POST',
-			contentType: "application/json",
-			url:'/csrf/ajax',
-			data: JSON.stringify(jsonData), // String -> json ÇüÅÂ·Î º¯È¯
-			beforeSend : function(xhr)
-            {   /*µ¥ÀÌÅÍ¸¦ Àü¼ÛÇÏ±â Àü¿¡ Çì´õ¿¡ csrf°ªÀ» ¼³Á¤ÇÑ´Ù*/
-				xhr.setRequestHeader(header, token);
-            },
-			dataType: 'json', // success ½Ã ¹Ş¾Æ¿Ã µ¥ÀÌÅÍ Çü
-			async: true, //µ¿±â, ºñµ¿±â ¿©ºÎ
-			cache :false, // Ä³½Ã ¿©ºÎ
-			success: function(data){
-				console.log(data.name);
-			},
-			error:function(xhr,status,error){
-				console.log('error:'+error);
-			}
-		});
-	}
-	
-	//serialize Àü¼ÛÀº contentTypeÀÌ ´Ù¸§
-	function ajaxFormCall(){
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		var formAjax = $("#ajaxForm").serialize();
-		
-		console.log(formAjax);
-		 $.ajax({
-			type: 'POST',
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			url:'/csrf/ajaxForm',
-			data: formAjax,
-			beforeSend : function(xhr)
-            { 
-				xhr.setRequestHeader(header, token);
-            },
-			dataType: 'json', 
-			async: true,
-			cache :false,
-			success: function(data){
-				console.log(data);
-			},
-			error:function(xhr,status,error){
-				console.log('error:'+error);
-			}
-		});
-		
-	}
-	
-	
-</script>
-<body>
-    <div class="container">
-    
-    	<!-- ·Î±×¾Æ¿ô  -->
-        <form th:action="@{/logout}" method="post"> 
-        <button class="btn btn-md btn-danger btn-block" name="registration"type="Submit">Logout</button> 
-        </form>
-        
-        <!-- ·Î±×ÀÎÇÑ À¯Àú ÀÌ¸§¹× ±ÇÇÑ È®ÀÎ -->
-        <div class="panel-group" style="margin-top:40px">
-            <div class="panel panel-primary">
-                <div class="panel-heading"> <span th:utext="${name}"></span> </div>
-                <p class="admin-message-text text-center" th:utext="${auth}"></p>
-            </div>
-        </div>
-        
-        <!--CSRF FROM Å×½ºÆ®  
-        <form:form> ÅÂ±×¸¦ »ç¿ëÇÏ°Å³ª, Thymeleaf 2.1, @EnableWebSecurity¸¦ »ç¿ëÇÏ´Â °æ¿ì
-        CsrfRequestDataValueProcessor°¡ Àû¿ëµÇ¾î from ¿¡ CSRF ÅäÅ«ÀÌ ÀÚµ¿ÀûÀ¸·Î µé¾î°£´Ù.
-		´Ü, AJAX·Î °ªÀ» º¸³¾¶© ½á¾ßÇÑ´Ù.     
-        -->          	
-		<form th:action="@{/csrf/form}" th:method="post">
-			<div class="form-group row">
-				<label class="control-label col-sm-2" for="name">ÀÌ¸§ :</label>
-				<div class="col-md-4">
-					<input autocomplete="off" type="text" class="form-control" name="name">
-				</div>
-			</div>
-			<button class="btn btn-md btn-danger btn-block" type="Submit">Call</button> 
-		</form>
-		
-		<!-- AJAX Submit -->
-		<div class="panel-heading"></div>
-		<input autocomplete="off" type="text" class="form-control" id="userName" name="name">
-		<button class="btn btn-md btn-danger btn-block" id="ajaxCall" type="button">AJAX Call</button> 
-		
-		<!-- AJAX Submit 2 -->
-		<div class="panel-heading"></div>
-		<form id="ajaxForm">
-			<input autocomplete="off" type="text" class="form-control" id="name" name="name">
-			<input autocomplete="off" type="text" class="form-control" id="age" name="age">
-			<input autocomplete="off" type="text" class="form-control" id="email" name="email">
-			<button class="btn btn-md btn-danger btn-block" id="formAjaxCall" type="button">AJAX Form Call</button> 		
-		</form>
-		
-    </div>
-</body>
-</html>
+<div layout:fragment="content">
+	<h1>ìŠ¤í”„ë§ í…ŒìŠ¤íŠ¸ ê²Œì‹œíŒ</h1>
+	<th:block th:if="${name != null}">
+		<h4><span th:text="${name}"></span>ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤.</h4>
+	</th:block>
+	<!-- ì¡°íšŒ
+	1. ì¡°íšŒ ì¿¼ë¦¬ ìƒì„± ì½”ë“œ postRepository
+	2. ì¡°íšŒ ê²°ê³¼ë¥¼ dto ë¡œ dto ë¥¼ listì— ë‹´ì•„ ë°˜í™˜ postsService
+	3. ì¡°íšŒ ê²°ê³¼ë¥¼ dto ê°ì²´ë¡œ ë³€í™˜ PostsListsResponseDto
+	4. ë“±ë¡ ë²„íŠ¼ í´ë¦­ì‹œ / ë¡œ ì´ë™í–ˆì„ë•Œ ëª¨ë“  posts ê°ì²´ë¥¼ í™”ë©´ì— ì¶œë ¥ 
+	 -->
+	<table class="table table-horizontal table-bordered">
+		<thead class="thread-string">
+			<tr>
+				<th>ê²Œì‹œê¸€ ë²ˆí˜¸</th>
+				<th>ì œëª©</th>
+				<th>ì‘ì„±ì</th>
+				<th>ë¹„ê³ </th>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			<tr th:each="p : ${posts}" >
+				<td th:text="${p.id}"></td>
+				<td>
+					<a th:href="@{'/posts/info/' + ${p.id}}">
+		                <span th:text="${p.title}"></span>
+		            </a>
+				</td>
+				<td th:text="${p.author}"></td>
+				<td sec:authorize="isAuthenticated()">
+					<a th:href="@{/posts/update/{id}(id = ${p.id})}" >ìˆ˜ì •/ì‚­ì œ</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

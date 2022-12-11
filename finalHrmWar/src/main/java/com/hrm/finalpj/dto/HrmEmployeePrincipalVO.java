@@ -9,7 +9,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @SuppressWarnings("serial")
+@Getter
+@Setter
 public class HrmEmployeePrincipalVO implements UserDetails{
 
 private ArrayList<HrmEmployeeDTO> userVO;

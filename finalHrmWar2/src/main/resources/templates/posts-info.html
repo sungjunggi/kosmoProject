@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<!-- 사용자 스크립트 추가 -->
+<head>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+ 
+    </script>
+
+</th:block>
+<div layout:fragment="content">
+	<h1> 게시글 상세보기 </h1>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<form>
+				<div class="form-group">
+					<label for="id">글 번호</label>
+					<input type="text" class="form-control" id="id" th:value="${posts.id}" readonly>
+				</div>
+				<div class="form-group">
+					<label for="title">제목</label>
+					<input type="text" class="form-control" id="title"  th:value="${posts.title}" readonly>
+				</div>
+				<div class="form-group">
+					<label for="author">작성자</label>
+					<input type="text" class="form-control" id="author"  th:value="${posts.author}" readonly>
+				</div>
+				<div class="form-group">
+					<label for="contents">내용</label>
+					<textarea class="form-control" id="contents"  th:text="${posts.contents}" readonly></textarea>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -35,22 +35,23 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/todo")
+@RequestMapping("/board/*")
 public class TodoController {
 	
 	@Autowired
 	ITodoDAO dao;
 	@Autowired
-	TodoServiceImpl todoservice;
-	
-	@GetMapping("/todo")
-	public String todoMain(@ModelAttribute Criteria criteria, Model model) {
+	private final TodoServiceImpl todoservice;
+
+	@GetMapping("todo/{num}")
+	public String todoMain(@PathVariable("num") int num, Criteria criteria, Model model) {
 //		model.addAttribute("list",dao.listDAO());
+		Criteria test = new Criteria(num,10);
 		System.out.println(criteria);
 		System.out.println(todoservice.getTotal()+"=======");
-		model.addAttribute("list", todoservice.getList(criteria));
-		model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, criteria));
-		return "TodoMain";
+		model.addAttribute("list", todoservice.getList(test));
+		model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+		return "/board/TodoMain";
 	}
 	
 	@GetMapping("/write")

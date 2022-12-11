@@ -8,7 +8,7 @@ import com.kimhw.dto.CommunicationDTO;
 import com.kimhw.dto.Criteria;
 import com.kimhw.dto.PageDTO;
 
-@Service
+
 public interface TodoService {
 	public List<CommunicationDTO> getList(Criteria criteria);
 	public Integer getTotal();

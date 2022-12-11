@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-@Component
+
 @Data
 public class PageDTO {
 	private int pageCount;
@@ -15,7 +15,7 @@ public class PageDTO {
 	private int total;
 	private Criteria criteria;
 	
-	public PageDTO() {}
+	public PageDTO() {;}
 	
 	public PageDTO(int total, int pageCount, Criteria criteria) {
 		this.total = total;
@@ -33,5 +33,10 @@ public class PageDTO {
 		
 		prev = startPage >1;
 		next = endPage < realEnd;
+		System.out.println(prev);
+		System.out.println(next);
+		System.out.println(total +" totaladwdad");
+		System.out.println(criteria +" criter");
+		System.out.println(pageCount +" pagecounts");
 	}
 }
