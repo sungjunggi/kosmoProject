@@ -8,10 +8,10 @@
 	<table width="500" cellpadding="0" cellspacing="0" border="1">
 		<tr th:each="dto:${view}">
 			<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
-			<a th:href="@{'/update/'+${dto.template_board_num}}">
+			<a th:href="@{'/updateview/'+${dto.template_board_num}}">
 				<button>수정</button>
 			</a>
-			<form action="/write">
+			<form action="/writereport">
 			
 			<td th:text="${dto.template_board_num}"></td>
 			<td th:text="${dto.employee_name}"></td>

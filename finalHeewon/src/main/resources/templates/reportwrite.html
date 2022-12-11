@@ -13,7 +13,7 @@
 	}
 </style>
 <body>
-	<form id="form" name="form" method="post" action="/write"  >
+	<form id="form" name="form" method="post" action="/writereport"  >
 	<div th:each="dto:${template}" th:object="${reportDTO}">
 		<input type="hidden" name="answer4" th:value="${dto.gettemplate_num}" >
 		<div>

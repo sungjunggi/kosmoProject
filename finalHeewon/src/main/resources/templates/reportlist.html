@@ -23,7 +23,7 @@
 		</tr>
 		<tr th:each="dto:${list}">
 			<td>
-				<a th:href="@{'/view/'+${dto.template_board_num}}">
+				<a th:href="@{'/reportview/'+${dto.template_board_num}}">
 					<span th:text="${dto.gettemplate_title}"></span>
 				</a>
 			</td>
@@ -33,7 +33,7 @@
 			<td th:text="'💬'+${dto.count}"></td>
 		</tr>	
 	</table>
-	<p><a href="/select">보고서 작성</a></p>
+	<p><a href="/templateselect">보고서 작성</a></p>
 	                                                                                                                                                                                                                                                                                                                                          
 </body>
 

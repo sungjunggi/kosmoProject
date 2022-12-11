@@ -1,4 +1,4 @@
-package com.project.controller;
+package com.hrm.finalpj.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,13 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.dao.IReportDAO;
-import com.project.dto.ReportDTO;
-import com.project.dto.TemplateDTO;
-
-import lombok.RequiredArgsConstructor;
+import com.hrm.finalpj.dao.IReportDAO;
 
 @Controller
 public class ReportController {
@@ -25,25 +20,25 @@ public class ReportController {
 	@GetMapping("/reportlist")
 	public String userlist(Model model) {
 		model.addAttribute("list", dao.listDAO());
-		return "reportlist";
+		return "report/reportlist";
 	}
 	
 	@RequestMapping("/reportview/{num}")
 	public String detailView(@PathVariable("num") String num,  Model model) {
 		model.addAttribute("view", dao.viewDAO(num));
-		return "reportview";
+		return "report/reportview";
 	}
 	
 	@RequestMapping("/templateselect")
 	public String selectTemplate(Model model) {
 		model.addAttribute("select", dao.selectDAO());
-		return "templateselect";
+		return "report/templateselect";
 	}
 	
 	@RequestMapping("/templateview/{tnum}")
 	public String viewTemplate(@PathVariable("tnum") String tnum, Model model) {
 		model.addAttribute("template", dao.templateDAO(tnum));
-		return "reportwrite";
+		return "report/reportwrite";
 	}
 	
 	@RequestMapping("/addtemplate")
