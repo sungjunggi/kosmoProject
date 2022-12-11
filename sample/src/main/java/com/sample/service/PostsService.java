@@ -68,7 +68,7 @@ public class PostsService {
 	@Transactional
 	public List<PostsListResponseDto> findByKeyword(String title){
 		//사용자가 검색창에 입력한 값 제목 검색
-		return  postsRepository.findByTitleContaining(title).stream()
+		return  postsRepository.findByTitelContaining(title).stream()
 				.map(posts -> new PostsListResponseDto(posts))
 				.collect(Collectors.toList());
 	}
