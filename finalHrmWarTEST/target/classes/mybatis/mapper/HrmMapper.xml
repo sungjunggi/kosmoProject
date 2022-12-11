@@ -5,9 +5,6 @@
   
 <mapper namespace="com.hrm.finalpj.mapper.IHrmMapper">
 
-    <select id="SelectAllList" resultType="hashmap">
-       SELECT * FROM MEMEBER
-    </select>
     
      <select id="SelectSignList" resultType="com.hrm.finalpj.dto.signDTO">
     	select sign_num,sign_req_title,sign_status,sign_begin,sign_res_name from sign

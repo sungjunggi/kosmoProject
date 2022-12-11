@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.hrm.finalpj.dto.signDTO;
+
 
 
 
@@ -16,6 +18,9 @@ public interface IHrmMapper {
 	//select * from employee
     public List<Map<String, Object>> SelectAllList() throws Exception;
     
+    public List<signDTO> SelectSignList(signDTO dto); 
+    
+    public signDTO SelectSignPage(int dto);
    
   	
 }
