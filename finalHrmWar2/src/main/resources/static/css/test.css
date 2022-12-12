@@ -14,7 +14,7 @@
 	position: absolute;
 	padding: 50px;
 	width: 100%;
-	max-width: 1440px;
+	max-width: 1600px;
 }
 * {
     margin: 0;
@@ -238,7 +238,7 @@ li[data-depth="1"] a {
 	margin: 0 auto;
 	margin-top:20px;
 }
-#todo-table-header {
-	display: flex;
+.todo-table-header {
+	text-align: center;
 	
 }
