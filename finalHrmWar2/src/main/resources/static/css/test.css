@@ -5,15 +5,16 @@
     font-style: normal;
 }
 #content-box {
-	position: absolute;
+	position: relative;
 	left: 240px;
 	width: 100%;
 	margin-right:240px;
 }
 .content {
-	position: relative;
+	position: absolute;
 	padding: 50px;
 	width: 100%;
+	max-width: 1440px;
 }
 * {
     margin: 0;
@@ -22,7 +23,6 @@
     font-weight: 500;
     font-family: 'Pretendard';
     outline: none;
-    max-width: 1920px;
 }
 #header a {
     text-decoration: none;
