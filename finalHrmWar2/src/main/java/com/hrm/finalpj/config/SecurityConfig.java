@@ -49,7 +49,7 @@ public class SecurityConfig{
 		    .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
 		;
 
-//		http.csrf().disable();
+		http.csrf().disable();
         return http.build();
 	}
 	

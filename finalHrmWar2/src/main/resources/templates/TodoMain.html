@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> -->
 
 </head>
 <body>
@@ -114,6 +115,7 @@
 		
 		function fnDelete(){
 			let dellnpChkLen = $("input[name='deleteId']:checked").length;
+	
 			if(dellnpChkLen > 0){
 				if(confirm("삭제하시겠습니까?")){
 					let frm = $("#frm");
@@ -132,7 +134,7 @@
 		console.log(idList.join(','));
 		}
 		//data picker
-		$('#demo').daterangepicker({
+	/* 	$('#demo').daterangepicker({
 		    "locale": {
 		        "format": "YYYY-MM-DD",
 		        "separator": " ~ ",
@@ -166,7 +168,7 @@
 				contentType: "application/json;charset=UTF-8",
 				
 			})
-		})
+		}) */
 		
 		
 	 console.log(/*[[${list[0].communication_start}]]*/);
