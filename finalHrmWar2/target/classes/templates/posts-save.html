@@ -4,8 +4,8 @@
       layout:decorate="~{layouts/layout1}">
 <!-- 사용자 스크립트 추가 -->
 <head>
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> -->
 </head>
 <th:block layout:fragment="script">
 
@@ -16,12 +16,12 @@
         				 author: $('#author').val(),
         				 contents: $('#contents').val()
         			 };
-        		var token = $("meta[name='_csrf']").attr("content");
-        		var header = $("meta[name='_csrf_header']").attr("content")
+        		/* var token = $("meta[name='_csrf']").attr("content");
+        		var header = $("meta[name='_csrf_header']").attr("content") */
         			 $.ajax({
-        				 beforeSend: function(xhr){
+        				 /* beforeSend: function(xhr){
         			       xhr.setRequestHeader(header,token);
-        			     },
+        			     }, */
         				 type : 'POST',
         				 url : '/api/v1/posts',
         				 dataType : 'json',
