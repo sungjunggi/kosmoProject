@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
 <head>
 <meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>reportlist</title>
 </head>
-<body>
+
+<div layout:fragment="content">
 	<button type="button" id="report" onclick="">보고서</button>
 	<button type="button" id="set" onclick="">설정</button><br/>
 	<button type="button" id="all" onclick="">전체 보고서</button>
@@ -34,8 +39,8 @@
 		</tr>	
 	</table>
 	<p><a href="/templateselect">보고서 작성</a></p>
-	                                                                                                                                                                                                                                                                                                                                          
-</body>
+</div>
+
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

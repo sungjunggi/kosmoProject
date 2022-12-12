@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
 </head>
 <body>
+<div layout:fragment="content">
 <span><input type="button" name="allTodo" value="전체 할 일"></span>
 <span><input type="button" name="myTodo" value="내가 배정한 할 일"></span>
 <span><a th:href="@{/write}">+ 할일 만들기</a></span><br/>
@@ -28,9 +29,9 @@
 <button type="button" name="finish">진행완료</button>
 	<form action="/delete" id="frm" method="post">
 <div>
-	<table border="1" id="">
+	<table border="1" width="100%" id="todo-table">
 		<tr>
-			<th><input type="checkbox" id="chkAll"/></th>
+			<th style="text-align: center;"><input type="checkbox" id="chkAll" /></th>
 			<th>No.</th>
 			<th>타이틀</th>
 			<th>시작일</th>
@@ -40,7 +41,7 @@
 			<th>작성자</th>
 		</tr>
 		<tr th:each="dto : ${list}" >
-			<td><input type="checkbox" class="chk" name="deleteId" th:value="${dto.communication_num}"></td>
+			<td style="text-align: center;"><input type="checkbox" class="chk" name="deleteId" th:value="${dto.communication_num}"></td>
 			<td th:text="${dto.communication_num}"></td>
 			<td>
 				<a th:href="@{'/view/'+${dto.communication_num}}">
@@ -54,28 +55,29 @@
 			<td th:text="${dto.employee_name}">작성자</td>
 		</tr>
 	</table>
-	 <div th:object="${pageMaker}">
-                    <div class="big-width" style="text-align: center">
-                        <a class="changePage" th:if="*{prev}" th:href="*{startPage - 1}"><code>&lt;</code></a>
-                        <th:block th:each="num : ${#numbers.sequence(pageMaker.getStartPage(), pageMaker.getEndPage())}">
-                            <code th:if="${pageMaker.criteria.getPageNum() == num}" th:text="${num}"></code>
-                            <a class="changePage" th:unless="${pageMaker.criteria.getPageNum() == num}" th:href="@{/todo/{num}(num=${num})}"><code th:text="${num}"></code></a>
-                        </th:block>
-                        <a class="changePage" th:if="*{next}" th:href="*{endPage + 1}"><code>&gt;</code></a>
-                    </div>
-                    <div class="small-width" style="text-align: center">
-                        <a class="changePage" th:if="*{criteria.pageNum > 1}" th:href="*{criteria.pageNum - 1}"><code>&lt;</code></a>
-                        <code th:text="*{criteria.pageNum}"></code>
-                        <a class="changePage" th:if="*{criteria.pageNum < realEnd}" th:href="*{criteria.pageNum + 1}"><code>&gt;</code></a>
-                    </div>
-                    <form action="todo" th:object="${criteria}" name="pageForm">
-                        <input type="hidden" name="pageNum" th:field="*{pageNum}">
-                        <input type="hidden" name="amount" th:field="*{amount}">
-                    </form>
-                </div>
-           </div>
-	<button type="button" onclick="fnDelete()">삭제</button>
+	<div th:object="${pageMaker}">
+        <div class="big-width" style="text-align: center">
+            <a class="changePage" th:if="*{prev}" th:href="*{startPage - 1}"><code>&lt;</code></a>
+            <th:block th:each="num : ${#numbers.sequence(pageMaker.getStartPage(), pageMaker.getEndPage())}">
+                <code th:if="${pageMaker.criteria.getPageNum() == num}" th:text="${num}"></code>
+                <a class="changePage" th:unless="${pageMaker.criteria.getPageNum() == num}" th:href="@{/todo/{num}(num=${num})}"><code th:text="${num}"></code></a>
+            </th:block>
+            <a class="changePage" th:if="*{next}" th:href="*{endPage + 1}"><code>&gt;</code></a>
+        </div>
+        <div class="small-width" style="text-align: center">
+            <a class="changePage" th:if="*{criteria.pageNum > 1}" th:href="*{criteria.pageNum - 1}"><code>&lt;</code></a>
+            <code th:text="*{criteria.pageNum}"></code>
+            <a class="changePage" th:if="*{criteria.pageNum < realEnd}" th:href="*{criteria.pageNum + 1}"><code>&gt;</code></a>
+        </div>
+        <form action="todo" th:object="${criteria}" name="pageForm">
+            <input type="hidden" name="pageNum" th:field="*{pageNum}">
+            <input type="hidden" name="amount" th:field="*{amount}">
+        </form>
+        </div>
+			<button type="button" onclick="fnDelete()">삭제</button>
+        </div>
 	</form>
+</div>
 	
 
 
@@ -83,7 +85,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script th:inline="javascript">
 		//heder checkbox event

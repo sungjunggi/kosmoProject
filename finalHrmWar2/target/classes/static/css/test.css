@@ -3,7 +3,18 @@
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
-    }
+}
+#content-box {
+	position: absolute;
+	left: 240px;
+	width: 100%;
+	margin-right:240px;
+}
+.content {
+	position: relative;
+	padding: 50px;
+	width: 100%;
+}
 * {
     margin: 0;
     padding: 0;
@@ -11,10 +22,20 @@
     font-weight: 500;
     font-family: 'Pretendard';
     outline: none;
+    max-width: 1920px;
 }
-a {
+#header a {
     text-decoration: none;
     color: #eaeaea;  
+}
+td a {
+	color: #131313;
+}
+li {
+	list-style: none;
+}
+code {
+	color: #023064;
 }
 .wrap {
     position: relative;
@@ -114,6 +135,7 @@ a {
     position: relative;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     max-width: 356px;
 }
 .down, .alarm, .user {
@@ -201,4 +223,22 @@ li[data-depth="1"] a {
     padding: 9px 0 9px 37px;
     color: #374e63;
     display: block;
+}
+#content-side {
+	position: absolute;
+	top : 60px;
+	left: 240px;
+	width: 100%;
+	height: 100%
+}
+#inner-content {
+	padding : 40px;
+}
+#todo-table {
+	margin: 0 auto;
+	margin-top:20px;
+}
+#todo-table-header {
+	display: flex;
+	
 }

@@ -4,35 +4,45 @@
 <!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> -->
 <div th:fragment="header">
-    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="/">게시판</a>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/test">HRM 테스트중</a>
-                </li>
-                <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" href="/members/login">로그인</a>
-                </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/members/logout">로그아웃</a>
-                </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/posts/save">글 등록</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0" th:action="@{/posts/search}" method="get">
-                <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+    <div id="header-side" class="hside">
+            <div id="header">
+                <div class="header-content">
+                    <!-- 메뉴명 -->
+                    <div class="header-content-table">
+                        <div class="header-content-table-cell">
+                            <div class="header-title">출퇴근</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-search">
+                    <fieldset>
+                        <div class="input-search-bar">
+                            <input type="text" placeholder="이름/사번으로 검색" class="search-bar">
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="header-inner">
+                    <!-- 인터페이스(마이페이지,알림,로그인,로그아웃 등) -->
+                    <div class="down">
+                        <button type="button">down icon</button>
+                    </div>
+                    <div class="alarm">
+                        <button type="button">alarm icon</button>
+                    </div>
+                    <div class="user">
+                        <button type="button">user icon</button>
+                    </div>
+	                <li class="nav-item" sec:authorize="isAnonymous()">
+	                    <a class="nav-link" href="/members/login">로그인</a>
+	                </li>
+	                <li class="nav-item" sec:authorize="isAuthenticated()">
+	                    <a class="nav-link" href="/members/logout">로그아웃</a>
+	                </li>
+	                <li class="nav-item" sec:authorize="isAuthenticated()">
+	                    <a class="nav-link" href="/posts/save">글 등록</a>
+	                </li>
+                </div>
+            </div>
 </div>
 
 </html>
