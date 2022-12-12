@@ -10,4 +10,24 @@
 	<select id="workEnd" resultType="com.fproject.attendence.dao.AttendenceDAO">
 		update attendence set attendence_workend=SYSDATE where attendence_workstart is not null and attendence_workend is null and employee_num = {_id} 
 	</select>
+	<select id="countTodayAttend" resultType="com.fproject.attendence.dao.AttendencePercentageDao">
+		select count(*) 
+		from attendence 
+		where substr(attendence_workstart,1,10) = (SYSDATE,"YYYY/MM/DD")
+	</select>
+	<select id="countTodayTotalAtt">
+		select count(*)
+		from calendar
+		where schedule_num=1
+	</select>
+	<select id="countTardyAttend">
+		select count(*)
+		from attendence
+		where substr(attendence_workstart,12) > 출근시간 
+	</select>
+	<select id="countLeaveEarly">
+		select count(*)
+		from attendence
+		where 퇴근시간 > substr(attendence_workstart,12)
+	</select>		
 </mapper>
