@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="container">
+	<h2>승인 페이지</h2>
+	    <table width="800px" border="1";>
+	    	<thead>
+					<tr>
+						<td>번호</td>
+						<td th:text="${dto.sign_num}"></td>
+						<td>작성자</td>
+						<td th:text="${dto.sign_res_name}"></td>
+						<td>작성일</td>
+						<td th:text="${dto.sign_begin}"></td>
+					</tr>
+					
+					<tr>
+						<td>제목</td>
+						<td colspan="5"><span th:text="${dto.sign_req_title}"></span></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td colspan="5"><span th:text="${dto.sign_req_contents }"></span></td>
+					</tr>
+			</thead>
+		</table>
+		<input type="button" value="뒤로가기" onclick="history.back();" /> 
+		<button type="button">승인</button> 
+		<button type="button">반려</button> 
+	</div>
+</body>
+</html>

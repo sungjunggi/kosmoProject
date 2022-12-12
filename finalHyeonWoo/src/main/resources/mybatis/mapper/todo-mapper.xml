@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimhw.dao.ITodoDAO">
+	<select id="listDAO" resultType="com.kimhw.dto.CommunicationDTO">
+    	select * from communication c, employee e where c.employee_num=e.employee_num 
+    	order by communication_num desc
+   	</select>
+   	
+   	<insert id="writeDAO">
+   		insert into communication (communication_num,communication_title,communication_start,communication_end,communication_content)
+       values (seq_communication_num.nextval,#{title},#{start},#{end},#{content})	
+   	</insert>
+   	
+   	<select id="viewDAO" resultType="com.kimhw.dto.CommunicationDTO">
+      select * from communication where communication_num=#{0} <!-- 인덱스값 -->
+   </select>
+   
+   <delete id="deleteDAO">
+      delete from communication where communication_num = #{param1}
+   </delete>
+   
+   <update id="updateDAO" parameterType="com.kimhw.dto.CommunicationDTO">
+		update communication set communication_start=#{communication_start,jdbcType=VARCHAR},communication_end=#{communication_end,jdbcType=VARCHAR}
+		, communication_assign=#{communication_assign,jdbcType=VARCHAR},communication_content=#{communication_content,jdbcType=VARCHAR}
+		, communication_title=#{communication_title,jdbcType=VARCHAR} where communication_num=#{communication_num,jdbcType=NUMERIC}
+   </update>
+   
+   <delete id="deleteBoardDAO" parameterType="int">
+      delete from communication where communication_num=#{param1}
+   </delete>
+   
+   <select id="getList" resultType="com.kimhw.dto.CommunicationDTO" parameterType="com.kimhw.dto.PageDTO">
+    	<![CDATA[
+    	select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,communication_end,communication_assign,communication_state,employee_name
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc) C WHERE rownum <=#{pageNum} * #{amount} )
+    	where r>(#{pageNum}-1) * #{amount}
+    	]]>
+   	</select>
+   	
+   	<select id="getTotal" resultType="int">
+    	select count(*) as total from communication
+   	</select>
+</mapper>
