@@ -44,7 +44,7 @@ public class Criteria {
    //매개변수로 들어오는 값을 이용하여 조정할 수 있다.
    public Criteria(int pageNum, int amount) {
       this.pageNum=pageNum;
-      System.out.println(pageNum+"페잉지잊잊이잽잊뱅ㅈ배잊뱅ㅂ");
+  
       this.amount=amount;
    }
    
