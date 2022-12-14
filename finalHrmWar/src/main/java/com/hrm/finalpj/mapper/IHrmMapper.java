@@ -17,7 +17,10 @@ public interface IHrmMapper {
     public List<Map<String, Object>> SelectAllList() throws Exception;
     
     //유저 정보
-  	ArrayList<HrmEmployeeDTO> findByUserId(@Param("id") String id);
+  	HrmEmployeeDTO findByUserId(@Param("id") String id);
+  	
+  	//유저 정보
+  	public String getUserId();
 
   	//유저 저장
   	int userSave(HrmEmployeeDTO userVO);

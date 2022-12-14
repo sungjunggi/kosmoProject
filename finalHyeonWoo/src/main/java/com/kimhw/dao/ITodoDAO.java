@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kimhw.dto.CommunicationDTO;
 import com.kimhw.dto.Criteria;
 import com.kimhw.dto.PageDTO;
+import org.springframework.stereotype.Repository;
 
 
 @Mapper
