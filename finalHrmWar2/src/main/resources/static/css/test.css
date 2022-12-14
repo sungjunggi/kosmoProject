@@ -335,16 +335,50 @@ li[data-depth="1"] a {
 	height: 40px;
 }
 #popup-content {
-	display: none;
+	visibility: hidden;
+	opacity : 0;
     position: fixed;
     left: 50%;
     top: 50%;
-    width:20%;
+    width : 400px;
     margin-left:-10%;
-    height: 300px;
     margin-top: -200px;
     z-index: 1000;
     background: white;
-    border: 1px solid #d1d8dd;
     box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
+    font-size: 16px;
+    font-weight: 100;
+    transition: 0.3s;
+    border-radius: 10px;
+    border:none;
+}
+#popup-content tr:not(:last-child) {
+    border-bottom: 1px solid #eaeaea;
+}
+#popup-content td {
+	height: 60px;
+    line-height: 60px;
+    padding-left: 20px;
+}
+.popup-back {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index:-1;
+	background: #000000;
+	opacity: 0;;
+}
+.report-mkbtn {
+	position: fixed;
+	bottom: 200px;
+	left: 290px;
+	width: 100px;
+	color: #fff;
+	background: #30afff;
+	height: 50px;
+	border: none;
+	border-radius: 50px;
+	box-shadow:5px 10px 20px 0 rgb(0 0 0 /20%);
 }
