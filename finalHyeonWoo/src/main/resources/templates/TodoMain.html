@@ -41,11 +41,11 @@
 			<th>작성자</th>
 		</tr>
 		<th:block th:each="dto : ${list}" >
-		<tr th:if="${#lists.isEmpty(list)}">
+		<tr th:if="${booleancheck}" >
 			<td colspan="8" align="center">자료가 존재하지 않습니다.</td>
 		</tr>
 	
-		<tr th:unless="${#lists.isEmpty(list)}" > 
+		<tr th:unless="${booleancheck}" > 
 			
 			<td><input type="checkbox" class="chk" name="deleteId" th:value="${dto.communication_num}"></td>
 			<td th:text="${dto.communication_num}"></td>
@@ -181,7 +181,7 @@
 		})
 		
 		
-	 console.log(/*[[${list[0].communication_start}]]*/);
+	 
 		
 	</script>
 </html>
