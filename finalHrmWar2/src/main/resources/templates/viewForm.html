@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<div layout:fragment="content">
 <a th:href="@{/todo/1}">
 	<span th:text="'←'+${dto.communication_title}"></span>
 </a><br/>
@@ -31,5 +33,5 @@
 </form>
 
 
-</body>
+</div>
 </html>

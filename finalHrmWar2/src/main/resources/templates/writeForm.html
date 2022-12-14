@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<div layout:fragment="content">
 <form action="writing" method="post">
 <span><a th:href="@{/todo/1}">← 할일 만들기</a>
 	<input type="submit" value="저장">
@@ -26,5 +28,5 @@
 	
 	
 </form>
-</body>
+</div>
 </html>
