@@ -23,5 +23,8 @@ public interface ITodoDAO {
 	public void deleteBoardDAO(int communication_num);
 	public List<CommunicationDTO> getList(Criteria criteria);
 	public Integer getTotal();
+	public List<CommunicationDTO> searchTextDAO(Criteria dto);
+	public List<CommunicationDTO> searchDateDAO(Criteria criteria);
+	public List<CommunicationDTO> searchAllDAO(Criteria dto);
 
 }

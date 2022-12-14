@@ -15,9 +15,7 @@ public class AttendanceController {
 	
 	@RequestMapping("/attMain")
 	public String totalAtt(Model model) {
-		System.out.println("----------------------------------"+ dao.totalAtt());
 		model.addAttribute("totalList",dao.totalAtt());
-		System.out.println("----------------------------------"+ dao.totalAtt());
 		return "/thymeleaf/AttendanceMain";
 	}
 }

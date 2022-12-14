@@ -5,6 +5,13 @@
 
 <mapper namespace="com.fproject.dao.IAttendanceDao">
 	<select id="totalAtt" resultType="com.fproject.dto.AttendanceDto">
-		SELECT * FROM ATTENDANCE1
+		SELECT * FROM ATTENDANCE
+	</select>
+	<select id="cameWork" resultType="com.fproject.dto.AttendanceDto">
+		SELECT * FROM ATTENDANCE WHERE 
 	</select>
 </mapper>
+
+
+
+<!-- YYYY-MM-DD-24-60-60 -->
