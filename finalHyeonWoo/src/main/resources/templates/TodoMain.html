@@ -10,17 +10,18 @@
 <span><input type="button" name="allTodo" value="전체 할 일"></span>
 <span><input type="button" name="myTodo" value="내가 배정한 할 일"></span>
 <span><a th:href="@{/write}">+ 할일 만들기</a></span><br/>
-<form th:action="@{/todo/+${communication_num}}" th:object="${communicationDTO}" method="get">
-	<input type="date" th:field="*{communication_start}">
+<form th:action="@{/todo/1}"  method="get">
+	<input type="date" name="start">
 	~
-	<input type="date" th:field="*{communication_end}">
+	<input type="date" name="end">
 	<select>
 		<option value="${communication_title}">제목</option>
 		<option value="${communication_assign}">배정대상</option>
-		<option value="state">상태</option>
+		<option value="${communication_state}">상태</option>
 	</select>
-	<input th:field="*{keyword}" type="text" placeholder="검색어를 입력하세요.">
+	<input name="searchText" type="text" placeholder="검색어를 입력하세요.">
 	<input type="submit" value="검색"/>
+
 </form>
 <!-- <input type="text" id="demo" name="demo" value="" /> -->
 <button type="button" name="scheduled">진행예정</button>
@@ -39,7 +40,13 @@
 			<th>상태</th>
 			<th>작성자</th>
 		</tr>
-		<tr th:each="dto : ${list}" >
+		<th:block th:each="dto : ${list}" >
+		<tr th:if="${#lists.isEmpty(list)}">
+			<td colspan="8" align="center">자료가 존재하지 않습니다.</td>
+		</tr>
+	
+		<tr th:unless="${#lists.isEmpty(list)}" > 
+			
 			<td><input type="checkbox" class="chk" name="deleteId" th:value="${dto.communication_num}"></td>
 			<td th:text="${dto.communication_num}"></td>
 			<td>
@@ -53,6 +60,11 @@
 			<td th:text="${dto.communication_state}">상태</td>
 			<td th:text="${dto.employee_name}">작성자</td>
 		</tr>
+			</th:block>
+		
+
+
+		
 	</table>
 	 <div th:object="${pageMaker}">
                     <div class="big-width" style="text-align: center">
