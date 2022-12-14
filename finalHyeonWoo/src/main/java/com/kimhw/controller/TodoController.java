@@ -1,15 +1,12 @@
 package com.kimhw.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kimhw.dao.ITodoDAO;
 import com.kimhw.dto.CommunicationDTO;
@@ -44,12 +36,31 @@ public class TodoController {
 	
 
 	 @GetMapping("todo/{num}")
-	 public String todoMain(@PathVariable("num") int num, Criteria criteria, Model model,HttpServletRequest req) {
+	 public String todoMain(@PathVariable("num") int num,Criteria criteria, Model model,HttpServletRequest req) {
 	    Criteria test = new Criteria(num,10);
+	    String search = req.getParameter("searchText");
 	    String start = req.getParameter("start");
-	    System.out.println(start);
-	    model.addAttribute("list", todoservice.getList(test));
-	    model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+	    String end = req.getParameter("end");
+	    test.setCommunication_search(search);
+	    test.setCommunication_start(start);
+ 	    test.setCommunication_end(end);
+ 	    
+	    if(search !=null && start=="" && end=="") {
+	    	model.addAttribute("communicationDTO",dao.searchTextDAO(test));
+	    }else if(search == "" && start!=null && end!=null) {
+	    	model.addAttribute("list",dao.searchDateDAO(test));
+	    	System.out.println(test.getCommunication_start() + "시작ㄲㄲ");
+	    	model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+//	    	model.addAttribute("list", todoservice.getList(test));
+	    }else if(search != null && start!=null && end!=null) {
+	    	model.addAttribute("communicationDTO",dao.searchAllDAO(test));
+	    	model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+	    }else {
+		    model.addAttribute("list", todoservice.getList(test));
+		    model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+
+	    }
+	   
 	    return "TodoMain";
 	 }
 	
