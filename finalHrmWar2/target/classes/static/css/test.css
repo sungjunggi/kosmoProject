@@ -252,6 +252,7 @@ li[data-depth="1"] a {
 }
 #todo-table th {
 	background: #eaeaea;
+	padding:10px;
 }
 #paging {
 	margin-top: 10px;
