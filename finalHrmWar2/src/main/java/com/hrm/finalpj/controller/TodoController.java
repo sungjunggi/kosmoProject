@@ -35,11 +35,11 @@ public class TodoController {
 
 	 @GetMapping("todo/{num}")
 	 public String todoMain(@PathVariable("num") int num, Criteria criteria, Model model,HttpServletRequest req) {
-	    Criteria test = new Criteria(num,10);
+	    Criteria test = new Criteria(num,20);
 	    String start = req.getParameter("start");
 	    System.out.println(start);
 	    model.addAttribute("list", todoservice.getList(test));
-	    model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+	    model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 20, test));
 	    return "TodoMain";
 	 }
 	

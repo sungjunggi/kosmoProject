@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fproject.attendence.dao.AttendenceDAO">
+	<insert id="workStart">
+		insert into attendence (attendence_num, attendence_workstart, employee_num) values (SEQ_ATTENDENCE_NUM.NEXT(), to_char(SYSDATE,'yyyy-mm-dd hh24:mi', {_empno})
+	</insert>
+	<update id="workEnd">
+		update attendence set attendence_workend=SYSDATE where attendence_workstart is not null and attendence_workend is null and employee_num = {_empno} 
+	</update>	
+</mapper>

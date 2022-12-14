@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.fproject.attendence.dao.AttendencePercentageDAO">
+	<select id="countTodayAttend" resultType="com.fproject.attendence.dao.AttendencePercentageDao">
+		select count(*) 
+		from attendence 
+		where substr(attendence_workstart,1,10) = to_char(SYSDATE,"yyyy-mm-dd")
+	</select>
+	<select id="countTodayTotalAtt" resultType="com.fproject.attendence.dao.AttendencePercentageDao">
+		select count(*)
+		from calendar
+		where schedule_num=1
+	</select>
+	<select id="countTardyAttend" resultType="com.fproject.attendence.dao.AttendencePercentageDao">
+		select count(*)
+		from attendence
+		where substr(attendence_workstart,12) > 출근시간 
+	</select>
+	<select id="countLeaveEarly" resultType="com.fproject.attendence.dao.AttendencePercentageDao">
+		select count(*)
+		from attendence
+		where 퇴근시간 > substr(attendence_workstart,12)
+	</select>	
+</mapper>
