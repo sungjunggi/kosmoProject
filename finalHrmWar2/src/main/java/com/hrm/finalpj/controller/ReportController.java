@@ -20,6 +20,7 @@ public class ReportController {
 	@GetMapping("/reportlist")
 	public String userlist(Model model) {
 		model.addAttribute("list", dao.listDAO());
+		model.addAttribute("select", dao.selectDAO());
 		return "report/reportlist";
 	}
 	
