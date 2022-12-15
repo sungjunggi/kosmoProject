@@ -46,24 +46,26 @@ public class ReportController {
 		return "reportwrite";
 	}
 	
-	@RequestMapping("/addtemplate")
-	public String addTemplate(HttpServletRequest req, Model model) {
-		dao.addDAO(req.getParameter("num"), req.getParameter("writer"), req.getParameter("title"));
-		return "redirect:reportlist";
-	}
-	
 	@RequestMapping("/writereport")
 	public String writeReport(Model model, HttpServletRequest req) {
 	
+		int gtnum = Integer.parseInt(req.getParameter("gtnum"));
 		String answer1 = req.getParameter("answer1");
 		String answer2 = req.getParameter("answer2");
 		String answer3 = req.getParameter("answer3");
-		int answer4 = Integer.parseInt(req.getParameter("answer4"));
+		String answer4 = req.getParameter("answer4");
+		String answer5 = req.getParameter("answer5");
+		String answer6 = req.getParameter("answer6");
+		String answer7 = req.getParameter("answer7");
+		System.out.println(gtnum);
 		System.out.println(answer1);
 		System.out.println(answer2);
 		System.out.println(answer3);
 		System.out.println(answer4);
-		dao.writeDAO(answer1, answer2, answer3, answer4);
+		System.out.println(answer5);
+		System.out.println(answer6);
+		System.out.println(answer7);
+		dao.writeDAO(gtnum, answer1, answer2, answer3, answer4, answer5, answer6, answer7);
 		
 		return "redirect:reportlist";
 	}
