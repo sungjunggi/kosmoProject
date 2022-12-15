@@ -4,18 +4,9 @@
 <meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>viewtemplate</title>
 </head>
-<style>
-	[placeholder]:empty:before {
-	  display: block;
-	  content: attr(placeholder);
-	  border-radius: 30px;
-	  color: #a6a6a6;
-	}
-</style>
 <body>
 	<form id="form" name="form" method="post" action="/writereport"  >
-	<div th:each="dto:${template}" th:object="${reportDTO}">
-		<input type="hidden" name="answer4" th:value="${dto.gettemplate_num}" >
+	<div th:if="${dto.gettemplate_num.equals(1)}">
 		<div>
 			<div th:text="${dto.gettemplate_num}"></div>
 		</div>
@@ -25,18 +16,38 @@
 		</div>
 		<br/>
 		<div>
-			<div th:text="${dto.gettemplate_question}"></div>
-			<input type="text" name="answer1" placeholder='내용을 작성해주세요.' />
+			<div th:text="${dto.gettemplate_question1}"></div>
+			<input type="text" name="answer1" placeholder='내용을 작성해주세요.' style="width: 20%"/>
 		</div>
 		<br/>
 		<div>
-			<div th:text="${dto.gettemplate_explanation}"></div>
-			<input type="text" name="answer2" placeholder='내용을 작성해주세요.' />
+			<div th:text="${dto.gettemplate_question2}"></div>
+			<input type="text" name="answer2" placeholder='내용을 작성해주세요.' style="width: 20%"/>
 		</div>
 		<br/>	
 		<div>
-			<div th:text="${dto.gettemplate_option}"></div>
-			<input type="text" name="answer3" placeholder='내용을 작성해주세요.'  />
+			<div th:text="${dto.gettemplate_question3}"></div>
+			<input type="text" name="answer3" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_question4}"></div>
+			<input type="text" name="answer4" placeholder='내용을 작성해주세요.' style="width: 20%"/>
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_question5}"></div>
+			<input type="text" name="answer5" placeholder='내용을 작성해주세요.' style="width: 20%"/>
+		</div>
+		<br/>	
+		<div>
+			<div th:text="${dto.gettemplate_question6}"></div>
+			<input type="text" name="answer6" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_question7}"></div>
+			<input type="text" name="answer7" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
 		</div>
 		<br/>
 		<div>
@@ -51,8 +62,8 @@
 			<div th:text="${dto.gettemplate_writer}"></div>
 		</div>
 	</div>	
-		<button onclick="" name="취소" value="취소">취소</button>		
 		<input type="submit" name="제출" value="제출" />
 	</form>
+		<button onclick="location.href='/templateselect'" name="취소" value="취소">취소</button>		
 </body>
 </html>

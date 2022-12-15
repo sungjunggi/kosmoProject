@@ -27,11 +27,11 @@
 
 	<table width="100%" class="report-table">
 		<tr>
-			<th style="width:600px; text-align: center;">보고서</th>
-			<th style="width:200px; text-align: center;">작성일</th>
-			<th style="width:100px; text-align: center;">작성자</th>
-			<th style="width:80px; text-align: center;">리포트 번호</th>
-			<th style="width:80px; text-align: center;">댓글</th>
+			<th style="width:600px; padding-left:20px;">보고서</th>
+			<th style="width:200px; text-align: center; padding:10px;">작성일</th>
+			<th style="width:100px; text-align: center; padding:10px;">작성자</th>
+			<th style="width:80px; text-align: center; padding:10px;">리포트 번호</th>
+			<th style="width:80px; text-align: center; padding:10px;">댓글</th>
 		</tr>
 		<tr th:each="dto:${list}">
 			<td style="padding-left: 20px;">
@@ -45,18 +45,21 @@
 			<td th:text="'💬'+${dto.count}" style="text-align: center;"></td>
 		</tr>	
 	</table>
-	<button type="button" onclick="popupShow()">보고서 작성</button>
-	<table width="500" cellpadding="0" cellspacing="0" border="1" id="popup-content">
-		<tr th:each="dto:${select}">
-			<td>
-				<a th:href="@{/templateview/{tnum}(tnum=${dto.gettemplate_num})}">
-					<span th:text="${dto.gettemplate_title}"></span>
-				</a>
-			</td>
-		</tr>	
-	</table>
-</div>
+	<!-- <p><a href="/templateselect">보고서 작성</a></p> -->
+	<button class="report-mkbtn"type="button" onclick="popupShow()">보고서 작성</button>
+	<div class="popup-back">
+	</div>
+		<table width="500" cellpadding="0" cellspacing="0" id="popup-content">
+			<tr th:each="dto:${select}">
+				<td>
+					<a th:href="@{/templateview/{tnum}(tnum=${dto.gettemplate_num})}">
+						<span th:text="${dto.gettemplate_title}"></span>
+					</a>
+				</td>
+			</tr>	
+		</table>
 	
+</div>
 
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -66,10 +69,19 @@
 	<th:block layout:fragment="script">
 		<script type="text/javascript">
 			function popupShow(){
-				$("#popup-content").show();
+				$("#popup-content").css('opacity','100').css('visibility','visible');
+				$(".popup-back").css('opacity','0.6').css('z-index','100');
 			}
 		</script>
-		<script type="text/javascript">
+		<script>
+			$(document).mouseup(function(e){;
+				if($("#popup-content").has(e.target).length === 0){
+					$("#popup-content").css('opacity','0').css('visibility','hidden');
+					$(".popup-back").css('opacity','0').css('z-index','-1');
+				}
+			});
+		</script>
+		<!-- <script type="text/javascript">
 			$('#demo').daterangepicker({
 			    "locale": {
 			        "format": "YYYY-MM-DD",
@@ -90,6 +102,6 @@
 				
 			    console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
 			});
-		</script>
+		</script> -->
 	</th:block>
 </html>
