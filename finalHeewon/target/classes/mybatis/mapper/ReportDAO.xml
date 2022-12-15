@@ -22,7 +22,7 @@
 	</insert>
 	<insert id="writeDAO">
 		INSERT INTO TEMPLATE_BOARD
-		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{answer4},1, 1, SYSDATE, #{answer1}, #{answer2}, #{answer3})
+			VALUES (#{gtnum}, SEQ_TEMPLATE_NUM.NEXTVAL, 1, 1, SYSDATE, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{answer5}, #{answer6}, #{answer7})
 	</insert>
 	<delete id="deleteDAO">
 		DELETE FROM COMMUNICATION WHERE COMMUNICATION_NUM=#{_id}
