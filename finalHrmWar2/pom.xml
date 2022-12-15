@@ -87,8 +87,7 @@
 		<!-- webjars.org -->
 	    <dependency>
 	      <groupId>org.webjars</groupId>
-	      <artifactId>bootstrap</artifactId>
-	      <version>3.3.7</version>
+	       <artifactId>webjars-locator-core</artifactId>
 	    </dependency>
 		
 		<dependency>
@@ -116,6 +115,12 @@
 		</dependency>
 		
 		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery</artifactId>
+		    <version>3.6.0</version>
+		</dependency>
+		
+		<dependency>
 	         <groupId>org.projectlombok</groupId>
 	         <artifactId>lombok</artifactId>
 	         <optional>true</optional>
@@ -128,6 +133,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+
 		</plugins>
 	</build>
 

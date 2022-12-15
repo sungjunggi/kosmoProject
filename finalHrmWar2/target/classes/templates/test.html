@@ -8,16 +8,16 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/test.css">
 </head>
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> -->
 <body>
-    <div class="wrap">
+    <div class="wrap" th:fragment="wrap">
         <div id="left-side" class="lside">
             <div class="lside-header">
                 <div class="lside-content-header">
                     <div class="lside-content-header-table">
                         <a href="/" class="lside-content-header-table-cell-a">
-                            <div class="lside-header-title">
+                        	<div class="lside-header-title">
                                 KOSMO
                             </div>
                         </a>
@@ -38,14 +38,14 @@
                         </div>
                         <div style="margin: 18px 10px 9px; border-top: 1px solid #eaeaea;"></div>
                         <!-- ATENDENCE BEGIN -->
-                        <li class="nav-title-li">
+                        <li class="nav-title-li" >
                             <div class="nav-title">출퇴근 및 스케줄</div>
                         </li>
                         <li data-depth="1" data-menu="ATT">
                             <a href="/">출퇴근</a>
                         </li>
                         <li data-depth="1" data-menu="SCH">
-                            <a href="/">스케줄</a>
+                            <a href="/att">스케줄</a>
                             <!-- <ul>
                                 <li data-depth="2">스케줄</li>
                                 <li data-depth="2">템플릿 관리</li>
@@ -77,7 +77,7 @@
                             <div class="nav-title">승인</div>
                         </li>
                         <li data-depth="1" data-menu="APRV">
-                            <a href="/">승인</a>
+                            <a href="/signlist">승인</a>
                         </li>
                         <!-- APPROVAL END -->
                         <!-- MANAGEMENT BEGIN -->
@@ -103,9 +103,8 @@
                         </li>
                     </div>
                 </div>
-
-
-            </div>
+                
+			</ul>
         </div>
         <div id="header-side" class="hside">
             <div id="header">

@@ -2,9 +2,94 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<div class="footer" th:fragment="footer">
 		<footer class="page-footer font-small cyan darken-3">
-			<div class="footer-copyright text-center py-3">
-				2022 Example Test Site
-			</div>
+			<div id="left-side" class="lside">
+            <div class="lside-header">
+                <div class="lside-content-header">
+                    <div class="lside-content-header-table">
+                        <a href="/" class="lside-content-header-table-cell-a">
+                            <div class="lside-header-title">
+                                KOSMO
+                            </div>
+                        </a>
+                        <div class="lside-content-header-table-cell-div">
+                            <span class="icon lside-table-icon">
+                                <!-- 아이콘 -->
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="lside-content-table"> <!-- 사이드바-->
+                <div class="lside-scroll-box">
+                    <div class="lside-scroll-content">
+                        <!-- ATENDENCE BEGIN -->
+                        <li class="nav-title-li">
+                            <div class="nav-title">출퇴근 및 스케줄</div>
+                        </li>
+                        <li data-depth="1" data-menu="ATT">
+                            <a href="/">출퇴근</a>
+                        </li>
+                        <li data-depth="1" data-menu="SCH">
+                            <a href="/">스케줄</a>
+                            <!-- <ul>
+                                <li data-depth="2">스케줄</li>
+                                <li data-depth="2">템플릿 관리</li>
+                            </ul> -->
+                        </li>
+                        <li data-depth="1" data-menu="OFF">
+                            <a href="/">휴가</a>
+                        </li>
+                        <!-- ATENDENCE END -->
+                        <!-- COMMUNICATION BEGIN-->
+                        <li class="nav-title-li">
+                            <div class="nav-title">커뮤니케이션</div>
+                        </li>
+                        <li data-depth="1" data-menu="TODO">
+                            <a href="/todo/1">할 일</a>
+                        </li>
+                        <li data-depth="1" data-menu="CTE">
+                            <a href="/">공지 및 설문</a>
+                        </li>
+                        <li data-depth="1" data-menu="LGR">
+                            <a href="/reportlist">보고서</a>
+                        </li>
+                        <li data-depth="1" data-menu="FR">
+                            <a href="/">게시판</a>
+                        </li>
+                        <!-- COMMUNICATION END -->
+                        <!-- APPROVAL BEGIN -->
+                        <li class="nav-title-li">
+                            <div class="nav-title">승인</div>
+                        </li>
+                        <li data-depth="1" data-menu="APRV">
+                            <a href="/signlist">승인</a>
+                        </li>
+                        <!-- APPROVAL END -->
+                        <!-- MANAGEMENT BEGIN -->
+                        <li class="nav-title-li">
+                            <div class="nav-title">관리</div>
+                        </li>
+                        <li data-depth="1" data-menu="MGMT">
+                            <a href="/">사용 기능</a>
+                        </li>
+                        <li data-depth="1" data-menu="GRP">
+                            <a href="/">그룹</a>
+                        </li>
+                        <li data-depth="1" data-menu="WORKPLACE">
+                            <a href="/">근무지</a>
+                        </li>
+                        <li data-depth="1" data-menu="USER">
+                            <a href="/">구성원</a>
+                        </li>
+                        <!-- MANAGEMENT END -->
+                        <div style="margin: 18px 10px 9px; border-top: 1px solid #eaeaea;"></div>
+                        <li data-depth="1" data-menu="SET">
+                            <a href="/">설정</a>
+                        </li>
+                    </div>
+                </div>
+			</ul>
+        </div>
 		</footer>
 	</div>
 </html>

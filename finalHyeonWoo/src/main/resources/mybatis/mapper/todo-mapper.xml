@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
 <mapper namespace="com.kimhw.dao.ITodoDAO">
 	<select id="listDAO" resultType="com.kimhw.dto.CommunicationDTO">
     	select * from communication c, employee e where c.employee_num=e.employee_num 
@@ -42,4 +43,37 @@
    	<select id="getTotal" resultType="int">
     	select count(*) as total from communication
    	</select>
+   	
+   	<select id="searchTextDAO" resultType="com.kimhw.dto.CommunicationDTO">
+    	select * from communication where communication_assign like '%#{communication_search}%' and communication_title like '%#{communication_search}%' and communication_state like '%#{communication_search}%'
+    </select>
+    
+   	<select id="searchDateDAO" resultType="com.kimhw.dto.Criteria" parameterType="com.kimhw.dto.PageDTO">
+   	<![CDATA[
+    	        select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} ) 
+    	where communication_start >= #{communication_start} and communication_end <= #{communication_end} and r>(#{pageNum}-1) * #{amount}
+        
+        union all
+    select null,null,null,null,null,null,null,null
+    from dual
+    where not exists (select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} ) 
+    	where communication_start >= #{communication_start} and communication_end <= #{communication_end} and r>(#{pageNum}-1) * #{amount}
+         )
+    ]]>
+    </select>
+    
+   	<select id="searchAllDAO" resultType="com.kimhw.dto.CommunicationDTO">
+   	<![CDATA[
+    	select * from communication where communication_assign like '%#{communication_search}%' and communication_title like '%#{communication_search}%' and communication_state like '%#{communication_search}%' and
+    communication_start >= #{communication_start} and communication_end <= #{communication_end}
+    ]]>
+   	</select>
+   	
 </mapper>
+
