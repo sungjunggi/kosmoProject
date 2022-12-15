@@ -55,12 +55,8 @@ public class TodoController {
 	        	  model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 1, test1));
 	             model.addAttribute("booleancheck",true);
 	             return "TodoMain";
-	            
 	          }else {
-	        	 
 	          model.addAttribute("list",dao.searchDateDAO(test));
-	       
-	          
           model.addAttribute("booleancheck",false);
          
           }
