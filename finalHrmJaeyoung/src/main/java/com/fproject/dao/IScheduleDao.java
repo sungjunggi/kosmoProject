@@ -9,6 +9,6 @@ import com.fproject.dto.ScheduleDto;
 @Mapper
 public interface IScheduleDao {
 
-	public List<ScheduleDto> totalSch();
+	public List<ScheduleDto> testSch();
 
 }

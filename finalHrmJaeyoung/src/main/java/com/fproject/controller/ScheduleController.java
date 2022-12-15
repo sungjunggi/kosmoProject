@@ -15,7 +15,7 @@ public class ScheduleController {
 	
 	@RequestMapping("/schMain")
 	public String totalSch(Model model) {
-		model.addAttribute("totalList",dao.totalSch());
-		return "/thymeleaf/ScheduleMain";
+		model.addAttribute("scheduleAtt",dao.testSch());
+		return "thymeleaf/ScheduleMain";
 	}
 }
