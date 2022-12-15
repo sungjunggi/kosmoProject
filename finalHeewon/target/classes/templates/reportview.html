@@ -10,6 +10,7 @@
 			<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
 			<a th:href="@{'/updateview/'+${dto.template_board_num}}">
 				<button>수정</button>
+				<button>삭제</button>
 			</a>
 			<td th:text="${dto.template_board_num}"></td>
 			<td th:text="${dto.employee_name}"></td>
