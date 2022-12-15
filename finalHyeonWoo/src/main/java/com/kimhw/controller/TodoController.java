@@ -48,19 +48,24 @@ public class TodoController {
 	    if(search !=null && start=="" && end=="") {
 	    	model.addAttribute("communicationDTO",dao.searchTextDAO(test));
 	    }else if(search == "" && start!=null && end!=null) {
+	    	dao.searchDateDAO(test);
+	    	if(test.getCommunication_title() == null) {
+	    		
+	    		model.addAttribute("booleancheck",true);
+	    		System.out.println("이거 찍히나?");
+	    	}else {
 	    	model.addAttribute("list",dao.searchDateDAO(test));
+	    	System.out.println(test.getCommunication_num() + "커뮤니케이션타이틀 넓");
 	    	System.out.println(test.getCommunication_start() + "시작ㄲㄲ");
-	    	model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
-//	    	model.addAttribute("list", todoservice.getList(test));
+	    	
+	    	model.addAttribute("booleancheck",false);}
+//	    	model.addAttribute("list", todoservice.getList(test));}
 	    }else if(search != null && start!=null && end!=null) {
 	    	model.addAttribute("communicationDTO",dao.searchAllDAO(test));
-	    	model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
 	    }else {
 		    model.addAttribute("list", todoservice.getList(test));
-		    model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
-
 	    }
-	   
+	    model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
 	    return "TodoMain";
 	 }
 	

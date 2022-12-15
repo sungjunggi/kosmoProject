@@ -50,11 +50,21 @@
     
    	<select id="searchDateDAO" resultType="com.kimhw.dto.Criteria" parameterType="com.kimhw.dto.PageDTO">
    	<![CDATA[
-    	select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
-		communication_end,communication_assign,communication_state,employee_name
+    	        select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name
         from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
-        C WHERE rownum <=#{pageNum} * #{amount} )
-    	where communication_start >= #{communication_start} and communication_end <= #{communication_end} and r>(#{pageNum}-1) * #{amount} 
+        C WHERE rownum <=(#{pageNum}) * #{amount} ) 
+    	where communication_start >= #{communication_start} and communication_end <= #{communication_end} and r>(#{pageNum}-1) * #{amount}
+        
+        union all
+    select null,null,null,null,null,null,null,null
+    from dual
+    where not exists (select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} ) 
+    	where communication_start >= #{communication_start} and communication_end <= #{communication_end} and r>(#{pageNum}-1) * #{amount}
+         )
     ]]>
     </select>
     
