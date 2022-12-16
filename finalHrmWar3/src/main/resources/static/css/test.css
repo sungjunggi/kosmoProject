@@ -29,6 +29,7 @@
     font-family: 'Pretendard';
     outline: none;
 }
+
 *::-webkit-scrollbar {
 	width: 10px;
 }
@@ -319,6 +320,7 @@ li[data-depth="1"] a {
 	font-size: 12px;
 	font-weight: 200;
 	transition: 0.5s;
+	outline:none;
 }
 #todo-btn-wrap button:hover {
 	background: #d6d6d6;
@@ -510,6 +512,7 @@ li[data-depth="1"] a {
 	background: #ff4545;
 	color: #fff;
 	transition: 0.5s;
+	outline: none;
 }
 #deletebtn:hover {
 	background: #cc2828;
