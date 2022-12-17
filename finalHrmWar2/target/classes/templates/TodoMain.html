@@ -8,7 +8,18 @@
 </head>
 <body>
 <div layout:fragment="content">
+<<<<<<< HEAD
+<div id="todo-btn-wrap">
+	<div id="todo-btn-mkdo">
+	<form th:action="@{/todo/1}" method="get">
+		<span><input type="submit" name="allTodo" value="전체 할 일"></span>
+		<span><input type="submit" name="myTodo" value="내가 배정한 할 일"></span>
+	</form>
+		<span><a th:href="@{/write}">+ 할일 만들기</a></span><br/>
+	</div>
+=======
 	<div id="todo-header-wrap">
+>>>>>>> 40ac3409e4d324b6b16b50b0bf85097c43c4a6c2
 		<form th:action="@{/todo/1}"  method="get">
 			<div class="todo-search-wrap">
 				<div class="todo-date-wrap">
@@ -29,6 +40,28 @@
 			</div>
 			
 		</form>
+<<<<<<< HEAD
+	<form action="#" method="get">
+ 	<button type="submit" class="test" name="scheduled" value="진행예정">
+ 		<span>진행예정</span>
+ 		<span th:text="${scheduled}"></span>
+ 	</button>
+ 	<button type="submit" class="test" name="proceeding" value="진행중">
+ 		<span>진행중</span>
+ 		<span th:text="${proceeding}"></span>
+ 	</button>
+ 	<button type="submit" class="test" name="finish" value="진행완료">
+ 		<span>진행완료</span>
+ 		<span th:text="${finish}"></span>
+ 	</button>
+ 	</form>
+<!-- 	<div id="">	
+		<button type="button" name="scheduled" th:text="진행예정+ ' ' +${scheduled}" ></button>
+		<button type="button" name="proceeding" th:text="진행중+''+''+${proceeding}"></button>
+		<button type="button" name="finish" th:text="진행완료+''+''+${finish}"></button>
+	</div> -->
+</div>
+=======
 	
 		<div id="todo-btn-wrap">	
 			<button type="button" name="allTodo">전체 할 일</button>
@@ -61,6 +94,7 @@
 		</div>		
 	</div>
 	
+>>>>>>> 40ac3409e4d324b6b16b50b0bf85097c43c4a6c2
 	<form action="/delete" id="frm" method="post">
 		<div>
 			<table  width="100%" id="todo-table">
@@ -123,8 +157,12 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+<<<<<<< HEAD
+<script layout:fragment="script">
+=======
 <th:block layout:fragment="script">
 <script th:inline="javascript">
+>>>>>>> 40ac3409e4d324b6b16b50b0bf85097c43c4a6c2
 		//heder checkbox event
 
 	$(document).ready(function() {
@@ -171,6 +209,9 @@
 		console.log(idList);
 		console.log(idList.join(','));
 		}
+<<<<<<< HEAD
+
+=======
 /* 		//data picker
 		$('#demo').daterangepicker({
 		    "locale": {
@@ -210,6 +251,7 @@
 		
 		
 	 console.log(/*[[${list[0].communication_start}]]*/
+>>>>>>> 40ac3409e4d324b6b16b50b0bf85097c43c4a6c2
 		
 	</script>
 	<script>

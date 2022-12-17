@@ -19,17 +19,21 @@ public class TodoServiceImpl implements TodoService{
 	@Autowired
 	ITodoDAO dao;
 	
-	public void write(HttpServletRequest req) {
+	public void write(HttpServletRequest req, int num) {
 		String tit = req.getParameter("title");
 		String con = req.getParameter("content");
 		String sta = req.getParameter("start");
 		String end = req.getParameter("end");
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println(num);
+		System.out.println(tit);
+//		num = Integer.parseInt(req.getParameter("num"));
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("title", tit);
 		map.put("content", con);
 		map.put("start", sta);
 		map.put("end", end);
-		int res = dao.writeDAO(map);
+		map.put("num",num);
+		dao.writeDAO(map);
 	}
 	
 	public void delete(int communication_num) {
