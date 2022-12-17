@@ -27,6 +27,7 @@ public class Criteria {
    private String category_title;
    private int file_num;
    private String bookmark_id;
+   private int employee_num;
 
    
    //생성자로 무조건 실행된다 1번은
