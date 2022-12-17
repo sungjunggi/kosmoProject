@@ -16,16 +16,28 @@
 	<select id="templateDAO" resultType="com.hrm.finalpj.report.dto.TemplateDTO">
 		SELECT * FROM GETTEMPLATE WHERE GETTEMPLATE_NUM = #{GETTEMPLATE_NUM} 
 	</select>
-	<insert id="addDAO">
-		INSERT INTO GETTEMPLATE(GETTEMPLATE_NUM, GETTEMPLATE_TITLE, GETTEMPLATE_QUESTION, GETTEMPLATE_EXPLANATION, GETTEMPLATE_OPTION, GETTEMPLATE_IMAGE, GETTEMPLATE_DATE)
-			VALUES (SEQ_TEMPLATE_NUM.NEXTVAL, #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR}, #{param3,jdbcType=VARCHAR}, #{param4,jdbcType=VARCHAR}, #{param5,jdbcType=VARCHAR}, SYSDATE)
+	<insert id="writeDAO1">
+		INSERT INTO TEMPLATE_BOARD 
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
+		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
+		 #{template_board_answer5}, #{template_board_answer6}, #{template_board_answer7})
 	</insert>
-	<insert id="writeDAO">
-		INSERT INTO TEMPLATE_BOARD
-		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{answer4},1, 1, SYSDATE, #{answer1}, #{answer2}, #{answer3})
+	<insert id="writeDAO2">
+		INSERT INTO TEMPLATE_BOARD 
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
+		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
+		 null, null, null)
 	</insert>
+	<insert id="writeDAO3">
+		INSERT INTO TEMPLATE_BOARD 
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
+		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
+		 #{template_board_answer5}, null, null)
+	</insert>
+	<update id="updateDAO">
+		
+	</update>
 	<delete id="deleteDAO">
 		DELETE FROM COMMUNICATION WHERE COMMUNICATION_NUM=#{_id}
 	</delete>
-	
 </mapper>

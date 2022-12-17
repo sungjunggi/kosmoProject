@@ -6,7 +6,7 @@
 </head>
 <body>
 	<form id="form" name="form" method="post" action="/writereport"  >
-	<div th:if="${dto.gettemplate_num.equals(1)}">
+	<div th:if="${dto.gettemplate_num == 1}">
 		<div>
 			<div th:text="${dto.gettemplate_num}"></div>
 		</div>

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hrm.finalpj.dao.IReportDAO;
+import com.hrm.finalpj.report.dto.ReportDTO;
 
 @Controller
 public class ReportController {
@@ -22,6 +24,31 @@ public class ReportController {
 		model.addAttribute("list", dao.listDAO());
 		model.addAttribute("select", dao.selectDAO());
 		return "report/reportlist";
+	}
+	
+	@PostMapping("/reportlist")
+	public String userlist2(Model model, HttpServletRequest req) {
+		
+		ReportDTO dto = new ReportDTO();
+	
+		dto.setGettemplate_num(Integer.parseInt(req.getParameter("gettemplate_num")));
+		dto.setTemplate_board_answer1(req.getParameter("answer1")); 
+		dto.setTemplate_board_answer2(req.getParameter("answer2")); 
+		dto.setTemplate_board_answer3(req.getParameter("answer3")); 
+		dto.setTemplate_board_answer4(req.getParameter("answer4")); 
+		dto.setTemplate_board_answer5(req.getParameter("answer5")); 
+		dto.setTemplate_board_answer6(req.getParameter("answer6")); 
+		dto.setTemplate_board_answer7(req.getParameter("answer7")); 
+		
+		if(Integer.parseInt(req.getParameter("gettemplate_num")) == 1) {
+			dao.writeDAO1(dto);
+		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 2) {
+			dao.writeDAO2(dto);
+		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 3) {
+			dao.writeDAO3(dto);
+		}
+		
+		return "redirect:reportlist";
 	}
 	
 	@RequestMapping("/reportview/{num}")
@@ -42,36 +69,49 @@ public class ReportController {
 		return "report/reportwrite";
 	}
 	
-	@RequestMapping("/addtemplate")
-	public String addTemplate(HttpServletRequest req, Model model) {
-		dao.addDAO(req.getParameter("num"), req.getParameter("writer"), req.getParameter("title"));
-		return "redirect:reportlist";
-	}
+//	@PostMapping("/writereport")
+//	public String writeReport(Model model, HttpServletRequest req){
+//		
+//		int gtnum = Integer.parseInt(req.getParameter("gtnum"));
+//		int emnum = Integer.parseInt(req.getParameter("emnum"));
+//		int fnum = Integer.parseInt(req.getParameter("fnum"));
+//		
+//		String answer1 = req.getParameter("answer1");
+//		String answer2 = req.getParameter("answer2");
+//		String answer3 = req.getParameter("answer3");
+//		String answer4 = req.getParameter("answer4");
+//		String answer5 = req.getParameter("answer5");
+//		String answer6 = req.getParameter("answer6");
+//		String answer7 = req.getParameter("answer7");
+//		
+//		System.out.println(gtnum);
+//		System.out.println(emnum);
+//		System.out.println(fnum);
+//		System.out.println(answer1);
+//		System.out.println(answer2);
+//		System.out.println(answer3);
+//		System.out.println(answer4);
+//		System.out.println(answer5);
+//		System.out.println(answer6);
+//		System.out.println(answer7);
+//		
+////		model.addAttribute("write", dao.writeDAO(dto));
+//		return "redirect:reportlist";
+//	}
 	
-	@RequestMapping("/writereport")
-	public String writeReport(Model model, HttpServletRequest req) {
-	
-		String answer1 = req.getParameter("answer1");
-		String answer2 = req.getParameter("answer2");
-		String answer3 = req.getParameter("answer3");
-		int answer4 = Integer.parseInt(req.getParameter("answer4"));
-		System.out.println(answer1);
-		System.out.println(answer2);
-		System.out.println(answer3);
-		System.out.println(answer4);
-		dao.writeDAO(answer1, answer2, answer3, answer4);
-		
-		return "redirect:reportlist";
-	}
-	
-	@RequestMapping("/updateview/{num}")
-	public String updateView(@PathVariable("num") String num, Model model) {
+	@GetMapping("/updatereport/{num}")
+	public String update(@PathVariable("num") String num, Model model) {
 		model.addAttribute("update", dao.viewDAO(num));
 		return "redirect:reportlist";
 	}
 	
+	@PostMapping("/updatereport/{num}")
+	public String updateReport(@PathVariable("num") String num, HttpServletRequest req) {
+		
+	}
+	
 	@RequestMapping("/deletereport")
-	public String delete(HttpServletRequest req, Model model) {
+	public String deleteReport(HttpServletRequest req, Model model) {
 		dao.deleteDAO(req.getParameter("id"));
 		return "redirect:reportlist";
 	}
