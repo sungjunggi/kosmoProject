@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>reportview</title>
+</head>
+<div layout:fragment="content">
+	<table width="500" cellpadding="0" cellspacing="0" border="1">
+		<tr th:each="dto:${view}">
+			<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
+			<a th:href="@{'/updateview/'+${dto.template_board_num}}">
+				<button>수정</button>
+			</a>
+			<td th:text="${dto.template_board_num}"></td>
+			<td th:text="${dto.employee_name}"></td>
+			<td th:text="${dto.template_board_date}"></td>
+			<td th:text="${dto.getfile_old_name}"></td>
+			<td th:text="${dto.gettemplate_image}"></td> 
+			<td th:text="${dto.getcomment_content}"></td>
+		</tr>	
+	</table>
+</div>
+</html>

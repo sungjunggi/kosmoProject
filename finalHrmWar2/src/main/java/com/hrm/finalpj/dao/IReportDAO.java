@@ -14,8 +14,9 @@ public interface IReportDAO {
 	public ReportDTO viewDAO(String num);  // 게시물 보기
 	public List<TemplateDTO> selectDAO();  // 템플릿 전체보기
 	public TemplateDTO templateDAO(String tnum);  // 템플릿 보기
-	public int addDAO(String num, String writer, String title);  // 템플릿 작성
-	public int writeDAO(String answer1, String answer2, String answer3, int answer4);  // 게시글 작성
+	public int writeDAO1(ReportDTO dto);  // 1번 템플릿 게시글 작성
+	public int writeDAO2(ReportDTO dto);  // 2번 템플릿 게시글 작성
+	public int writeDAO3(ReportDTO dto);  // 3번 템플릿 게시글 작성
 	public int updateDAO(ReportDTO dto);  // 게시글 수정
 	public int deleteDAO(@Param("_id") String id); // 게시글 삭제
 }

@@ -4,7 +4,12 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.fproject.dao.IScheduleDao">
-	<select id="totalSch" resultType="com.fproject.dto.ScheduleDto">
-		SELECT * FROM SCHEDULE WHERE SCHEDULE_NUM=1
+	<select id="testSch" resultType="com.fproject.dto.ScheduleDto">
+		SELECT E.EMPLOYEE_NUM,E.EMPLOYEE_NAME,S.SCHEDULE_NAME,T.TYPE_CATEGORY, A.ATTENDANCE_WORKSTART
+		FROM ATTENDANCE A,EMPLOYEE E, CALENDAR C, SCHEDULE S, TYPE T
+		WHERE A.EMPLOYEE_NUM=E.EMPLOYEE_NUM
+		AND E.EMPLOYEE_NUM=C.EMPLOYEE_NUM
+		AND C.SCHEDULE_NUM=S.SCHEDULE_NUM
+		AND S.TYPE_NUM=T.TYPE_NUM
 	</select>
 </mapper>
