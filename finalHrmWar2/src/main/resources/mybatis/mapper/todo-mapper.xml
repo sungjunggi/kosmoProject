@@ -142,7 +142,7 @@
        ]]>
       </select>
       
-       <select id="clickFinishDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.PageDTO">
+       <select id="clickFinishDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" >
        <![CDATA[
        select * from( select rownum r, C.* from(
        select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num
