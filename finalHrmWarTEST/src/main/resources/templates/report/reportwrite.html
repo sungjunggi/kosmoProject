@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>viewtemplate</title>
+</head>
+<style>
+	[placeholder]:empty:before {
+	  display: block;
+	  content: attr(placeholder);
+	  border-radius: 30px;
+	  color: #a6a6a6;
+	}
+</style>
+<body>
+	<form id="form" name="form" method="post" action="/writereport"  >
+	<div th:each="dto:${template}" th:object="${reportDTO}">
+		<input type="hidden" name="answer4" th:value="${dto.gettemplate_num}" >
+		<div>
+			<div th:text="${dto.gettemplate_num}"></div>
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_title}"></div>
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_question}"></div>
+			<input type="text" name="answer1" placeholder='내용을 작성해주세요.' />
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_explanation}"></div>
+			<input type="text" name="answer2" placeholder='내용을 작성해주세요.' />
+		</div>
+		<br/>	
+		<div>
+			<div th:text="${dto.gettemplate_option}"></div>
+			<input type="text" name="answer3" placeholder='내용을 작성해주세요.'  />
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_image}"></div>
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_date}"></div> 
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_writer}"></div>
+		</div>
+	</div>	
+		<button onclick="" name="취소" value="취소">취소</button>		
+		<input type="submit" name="제출" value="제출" />
+	</form>
+</body>
+</html>

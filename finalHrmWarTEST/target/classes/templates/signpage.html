@@ -28,9 +28,12 @@
 					</tr>
 			</thead>
 		</table>
-		<input type="button" value="뒤로가기" onclick="history.back();" /> 
-		<button type="button">승인</button> 
-		<button type="button">반려</button> 
+		
+		<a href="/signlist" >뒤로가기</a>
+		<form th:action="@{${sign_num}}" method="get">
+		<input type="submit" name="approve" value="승인"> 
+		<input type="submit" name="deny" value="반려">
+		</form>
 	</div>
 </body>
 </html>

@@ -14,4 +14,12 @@
     	select sign_num,sign_req_title,sign_begin,sign_res_name,sign_req_contents from sign where sign_num = #{0}
     </select>
  	
+ 	<update id="approveDAO">
+ 		update sign set sign_status='승인완료' where sign_num = #{sign_num}
+ 	</update>
+ 	
+ 	<update id="denyDAO">
+ 		update sign set sign_status='반려' where sign_num = #{sign_num}
+ 	</update>
+ 	
 </mapper>

@@ -19,5 +19,9 @@ public interface IHrmMapper {
     public List<signDTO> SelectSignList(signDTO dto); 
     
     public signDTO SelectSignPage(int dto);
+    
+    public void approveDAO(int sign_num); 
+    
+    public void denyDAO(int sign_num);
    
 }
