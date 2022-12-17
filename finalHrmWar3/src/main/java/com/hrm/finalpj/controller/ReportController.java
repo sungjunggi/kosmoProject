@@ -24,6 +24,7 @@ public class ReportController {
 		return "report/reportlist";
 	}
 	
+	
 	@RequestMapping("/reportview/{num}")
 	public String detailView(@PathVariable("num") String num,  Model model) {
 		model.addAttribute("view", dao.viewDAO(num));
