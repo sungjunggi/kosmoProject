@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Sign List</title>
+</head>
+<div layout:fragment="content">
+<!--<h2 th:text="${sl}"></h2>-->
+<table width=70% cellpadding="0" cellspacing="0" border="1">
+<thead>
+	<tr>
+		<td>번호</td>
+		<td>제목</td>
+		<td>작성자</td>
+		<td>승인상태</td>
+		<td>작성일</td>
+	</tr>
+</thead>
+<tbody>
+	<tr th:each="dto:${signlist}" >
+		<td><span th:text="${dto.sign_num}"></span></td>
+		<td>
+		<a th:href="@{/signpage/{sign_num}(sign_num = ${dto.sign_num})}">
+		<span th:text="${dto.sign_req_title}"></span>
+		</a>
+		</td>
+		<td><span th:text="${dto.sign_res_name}"></span></td>
+		<td><span th:text="${dto.sign_status}"></span></td>
+		<td><span th:text="${dto.sign_begin}"></span></td>
+	</tr>
+</tbody>
+</table>
+</div>
+</html>

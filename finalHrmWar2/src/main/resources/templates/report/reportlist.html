@@ -4,8 +4,7 @@
     layout:decorate="~{layouts/layout1}">
 <head>
 <meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> -->
+
 <script src="http://code.jquery.com/jquery-latest.js"></script>
     
 <title>reportlist</title>
@@ -13,10 +12,6 @@
 
 <div layout:fragment="content">
 	<div class="report-btn-wrap">
-		<div class="report-btn-set">
-			<button type="button" id="report" onclick="">보고서</button>
-			<button type="button" id="set" onclick="">설정</button>
-		</div>
 		<input type="text" id="demo" name="demo" value="" />
 		<div class="report-btn-all">
 			<button type="button" id="all" onclick="">전체 보고서</button>
@@ -27,9 +22,10 @@
 
 	<table width="100%" class="report-table">
 		<tr>
-			<th style="width:600px; padding-left:20px;">보고서</th>
+			<th style="width:500px; padding-left:20px;">보고서</th>
 			<th style="width:200px; text-align: center; padding:10px;">작성일</th>
 			<th style="width:100px; text-align: center; padding:10px;">작성자</th>
+			<th style="width:80px; text-align: center; padding:10px;">승인상태</th>
 			<th style="width:80px; text-align: center; padding:10px;">리포트 번호</th>
 			<th style="width:80px; text-align: center; padding:10px;">댓글</th>
 		</tr>
@@ -41,6 +37,7 @@
 			</td>
 			<td th:text="${dto.template_board_date}" style="text-align: center;"></td>
 			<td th:text="${dto.employee_name}" style="text-align: center;"></td>
+			<td th:text="${dto.sign_status}" style="text-align: center;"></td>
 			<td th:text="${dto.template_board_num}" style="text-align: center;"></td>
 			<td th:text="'💬'+${dto.count}" style="text-align: center;"></td>
 		</tr>	
@@ -81,7 +78,7 @@
 				}
 			});
 		</script>
-		<!-- <script type="text/javascript">
+		<script type="text/javascript">
 			$('#demo').daterangepicker({
 			    "locale": {
 			        "format": "YYYY-MM-DD",
@@ -102,6 +99,6 @@
 				
 			    console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
 			});
-		</script> -->
+		</script>
 	</th:block>
 </html>

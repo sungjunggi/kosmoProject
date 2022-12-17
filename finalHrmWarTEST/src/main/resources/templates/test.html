@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+
     <head>
-        <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/test.css">
 </head>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <body>
     <div class="wrap">
         <div id="left-side" class="lside">
@@ -57,13 +60,13 @@
                             <div class="nav-title">커뮤니케이션</div>
                         </li>
                         <li data-depth="1" data-menu="TODO">
-                            <a href="/">할 일</a>
+                            <a href="/todo/1">할 일</a>
                         </li>
                         <li data-depth="1" data-menu="CTE">
                             <a href="/">공지 및 설문</a>
                         </li>
                         <li data-depth="1" data-menu="LGR">
-                            <a href="/">보고서</a>
+                            <a href="/reportlist">보고서</a>
                         </li>
                         <li data-depth="1" data-menu="FR">
                             <a href="/">게시판</a>
@@ -136,5 +139,7 @@
             </div>
         </div>
     </div>
+    
+    
 </body>
 </html>

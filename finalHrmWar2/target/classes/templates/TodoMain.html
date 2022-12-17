@@ -8,32 +8,93 @@
 </head>
 <body>
 <div layout:fragment="content">
+<<<<<<< HEAD
 <div id="todo-btn-wrap">
 	<div id="todo-btn-mkdo">
-		<span><input type="button" name="allTodo" value="전체 할 일"></span>
-		<span><input type="button" name="myTodo" value="내가 배정한 할 일"></span>
+	<form th:action="@{/todo/1}" method="get">
+		<span><input type="submit" name="allTodo" value="전체 할 일"></span>
+		<span><input type="submit" name="myTodo" value="내가 배정한 할 일"></span>
+	</form>
 		<span><a th:href="@{/write}">+ 할일 만들기</a></span><br/>
 	</div>
+=======
+	<div id="todo-header-wrap">
+>>>>>>> 40ac3409e4d324b6b16b50b0bf85097c43c4a6c2
 		<form th:action="@{/todo/1}"  method="get">
-		   <input type="date" name="start">
-		   ~
-		   <input type="date" name="end">
-		   <select>
-		      <option value="${communication_title}">제목</option>
-		      <option value="${communication_assign}">배정대상</option>
-		      <option value="${communication_state}">상태</option>
-		   </select>
-		   <input name="searchText" type="text" placeholder="검색어를 입력하세요.">
-		   <input type="submit" value="검색"/>
-		
+			<div class="todo-search-wrap">
+				<div class="todo-date-wrap">
+				    <input type="date" name="start">
+				    ~
+				    <input type="date" name="end">
+				</div>
+				<div class="todo-search-bar-wrap">
+				   <select>
+				      <option value="${communication_title}">제목</option>
+				      <option value="${communication_assign}">배정대상</option>
+				      <option value="${employee_name}">작성자</option>
+				   </select>
+				   <input class="todo-search-bar" name="searchText" type="text" placeholder="검색어를 입력하세요.">
+				   <input class="todo-search-btn" type="submit" value="검색"/>
+				   
+				</div>
+			</div>
+			
 		</form>
-
-	<div id="todo-btn-search">	
-		<button type="button" name="scheduled">진행예정</button>
-		<button type="button" name="proceeding">진행중</button>
-		<button type="button" name="finish">진행완료</button>
-	</div>
+<<<<<<< HEAD
+	<form action="#" method="get">
+ 	<button type="submit" class="test" name="scheduled" value="진행예정">
+ 		<span>진행예정</span>
+ 		<span th:text="${scheduled}"></span>
+ 	</button>
+ 	<button type="submit" class="test" name="proceeding" value="진행중">
+ 		<span>진행중</span>
+ 		<span th:text="${proceeding}"></span>
+ 	</button>
+ 	<button type="submit" class="test" name="finish" value="진행완료">
+ 		<span>진행완료</span>
+ 		<span th:text="${finish}"></span>
+ 	</button>
+ 	</form>
+<!-- 	<div id="">	
+		<button type="button" name="scheduled" th:text="진행예정+ ' ' +${scheduled}" ></button>
+		<button type="button" name="proceeding" th:text="진행중+''+''+${proceeding}"></button>
+		<button type="button" name="finish" th:text="진행완료+''+''+${finish}"></button>
+	</div> -->
 </div>
+=======
+	
+		<div id="todo-btn-wrap">	
+			<button type="button" name="allTodo">전체 할 일</button>
+			<button type="button" name="myTodo">내가 배정한 할 일</button>
+			<button type="button" name="scheduled">진행예정</button>
+			<button type="button" name="proceeding">진행중</button>
+			<button type="button" name="finish">진행완료</button>
+		</div>
+			<button class="todo-write-btn" type="button" onclick="todoPopupShow()">+ 할일 만들기</button>
+		
+			<!-- 모달창 영역 -->
+		<div class="popup-back"></div> <!-- 모달 백그라운드 -->
+		<div id="todo-write-popup">
+			<form action="/writing" method="post">
+				<label>타이틀</label><br/>
+				<input class="write-title" type="text" name="title" placeholder="타이틀을 입력하세요"><br/><br/>
+				<label>누구에게 배정하나요?</label><br/>
+				<select name="employee">
+					<option value="allEmployee">전체 직원</option>
+					<option value="group">그룹</option>
+					<option value="specificEmployee">특정 직원</option>
+				</select><br/><br/>
+				<label>기간</label><br/>
+				작업 시작일 <input type="date" name="start"><br/>
+				작업 종료일 <input type="date" name="end"><br/><br/>
+				<label>작업</label><br/>
+				<input class="write-content" type="text" name="content" placeholder="지시사항 입력(필수)">
+				<input type="submit" value="저장" class="todo-write-save">
+			</form>
+		</div>		
+	</div>
+	
+>>>>>>> 40ac3409e4d324b6b16b50b0bf85097c43c4a6c2
 	<form action="/delete" id="frm" method="post">
 		<div>
 			<table  width="100%" id="todo-table">
@@ -83,12 +144,11 @@
 		            <input type="hidden" name="pageNum" th:field="*{pageNum}">
 		            <input type="hidden" name="amount" th:field="*{amount}">
 		        </form>
-		         
 		    </div>
-		    </th:block>
 		</div>
 	</form>
 </div>
+
 	
 
 
@@ -97,8 +157,14 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+<<<<<<< HEAD
+<script layout:fragment="script">
+=======
+<th:block layout:fragment="script">
 <script th:inline="javascript">
+>>>>>>> 40ac3409e4d324b6b16b50b0bf85097c43c4a6c2
 		//heder checkbox event
+
 	$(document).ready(function() {
 	$("#chkAll").click(function() {
 		if($("#chkAll").is(":checked")) $("input[name=deleteId]").prop("checked", true);
@@ -143,7 +209,10 @@
 		console.log(idList);
 		console.log(idList.join(','));
 		}
-		//data picker
+<<<<<<< HEAD
+
+=======
+/* 		//data picker
 		$('#demo').daterangepicker({
 		    "locale": {
 		        "format": "YYYY-MM-DD",
@@ -181,7 +250,23 @@
 		})
 		
 		
-	 console.log(/*[[${list[0].communication_start}]]*/);
+	 console.log(/*[[${list[0].communication_start}]]*/
+>>>>>>> 40ac3409e4d324b6b16b50b0bf85097c43c4a6c2
 		
 	</script>
+	<script>
+			function todoPopupShow(){
+				$("#todo-write-popup").css('opacity','100').css('visibility','visible');
+				$(".popup-back").css('opacity','0.6').css('z-index','100');
+			}
+		</script>
+		<script>
+			$(document).mouseup(function(e){;
+				if($("#todo-write-popup").has(e.target).length === 0){
+					$("#todo-write-popup").css('opacity','0').css('visibility','hidden');
+					$(".popup-back").css('opacity','0').css('z-index','-1');
+				}
+			});
+		</script>
+	</th:block>
 </html>
