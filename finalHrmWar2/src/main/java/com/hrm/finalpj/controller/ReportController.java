@@ -105,10 +105,10 @@ public class ReportController {
 		return "redirect:reportlist";
 	}
 	
-	@PostMapping("/updatereport/{num}")
-	public String updateReport(@PathVariable("num") String num, HttpServletRequest req) {
-		
-	}
+//	@PostMapping("/updatereport/{num}")
+//	public String updateReport(@PathVariable("num") String num, HttpServletRequest req) {
+//		
+//	}
 	
 	@RequestMapping("/deletereport")
 	public String deleteReport(HttpServletRequest req, Model model) {
