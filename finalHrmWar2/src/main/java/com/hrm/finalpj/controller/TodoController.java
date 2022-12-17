@@ -1,6 +1,7 @@
 package com.hrm.finalpj.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -35,18 +36,48 @@ public class TodoController {
    
 
     @GetMapping("todo/{num}")
-    public String todoMain(@PathVariable("num") int num,Criteria criteria, Model model,HttpServletRequest req) {
-       Criteria test = new Criteria(num,20);
+    public String todoMain(@PathVariable("num") int num,Criteria criteria, Model model,HttpServletRequest req,Principal principal) {
+       Criteria test = new Criteria(num,10);
        String search = req.getParameter("searchText");
        String start = req.getParameter("start");
        String end = req.getParameter("end");
+       String allTodo = req.getParameter("allTodo");
+       String myTodo = req.getParameter("myTodo");
        test.setCommunication_search(search);
        test.setCommunication_start(start);
-        test.setCommunication_end(end);
-   
+       test.setCommunication_end(end);
+       int scheduled = dao.scheduledTotalDAO();
+       int proceeding = dao.proceedingTotalDAO();
+       int finish = dao.finishTotalDAO();
+       req.setAttribute("scheduled", scheduled);
+       req.setAttribute("proceeding", proceeding);
+       req.setAttribute("finish", finish);
+       String clickScheduled = req.getParameter("scheduled");
+       String clickProceeding = req.getParameter("proceeding");
+       String clickFinish = req.getParameter("finish");
+       
+       if(clickScheduled != null) {
+    	   System.out.println("진행예정");
+    	   model.addAttribute("list",dao.clickScheduledDAO(clickScheduled));
+       }else if(clickProceeding != null) {
+    	   System.out.println("진행중");
+    	   model.addAttribute("list",dao.clickProceedingDAO(clickProceeding));
+       }else if(clickFinish != null) {
+    	   System.out.println("진행완료");
+    	   model.addAttribute("list",dao.clickFinishDAO(clickFinish));
+       }
+      if(allTodo != null ) {
+    	  model.addAttribute("list", todoservice.getList(test));
+      }else if(myTodo != null) {
+          int myNum = dao.numDAO(principal.getName());
+    	  model.addAttribute("list",dao.myTodoDAO(myNum));
+    	  model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+          return "TodoMain";
+      }
 
        if(search !=null && start=="" && end=="") {
-          model.addAttribute("communicationDTO",dao.searchTextDAO(test));
+    	   System.out.println("검색만");
+          model.addAttribute("list",dao.searchTextDAO(test));
        }else if(search == "" && start!=null && end!=null) {
            List<Criteria> check = dao.searchDateDAO(test);
            System.out.println(check.get(0) + "커뮤넘");
@@ -58,16 +89,19 @@ public class TodoController {
 	          }else {
 	          model.addAttribute("list",dao.searchDateDAO(test));
           model.addAttribute("booleancheck",false);
-         
           }
-//          model.addAttribute("list", todoservice.getList(test));}
        }else if(search != null && start!=null && end!=null) {
-          model.addAttribute("communicationDTO",dao.searchAllDAO(test));
+    	   System.out.println("날짜검색검색만");
+    	   System.out.println(search);
+    	   System.out.println(start);
+    	   System.out.println(end);
+          model.addAttribute("list",dao.searchAllDAO(test));
        }else {
           model.addAttribute("list", todoservice.getList(test));
        }
-      
-      model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 20, test));
+       
+       
+       model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
        return "TodoMain";
     }
    
@@ -77,8 +111,10 @@ public class TodoController {
    }
    
    @PostMapping("/writing")
-   public String write(HttpServletRequest req, Model model) {
-      todoservice.write(req);
+   public String write(HttpServletRequest req, Model model, Principal principal) {
+      model.addAttribute("enum",principal.getName());
+      int num = dao.numDAO(principal.getName());
+	   todoservice.write(req,num);
       return "redirect:todo/1"; 
    }
    

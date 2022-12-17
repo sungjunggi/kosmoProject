@@ -10,8 +10,10 @@
 <div layout:fragment="content">
 <div id="todo-btn-wrap">
 	<div id="todo-btn-mkdo">
-		<span><input type="button" name="allTodo" value="전체 할 일"></span>
-		<span><input type="button" name="myTodo" value="내가 배정한 할 일"></span>
+	<form th:action="@{/todo/1}" method="get">
+		<span><input type="submit" name="allTodo" value="전체 할 일"></span>
+		<span><input type="submit" name="myTodo" value="내가 배정한 할 일"></span>
+	</form>
 		<span><a th:href="@{/write}">+ 할일 만들기</a></span><br/>
 	</div>
 		<form th:action="@{/todo/1}"  method="get">
@@ -27,12 +29,25 @@
 		   <input type="submit" value="검색"/>
 		
 		</form>
-
-	<div id="todo-btn-search">	
-		<button type="button" name="scheduled">진행예정</button>
-		<button type="button" name="proceeding">진행중</button>
-		<button type="button" name="finish">진행완료</button>
-	</div>
+	<form action="#" method="get">
+ 	<button type="submit" class="test" name="scheduled" value="진행예정">
+ 		<span>진행예정</span>
+ 		<span th:text="${scheduled}"></span>
+ 	</button>
+ 	<button type="submit" class="test" name="proceeding" value="진행중">
+ 		<span>진행중</span>
+ 		<span th:text="${proceeding}"></span>
+ 	</button>
+ 	<button type="submit" class="test" name="finish" value="진행완료">
+ 		<span>진행완료</span>
+ 		<span th:text="${finish}"></span>
+ 	</button>
+ 	</form>
+<!-- 	<div id="">	
+		<button type="button" name="scheduled" th:text="진행예정+ ' ' +${scheduled}" ></button>
+		<button type="button" name="proceeding" th:text="진행중+''+''+${proceeding}"></button>
+		<button type="button" name="finish" th:text="진행완료+''+''+${finish}"></button>
+	</div> -->
 </div>
 	<form action="/delete" id="frm" method="post">
 		<div>
@@ -97,7 +112,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-<script th:inline="javascript">
+<script layout:fragment="script">
 		//heder checkbox event
 	$(document).ready(function() {
 	$("#chkAll").click(function() {
@@ -143,45 +158,7 @@
 		console.log(idList);
 		console.log(idList.join(','));
 		}
-		//data picker
-		$('#demo').daterangepicker({
-		    "locale": {
-		        "format": "YYYY-MM-DD",
-		        "separator": " ~ ",
-		        "applyLabel": "확인",
-		        "cancelLabel": "취소",
-		        "fromLabel": "From",
-		        "toLabel": "To",
-		        "customRangeLabel": "Custom",
-		        "weekLabel": "W",
-		        "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-		        "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-		    },
-		    "startDate": new Date(),
-		    "endDate": new Date(),
-		    "drops": "auto"
-		    
-		    
-		}, function (start, end, label) {
-		    console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-		    console.log(start.format('DD'));
-		    
-		});
-		
-		$(document).ready(function(){
-			$.ajax({
-				url: "/todo/1",
-				type: "GET",
-				data: JSON.stringify({
-					"start":start, "end":end}),
-				dataType: "json",
-				contentType: "application/json;charset=UTF-8",
-				
-			})
-		})
-		
-		
-	 console.log(/*[[${list[0].communication_start}]]*/);
+
 		
 	</script>
 </html>
