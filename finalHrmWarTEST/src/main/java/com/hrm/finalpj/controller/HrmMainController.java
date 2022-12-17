@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,17 +46,26 @@ public class HrmMainController {
 	}
 
 	@RequestMapping("/signlist")
-	   public String getsignlist(Model model) {
+	   public String getsignlist(Model model, HttpServletRequest req) {
 		signDTO dto = new signDTO();
 		model.addAttribute("signlist", imap.SelectSignList(dto));
-	      return "signlist";
+		return "signlist";
 	   }
 	
 	@RequestMapping("/signpage/{sign_num}")
-	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model) {
+	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model,HttpServletRequest req) {
 		signDTO dto = imap.SelectSignPage(sign_num);
 		model.addAttribute("dto", dto);
+		String approve = req.getParameter("approve");
+		String deny = req.getParameter("deny");
+		if(approve != null && deny == null) {
+			imap.approveDAO(sign_num);
+		}else if(deny !=null && approve == null) {
+			imap.denyDAO(sign_num);
+		}else {  
+			model.addAttribute("dto", dto);
+		}
+		
 	      return "signpage";
 	   }
-	
 }
