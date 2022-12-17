@@ -36,7 +36,7 @@ public class TodoController {
 
     @GetMapping("todo/{num}")
     public String todoMain(@PathVariable("num") int num,Criteria criteria, Model model,HttpServletRequest req) {
-       Criteria test = new Criteria(num,10);
+       Criteria test = new Criteria(num,20);
        String search = req.getParameter("searchText");
        String start = req.getParameter("start");
        String end = req.getParameter("end");
@@ -55,12 +55,8 @@ public class TodoController {
 	        	  model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 1, test1));
 	             model.addAttribute("booleancheck",true);
 	             return "TodoMain";
-	            
 	          }else {
-	        	 
 	          model.addAttribute("list",dao.searchDateDAO(test));
-	       
-	          
           model.addAttribute("booleancheck",false);
          
           }
@@ -71,7 +67,7 @@ public class TodoController {
           model.addAttribute("list", todoservice.getList(test));
        }
       
-      model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+      model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 20, test));
        return "TodoMain";
     }
    
