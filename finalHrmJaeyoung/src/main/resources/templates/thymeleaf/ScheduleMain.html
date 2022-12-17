@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+</head>
+<body>
+	스케줄 메인<br/>	
+	
+	<div th:text="${scheduleAtt}"></div>
+	<br/>
+	
+	<table>
+		<tr th:each="dao : ${scheduleAtt}">
+			<td>사번</td>
+			<td th:text="${dao.employee_num}"></td>
+			<td>/ 이름</td>
+			<td th:text="${dao.employee_name}"></td>
+			<td>/ 배정된 스케줄</td>
+			<td th:text="${dao.schedule_name}"></td>
+			<td>/ 상태 타입</td>
+			<td th:text="${dao.type_category}"></td>
+			<td>/ 출근시각</td>
+			<td th:text="${dao.attendance_workstart}"></td>
+		</tr>
+	</table>
+</body>
+</html>
