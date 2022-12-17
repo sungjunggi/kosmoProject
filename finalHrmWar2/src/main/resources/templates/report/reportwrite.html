@@ -17,12 +17,7 @@
 	<br/>
 	<form id="form" name="form" method="post" action="/reportlist">
 	<div th:each="dto : ${template}">
-	
-	<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
-		<!-- <input type="hidden" name="tbnum" th:value="${dto.template_board_num}"/>
-		
-		<input type="hidden" name="emnum" th:value="${dto.employee_num}"/>
-		<input type="hidden" name="fnum" th:value="${dto.getfile_num}"/> -->
+		<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
 			<div>
 				<div th:text="${dto.gettemplate_num}"></div>
 			</div>
