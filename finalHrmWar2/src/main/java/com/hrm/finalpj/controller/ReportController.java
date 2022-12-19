@@ -42,18 +42,24 @@ public class ReportController {
 		
 		if(Integer.parseInt(req.getParameter("gettemplate_num")) == 1) {
 			dao.writeDAO1(dto);
+			req.getParameter("temnum");
+		
 		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 2) {
 			dao.writeDAO2(dto);
+			req.getParameter("temnum");
+		
 		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 3) {
 			dao.writeDAO3(dto);
+			req.getParameter("temnum");
 		}
 		
 		return "redirect:reportlist";
 	}
 	
 	@RequestMapping("/reportview/{num}")
-	public String detailView(@PathVariable("num") String num,  Model model) {
+	public String detailView(@PathVariable("num") String num,  Model model, HttpServletRequest req) {
 		model.addAttribute("view", dao.viewDAO(num));
+		req.getParameter("temnum");
 		return "report/reportview";
 	}
 	
@@ -95,7 +101,7 @@ public class ReportController {
 //		System.out.println(answer6);
 //		System.out.println(answer7);
 //		
-////		model.addAttribute("write", dao.writeDAO(dto));
+//		model.addAttribute("write", dao.writeDAO(dto));
 //		return "redirect:reportlist";
 //	}
 	

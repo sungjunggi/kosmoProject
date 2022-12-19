@@ -27,4 +27,5 @@ public class ReportDTO {
 	private String count;
 	private String template_board_sign_status;
 	private String template_board_sign_name;
+	
 }
