@@ -28,10 +28,12 @@ public interface ITodoDAO {
    public int scheduledTotalDAO();
    public int proceedingTotalDAO();
    public int finishTotalDAO();
-   public List<CommunicationDTO> myTodoDAO(int num);
-   public List<CommunicationDTO> clickScheduledDAO(Criteria criteria,String clickScheduled);
-   public List<CommunicationDTO> clickProceedingDAO(Criteria criteria,String clickProceeding);
-   public List<CommunicationDTO> clickFinishDAO(Criteria criteria,String clickFinish);
+   public int allTodoCountDAO();
+   public int myTodoCountDAO(int num);
+   public List<CommunicationDTO> myTodoDAO(@Param("cri") Criteria criteria, int num);
+   public List<CommunicationDTO> clickScheduledDAO(@Param("cri") Criteria criteria,String clickScheduled);
+   public List<CommunicationDTO> clickProceedingDAO(@Param("cri") Criteria criteria,String clickProceeding);
+   public List<CommunicationDTO> clickFinishDAO(@Param("cri") Criteria criteria,String clickFinish);
    
 
 }
