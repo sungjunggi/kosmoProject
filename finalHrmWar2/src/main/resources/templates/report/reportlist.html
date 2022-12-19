@@ -4,8 +4,7 @@
     layout:decorate="~{layouts/layout1}">
 <head>
 <meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> -->
+
 <script src="http://code.jquery.com/jquery-latest.js"></script>
     
 <title>reportlist</title>
@@ -13,10 +12,6 @@
 
 <div layout:fragment="content">
 	<div class="report-btn-wrap">
-		<div class="report-btn-set">
-			<button type="button" id="report" onclick="">보고서</button>
-			<button type="button" id="set" onclick="">설정</button>
-		</div>
 		<input type="text" id="demo" name="demo" value="" />
 		<div class="report-btn-all">
 			<button type="button" id="all" onclick="">전체 보고서</button>
@@ -27,40 +22,43 @@
 
 	<table width="100%" class="report-table">
 		<tr>
-			<th style="width:600px; padding-left:20px;">보고서</th>
+			<th style="width:500px; padding-left:20px;">보고서</th>
 			<th style="width:200px; text-align: center; padding:10px;">작성일</th>
 			<th style="width:100px; text-align: center; padding:10px;">작성자</th>
+			<th style="width:80px; text-align: center; padding:10px;">승인상태</th>
 			<th style="width:80px; text-align: center; padding:10px;">리포트 번호</th>
 			<th style="width:80px; text-align: center; padding:10px;">댓글</th>
 		</tr>
 		<tr th:each="dto:${list}">
 			<td style="padding-left: 20px;">
-				<a th:href="@{'/reportview/'+${dto.template_board_num}}">
+				<a id="temnumlink" th:href="@{'/reportview/'+${dto.template_board_num}}">
+					
 					<span th:text="${dto.gettemplate_title}"></span>
 				</a>
 			</td>
 			<td th:text="${dto.template_board_date}" style="text-align: center;"></td>
 			<td th:text="${dto.employee_name}" style="text-align: center;"></td>
+			<td th:text="${dto.template_board_sign_status}" style="text-align: center;"></td>
 			<td th:text="${dto.template_board_num}" style="text-align: center;"></td>
 			<td th:text="'💬'+${dto.count}" style="text-align: center;"></td>
 		</tr>	
 	</table>
 	<!-- <p><a href="/templateselect">보고서 작성</a></p> -->
 	<button class="report-mkbtn"type="button" onclick="popupShow()">보고서 작성</button>
-	<div class="popup-back">
-	</div>
-		<table width="500" cellpadding="0" cellspacing="0" id="popup-content">
-			<tr th:each="dto:${select}">
-				<td>
-					<a th:href="@{/templateview/{tnum}(tnum=${dto.gettemplate_num})}">
-						<span th:text="${dto.gettemplate_title}"></span>
-					</a>
-				</td>
-			</tr>	
-		</table>
-	
+	<div class="popup-back"></div>
+	<table width="500" cellpadding="0" cellspacing="0" id="popup-content">
+		<tr th:each="dto:${select}">
+			<td>
+				<a th:href="@{/templateview/{tnum}(tnum=${dto.gettemplate_num})}">
+					<span th:text="${dto.gettemplate_title}"></span>
+				</a>
+			</td>
+		</tr>	
+	</table>
 </div>
-
+<form action="/reportview" >
+<input type="hidden" name="temnum" value="${dto.gettemplate_num}"/>
+</form>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -81,7 +79,7 @@
 				}
 			});
 		</script>
-		<!-- <script type="text/javascript">
+		<script type="text/javascript">
 			$('#demo').daterangepicker({
 			    "locale": {
 			        "format": "YYYY-MM-DD",
@@ -102,6 +100,14 @@
 				
 			    console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
 			});
-		</script> -->
+		</script>
+		<script>
+		   $('.temnumlink').on('click', function(event){
+			      console.log(event, event.target, event.currentTarget);
+			      console.log(event.currentTarget.querySelector("form") );
+			    /* $('.movieImgForm').submit();  */
+			 event.currentTarget.querySelector("form").submit(); 
+			});   
+		</script>
 	</th:block>
 </html>
