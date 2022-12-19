@@ -112,43 +112,51 @@
        select count(*) as total from communication where communication_state='진행완료'
       </select>
       
-       <select id="myTodoDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.PageDTO">
+      <select id="allTodoCountDAO" resultType="int">
+       select count(*) as total from communication
+      </select>
+      
+      <select id="myTodoCountDAO" resultType="int">
+       select count(*) as total from communication where employee_num= #{num}
+      </select>
+      
+       <select id="myTodoDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
        <![CDATA[
        select * from( select rownum r, C.* from(
        select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num
        from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
-       WHERE rownum <=#{pageNum} * #{amount} and employee_num = #{employee_num} )
-       where r>(#{pageNum}-1) * #{amount}
+       WHERE rownum <=(#{cri.pageNum}) * #{cri.amount} and employee_num = #{num} )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
        ]]>
       </select>
       
-       <select id="clickScheduledDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.PageDTO">
+       <select id="clickScheduledDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
        <![CDATA[
        select * from( select rownum r, C.* from(
        select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num
        from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
-       WHERE rownum <=#{pageNum} * #{amount} and communication_state= #{clickScheduled} )
-       where r>(#{pageNum}-1) * #{amount}
+       WHERE rownum <=#{cri.pageNum} * #{cri.amount} and communication_state= #{clickScheduled} )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
        ]]>
       </select>
       
-       <select id="clickProceedingDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.PageDTO">
+       <select id="clickProceedingDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
        <![CDATA[
        select * from( select rownum r, C.* from(
        select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num
        from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
-       WHERE rownum <=#{pageNum} * #{amount} and communication_state= #{clickProceeding} )
-       where r>(#{pageNum}-1) * #{amount}
+       WHERE rownum <=#{cri.pageNum} * #{cri.amount} and communication_state= #{clickProceeding} )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
        ]]>
       </select>
       
-       <select id="clickFinishDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" >
+       <select id="clickFinishDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
        <![CDATA[
        select * from( select rownum r, C.* from(
        select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num
        from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
-       WHERE rownum <=#{pageNum} * #{amount} and communication_state= #{clickFinish} )
-       where r>(#{pageNum}-1) * #{amount}
+       WHERE rownum <=#{cri.pageNum} * #{cri.amount} and communication_state= #{clickFinish} )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
        ]]>
       </select>
       

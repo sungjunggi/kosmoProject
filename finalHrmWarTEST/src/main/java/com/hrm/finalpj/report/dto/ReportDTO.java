@@ -20,6 +20,8 @@ public class ReportDTO {
 	private String gettemplate_image;
 	private String getcomment_content;
 	private String count;
-	private String sign_status;
+	private String template_board_sign_status;
+	private String template_board_sign_name;
+	
 	
 }

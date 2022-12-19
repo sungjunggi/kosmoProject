@@ -7,11 +7,23 @@
 
     
      <select id="SelectSignList" resultType="com.hrm.finalpj.dto.signDTO">
-    	select sign_num,sign_req_title,sign_status,sign_begin,sign_res_name from sign
+    	select sign_num,sign_req_title,sign_status,sign_begin,sign_res_name,sign_first from sign
+    </select>
+ 
+     <select id="SelectSignList2" resultType="com.hrm.finalpj.report.dto.ReportDTO">
+    	SELECT * FROM LISTVIEW
     </select>
     
     <select id="SelectSignPage" resultType="com.hrm.finalpj.dto.signDTO">
     	select sign_num,sign_req_title,sign_begin,sign_res_name,sign_req_contents from sign where sign_num = #{0}
     </select>
+ 	
+ 	<update id="approveDAO">
+ 		update sign set sign_status='승인완료' where sign_num = #{sign_num}
+ 	</update>
+ 	
+ 	<update id="denyDAO">
+ 		update sign set sign_status='반려' where sign_num = #{sign_num}
+ 	</update>
  	
 </mapper>
