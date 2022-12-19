@@ -640,3 +640,15 @@ li[data-depth="1"] a {
    width : 500px;
    height: 200px;
 }
+.write-submit {
+	border:none;
+   	border-radius: 10px;
+   	width: 80px;
+   	height: 40px;
+	color: #fff;
+   	background: #30afff;
+   	transition: 0.3s;
+}
+.write-submit:hover {
+	background: #259ddd;
+}

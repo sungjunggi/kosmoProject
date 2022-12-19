@@ -46,31 +46,45 @@ public class TodoController {
        test.setCommunication_search(search);
        test.setCommunication_start(start);
        test.setCommunication_end(end);
+       
+       int myNum = dao.numDAO(principal.getName());
        int scheduled = dao.scheduledTotalDAO();
        int proceeding = dao.proceedingTotalDAO();
        int finish = dao.finishTotalDAO();
+       int allTodoCount = dao.allTodoCountDAO();
+       int myTodoCount = dao.myTodoCountDAO(myNum);
+       
        req.setAttribute("scheduled", scheduled);
        req.setAttribute("proceeding", proceeding);
        req.setAttribute("finish", finish);
+       req.setAttribute("allTodoCount", allTodoCount);
+       req.setAttribute("myTodoCount", myTodoCount);
        String clickScheduled = req.getParameter("scheduled");
        String clickProceeding = req.getParameter("proceeding");
+     
        String clickFinish = req.getParameter("finish");
        
        if(clickScheduled != null) {
     	   System.out.println("진행예정");
     	   model.addAttribute("list",dao.clickScheduledDAO(test,clickScheduled));
+    	   model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+           return "TodoMain";
        }else if(clickProceeding != null) {
     	   System.out.println("진행중");
     	   model.addAttribute("list",dao.clickProceedingDAO(test,clickProceeding));
+    	   model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+           return "TodoMain";
        }else if(clickFinish != null) {
     	   System.out.println("진행완료");
     	   model.addAttribute("list",dao.clickFinishDAO(test,clickFinish));
+    	   model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+           return "TodoMain";
        }
       if(allTodo != null ) {
     	  model.addAttribute("list", todoservice.getList(test));
       }else if(myTodo != null) {
-          int myNum = dao.numDAO(principal.getName());
-    	  model.addAttribute("list",dao.myTodoDAO(myNum));
+          myNum = dao.numDAO(principal.getName());
+    	  model.addAttribute("list",dao.myTodoDAO(test, myNum));
     	  model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
           return "TodoMain";
       }
