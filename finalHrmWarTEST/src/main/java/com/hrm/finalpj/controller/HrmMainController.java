@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hrm.finalpj.dto.signDTO;
 import com.hrm.finalpj.mapper.IHrmMapper;
+import com.hrm.finalpj.report.dto.ReportDTO;
 import com.hrm.finalpj.service.HrmTableService;
 
 @Controller
@@ -46,11 +47,16 @@ public class HrmMainController {
 	}
 
 	@RequestMapping("/signlist")
-	   public String getsignlist(Model model, HttpServletRequest req) {
+	   public String getsignlist(Model model) {
 		signDTO dto = new signDTO();
 		model.addAttribute("signlist", imap.SelectSignList(dto));
+		ReportDTO dto1 = new ReportDTO();
+		model.addAttribute("signlist1", imap.SelectSignList2(dto1));
+		
 		return "signlist";
 	   }
+	
+	
 	
 	@RequestMapping("/signpage/{sign_num}")
 	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model,HttpServletRequest req) {

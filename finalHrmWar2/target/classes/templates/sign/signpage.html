@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/layout1}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<div layout:fragment="content">
+<body>
 <div class="container">
 	<h2>승인 페이지</h2>
-	    <table width="800px" border="1">
+	    <table width="800px" border="1";>
 	    	<thead>
 					<tr>
 						<td>번호</td>
@@ -30,9 +28,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					</tr>
 			</thead>
 		</table>
-		<input type="button" value="뒤로가기" onclick="history.back();" /> 
-		<button type="button">승인</button> 
-		<button type="button">반려</button> 
+		
+		<a href="/signlist" >뒤로가기</a>
+		<form th:action="@{${sign_num}}" method="get">
+		<!-- <div th:if="${sign_res_name == sign_first}"> -->
+		<input type="submit" name="approve" value="승인"> 
+		<input type="submit" name="deny" value="반려">
+		<!-- </div> -->
+		</form>
 	</div>
-</div>
+</body>
 </html>
