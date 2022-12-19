@@ -27,12 +27,27 @@
 				</div>
 			</div>
 		</form>
-		<div id="todo-btn-wrap">	
-			<button type="button" name="allTodo">전체 할 일</button>
-			<button type="button" name="myTodo">내가 배정한 할 일</button>
-			<button type="button" name="scheduled">진행예정</button>
-			<button type="button" name="proceeding">진행중</button>
-			<button type="button" name="finish">진행완료</button>
+		<div id="todo-btn-wrap">
+			<form th:action="@{/todo/1}" method="get"> 
+				<button type="submit" name="allTodo" value="전체 할 일">
+					<span>전체 할 일</span>
+				</button>
+				<button type="submit" name="myTodo" value="내가 배정한 할 일">
+					<span>내가 배정한 할 일</span>
+				</button>
+				<button type="submit" name="scheduled" value="진행예정">
+					<span>진행예정</span>
+ 					<span th:text="${scheduled}"></span>
+				</button>
+				<button type="submit" name="proceeding" value="진행중">
+					<span>진행중</span>
+ 					<span th:text="${proceeding}"></span>
+				</button>
+				<button type="submit" name="finish" value="진행완료">
+					<span>진행완료</span>
+ 					<span th:text="${finish}"></span>
+				</button>
+			</form>
 		</div>
 		<button class="todo-write-btn" type="button" onclick="todoPopupShow()">+ 할일 만들기</button>
 		

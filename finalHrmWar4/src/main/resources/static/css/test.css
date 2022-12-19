@@ -306,8 +306,11 @@ li[data-depth="1"] a {
 	display:flex;
 	width: 100%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0;
+}
+.todo-search-bar-wrap {
+	margin-left: 10px;
 }
 .todo-search-wrap .todo-date-wrap input, select {
 	height: 30px;
