@@ -29,9 +29,9 @@ public interface ITodoDAO {
    public int proceedingTotalDAO();
    public int finishTotalDAO();
    public List<CommunicationDTO> myTodoDAO(int num);
-   public List<CommunicationDTO> clickScheduledDAO(String clickScheduled);
-   public List<CommunicationDTO> clickProceedingDAO(String clickProceeding);
-   public List<CommunicationDTO> clickFinishDAO(String clickFinish);
+   public List<CommunicationDTO> clickScheduledDAO(Criteria criteria,String clickScheduled);
+   public List<CommunicationDTO> clickProceedingDAO(Criteria criteria,String clickProceeding);
+   public List<CommunicationDTO> clickFinishDAO(Criteria criteria,String clickFinish);
    
 
 }

@@ -58,13 +58,13 @@ public class TodoController {
        
        if(clickScheduled != null) {
     	   System.out.println("진행예정");
-    	   model.addAttribute("list",dao.clickScheduledDAO(clickScheduled));
+    	   model.addAttribute("list",dao.clickScheduledDAO(test,clickScheduled));
        }else if(clickProceeding != null) {
     	   System.out.println("진행중");
-    	   model.addAttribute("list",dao.clickProceedingDAO(clickProceeding));
+    	   model.addAttribute("list",dao.clickProceedingDAO(test,clickProceeding));
        }else if(clickFinish != null) {
     	   System.out.println("진행완료");
-    	   model.addAttribute("list",dao.clickFinishDAO(clickFinish));
+    	   model.addAttribute("list",dao.clickFinishDAO(test,clickFinish));
        }
       if(allTodo != null ) {
     	  model.addAttribute("list", todoservice.getList(test));
