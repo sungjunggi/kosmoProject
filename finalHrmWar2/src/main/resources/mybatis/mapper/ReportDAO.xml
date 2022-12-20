@@ -5,34 +5,74 @@
 	
 <mapper namespace="com.hrm.finalpj.dao.IReportDAO">
 	<select id="listDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
-		SELECT * FROM LISTVIEW
+		SELECT * FROM LISTVIEW ORDER BY TEMPLATE_BOARD_NUM DESC
 	</select>
 	<select id="viewDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
 		SELECT * FROM BOARDVIEW WHERE TEMPLATE_BOARD_NUM = #{0} 
 	</select>
-	<select id="selectDAO" resultType="com.hrm.finalpj.report.dto.TemplateDTO">
+	<!-- <select id="searchDateDAO" resultType="com.hrm.finalpj.report.dto.Criteria" parameterType="com.hrm.finalpj.report.dto.PageDTO">
+	<![CDATA[
+		SELECT * FROM(
+    		SELECT ROWNUM R FROM (
+        		SELECT E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
+               		TB.TEMPLATE_BOARD_NUM, TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_SIGN_STATUS, 
+               		TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END, COUNT(TB.TEMPLATE_BOARD_NUM) AS COUNT
+        		FROM EMPLOYEE E, GETTEMPLATE GT, TEMPLATE_BOARD TB
+        		WHERE E.EMPLOYEE_NUM = TB.EMPLOYEE_NUM
+        		AND TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM
+        		GROUP BY E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
+              		 	TB.TEMPLATE_BOARD_NUM, TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_SIGN_STATUS, 
+               		 	TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END) C
+   			WHERE ROWNUM <=(#{pageNum}) * #{amount} 
+    		AND TEMPLATE_BOARD_START >= #{TEMPLATE_BOARD_START} 
+    		AND TEMPLATE_BOARD_END <= #{TEMPLATE_BOARD_END}) 
+		WHERE R>(#{pageNum}-1) * #{amount}
+		
+		UNION ALL
+		SELECT NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+		FROM DUAL
+		WHERE NOT EXISTS (
+			SELECT * FROM(
+    			SELECT ROWNUM R FROM (
+        			SELECT E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
+               				TB.TEMPLATE_BOARD_NUM, TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_SIGN_STATUS, 
+               				TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END, COUNT(TB.TEMPLATE_BOARD_NUM) AS COUNT
+        			FROM EMPLOYEE E, GETTEMPLATE GT, TEMPLATE_BOARD TB
+        			WHERE E.EMPLOYEE_NUM = TB.EMPLOYEE_NUM
+        			AND TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM
+        			GROUP BY E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
+              		 		TB.TEMPLATE_BOARD_NUM, TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_SIGN_STATUS, 
+               		 		TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END) C
+   				WHERE ROWNUM <=(#{pageNum}) * #{amount} 
+    			AND TEMPLATE_BOARD_START >= #{TEMPLATE_BOARD_START} 
+    			AND TEMPLATE_BOARD_END <= #{TEMPLATE_BOARD_END}) 
+			WHERE R>(#{pageNum}-1) * #{amount}
+		)
+	]]>
+	</select> -->
+	<select id="selectDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
 		SELECT * FROM GETTEMPLATE
 	</select>
-	<select id="templateDAO" resultType="com.hrm.finalpj.report.dto.TemplateDTO">
+	<select id="templateDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
 		SELECT * FROM GETTEMPLATE WHERE GETTEMPLATE_NUM = #{GETTEMPLATE_NUM} 
 	</select>
 	<insert id="writeDAO1">
 		INSERT INTO TEMPLATE_BOARD 
 		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
-		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
-		 #{template_board_answer5}, #{template_board_answer6}, #{template_board_answer7})
+		 #{template_board_answer1}, #{template_board_sign_name}, #{template_board_start}, #{template_board_end},
+		 #{template_board_answer4}, #{template_board_answer5}, #{template_board_answer6}, #{template_board_answer7}
 	</insert>
 	<insert id="writeDAO2">
 		INSERT INTO TEMPLATE_BOARD 
 		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
-		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
-		 null, null, null)
+		 #{template_board_answer1}, #{template_board_sign_name}, #{template_board_start}, #{template_board_end},
+		 #{template_board_answer4}, #{template_board_answer5}, null, null)
 	</insert>
 	<insert id="writeDAO3">
 		INSERT INTO TEMPLATE_BOARD 
 		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
-		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
-		 #{template_board_answer5}, null, null)
+		 #{template_board_answer1}, #{template_board_sign_name}, #{template_board_start}, #{template_board_end}, #{template_board_answer4}, 
+		 #{template_board_answer5}, #{template_board_answer6}, null)
 	</insert>
 	<update id="updateDAO">
 		
