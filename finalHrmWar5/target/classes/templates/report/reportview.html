@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>reportview</title>
+</head>
+<div layout:fragment="content">
+	<div th:each="dto:${view}">
+		<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
+		<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
+		<a th:href="@{'/updateview/'+${dto.template_board_num}}"></a>
+		<div style="display: flex; align-items: center; margin-bottom: 10px;">
+			<a th:href="@{/reportlist}" style="display: inline-block;">
+				<span>
+					<i class="back-icon icon"></i>
+				</span>
+			</a>
+			<h4 style="float: left; display: inline-block; margin:0;">보고서 정보</h4>
+		</div>
+		<br/>
+		<div class="report-view-wrap">
+			<div class="report-info">
+				<div>
+					<h5>보고서 타입</h5>
+					<div th:text="${dto.gettemplate_title}"></div>
+				</div>
+				<br/>
+				<div>
+					<h5>작성자</h5>
+					<div th:text="${dto.employee_name}"></div>
+				</div>
+				<br/>
+				<div>
+					<h5>작성일</h5>
+					<div th:text="${dto.template_board_date}"></div>
+				</div>
+				<br/>
+			</div>
+			
+			<div class="report-detail">
+				<th:block th:if="${dto.gettemplate_num}==1">
+					<div>
+						<h5>참가자</h5>
+						<div th:text="${dto.template_board_answer1}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>결재자</h5>
+						<div th:text="${dto.template_board_sign_name}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>교육기간</h5>
+						<div th:text="${dto.template_board_start}"></div>
+						~
+						<div th:text="${dto.template_board_end}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>교육장소</h5>
+						<div th:text="${dto.template_board_answer4}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>교육명</h5>
+						<div th:text="${dto.template_board_answer5}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>교육내용</h5>
+						<div th:text="${dto.template_board_answer6}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>비고</h5>
+						<div th:text="${dto.template_board_answer7}"></div>
+					</div>
+					<br/>
+				</th:block>
+				
+				<th:block th:if="${dto.gettemplate_num}==2">
+					<div>
+						<h5>작성자</h5>
+						<div th:text="${dto.template_board_answer1}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>결재자</h5>
+						<div th:text="${dto.template_board_sign_name}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>업무기간</h5>
+						<div th:text="${dto.template_board_start}"></div>
+						~
+						<div th:text="${dto.template_board_end}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>업무내용</h5>
+						<div th:text="${dto.template_board_answer4}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>비고</h5>
+						<div th:text="${dto.template_board_answer5}"></div>
+					</div>
+					<br/>
+				</th:block>
+				
+				<th:block th:if="${dto.gettemplate_num}==3">
+					<div>
+						<h5>출장자</h5>
+						<div th:text="${dto.template_board_answer1}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>결재자</h5>
+						<div th:text="${dto.template_board_sign_name}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>출장기간</h5>
+						<div th:text="${dto.template_board_start}"></div>
+						~
+						<div th:text="${dto.template_board_end}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>출장지</h5>
+						<div th:text="${dto.template_board_answer4}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>출장내용</h5>
+						<div th:text="${dto.template_board_answer5}"></div>
+					</div>
+					<br/>
+					<div>
+						<h5>비고</h5>
+						<div th:text="${dto.template_board_answer6}"></div>
+					</div>
+					<br/>
+				</th:block>
+				
+				<div>		
+					<div th:text="${dto.getfile_old_name}"></div>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_image}"></div> 
+				</div>
+				<br/>
+				<div>	
+					<div th:text="${dto.getcomment_content}"></div>
+				</div>	
+			</div>
+		</div>
+		<button class="report-edit-btn" onclick="">수정</button>
+		<button class="report-del-btn" onclick="">삭제</button>
+	</div>
+</div>
+</html>
