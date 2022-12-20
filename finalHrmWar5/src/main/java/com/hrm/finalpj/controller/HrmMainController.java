@@ -53,7 +53,7 @@ public class HrmMainController {
 		ReportDTO dto1 = new ReportDTO();
 		model.addAttribute("signlist1", imap.SelectSignList2(dto1));
 		
-		return "signlist";
+		return "sign/signlist";
 	   }
 	
 	
@@ -72,6 +72,6 @@ public class HrmMainController {
 			model.addAttribute("dto", dto);
 		}
 		
-	      return "signpage";
+	      return "sign/signpage";
 	   }
 }

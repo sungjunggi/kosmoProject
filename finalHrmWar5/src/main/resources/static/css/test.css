@@ -696,3 +696,69 @@ li[data-depth="1"] a {
 .report-del-btn:hover {
    background: #259ddd;
 }
+.sign-list-wrap {
+    margin-top: 50px;
+
+}
+.sign-list-wrap thead {
+	padding: 10px;
+	text-align: center;
+	background: #eaeaea;
+}
+.sign-list-wrap th {
+	height:40px;
+}
+.sign-list-wrap td {
+	height:40px;
+}
+
+.sign-info {
+	width:100%;
+	padding: 30px;
+   	border: 1px solid #d3d3d3;
+   	border-radius: 10px;
+   	background: #fafafa;
+   	margin-bottom : 20px;
+	
+}
+.sign-info-content span{
+	display: flex;
+	width:100%;
+	padding: 30px;
+   	border: 1px solid #d3d3d3;
+   	border-radius: 10px;
+   	background: #fafafa;
+   	margin-bottom : 20px;
+}
+.sign-ap-btn, .sign-rj-btn {
+	border:none;
+   	border-radius: 10px;
+   	width: 80px;
+   	height: 40px;
+}
+.sign-ap-btn {
+   color: #fff;
+   background: #ff4545;
+   transition: 0.3s;
+}
+.sign-ap-btn:hover {
+   background: #cc2828;
+}
+.sign-rj-btn{
+   color: #fff;
+   background: #30afff;
+   transition: 0.3s;
+}
+.sign-rj-btn:hover {
+   background: #259ddd;
+}
+.sign-list-wrap {
+    margin-top: 50px;
+}
+.sign-info-block {
+	margin-bottom: 10px;
+}
+.sign-info h5 {
+	margin: 0;
+}
+
