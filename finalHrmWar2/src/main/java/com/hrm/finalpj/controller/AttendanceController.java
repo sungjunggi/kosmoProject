@@ -16,20 +16,24 @@ public class AttendanceController {
 	@RequestMapping("/attMain")
 	public String defaultAtt(Model model) {
 		model.addAttribute("totalAtt",dao.totalAtt());
-		model.addAttribute("attRate1",dao.attRate1());
-		model.addAttribute("attRate2",dao.attRate2());
 		return "attendence/attendance";
 	}
 	
-	@RequestMapping("/attRate1")
-	public String attRate1(Model model) {
-		model.addAttribute("attRate1",dao.attRate1());
-		return "attendence/attendance";
-	}
+//	@RequestMapping("/attMain")
+//		public String attRate1(Model model) {
+//		model.addAttribute("attRate1",dao.attRate1());
+//		model.addAttribute("attRate2",dao.attRate2());
+//		double rate1=dao.attRate1();
+//		double rate2=dao.attRate2();
+//		double average = ((rate1 / rate2)*100);
+//		String average2 = String.format("%.1f", average);
+//		model.addAttribute("average", average2);
+//		return "attendence/attendance";
+//	}
 	
-	@RequestMapping("/attRate2")
-	public String attRate2(Model model) {
-		model.addAttribute("attRate2",dao.attRate2());
-		return "attendence/attendance";
-	}
+//	@RequestMapping("/attMain")
+//	public String alreadyAtt(Model model) {
+//		model.addAttribute("alreadyAtt",dao.alreadyAtt());
+//		return "attendence/attendance";
+//	}
 }
