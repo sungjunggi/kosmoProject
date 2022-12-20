@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hrm.finalpj.dao.IAttendanceDao2">
+	<select id="attRate1" resultType="com.hrm.finalpj.dto.AttendanceDto2">
+		SELECT COUNT(*) as attRate1
+		FROM EMPLOYEE E, CALENDAR C, SCHEDULE S, ATTENDANCE A
+		WHERE E.EMPLOYEE_NUM=C.EMPLOYEE_NUM
+		AND C.SCHEDULE_NUM=S.SCHEDULE_NUM
+		AND E.EMPLOYEE_NUM=A.EMPLOYEE_NUM
+		AND S.SCHEDULE_NUM=1
+		AND SUBSTR(A.ATTENDANCE_WORKSTART,1,10) = TO_CHAR(SYSDATE,'yyyy-mm-dd')
+	</select>
+	<select id="attRate2" resultType="com.hrm.finalpj.dto.AttendanceDto2">
+		SELECT COUNT(*) as attRate2
+		FROM EMPLOYEE E, CALENDAR C, SCHEDULE S
+		WHERE E.EMPLOYEE_NUM=C.EMPLOYEE_NUM
+		AND C.SCHEDULE_NUM=S.SCHEDULE_NUM
+		AND S.SCHEDULE_NUM=1
+		AND C.CALENDAR_DATE = TO_CHAR(SYSDATE,'yyyy-mm-dd')
+	</select>
+	
+	<select id="totalAtt" resultType="com.hrm.finalpj.dto.AttendanceDto2">
+		SELECT E.EMPLOYEE_NAME,J.JOB_NAME,T.TYPE_CATEGORY, S.SCHEDULE_NAME,A.ATTENDANCE_WORKSTART, A.ATTENDANCE_WORKEND
+		FROM ATTENDANCE A,EMPLOYEE E, CALENDAR C, SCHEDULE S, TYPE T, DEPARTMENT D, JOB J
+		WHERE A.EMPLOYEE_NUM=E.EMPLOYEE_NUM
+		AND E.EMPLOYEE_NUM=C.EMPLOYEE_NUM
+		AND C.SCHEDULE_NUM=S.SCHEDULE_NUM
+		AND S.TYPE_NUM=T.TYPE_NUM
+		AND D.DEPARTMENT_NUM=E.DEPARTMENT_NUM
+		AND D.JOB_NUM=J.JOB_NUM
+	</select>
+	
+</mapper>

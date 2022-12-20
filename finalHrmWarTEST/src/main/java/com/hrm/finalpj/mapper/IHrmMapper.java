@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.hrm.finalpj.dto.signDTO;
+import com.hrm.finalpj.report.dto.ReportDTO;
 
 
 @Mapper
@@ -17,6 +18,8 @@ public interface IHrmMapper {
     //select * from 
     
     public List<signDTO> SelectSignList(signDTO dto); 
+    
+    public List<signDTO> SelectSignList2(ReportDTO dto);
     
     public signDTO SelectSignPage(int dto);
     

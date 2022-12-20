@@ -14,10 +14,11 @@
 		<td>작성자</td>
 		<td>승인상태</td>
 		<td>작성일</td>
+		<td>결재자</td>
 	</tr>
 </thead>
 <tbody>
-	<tr th:each="dto:${signlist}" >
+    <tr th:each="dto:${signlist}">
 		<td><span th:text="${dto.sign_num}"></span></td>
 		<td>
 		<a th:href="@{/signpage/{sign_num}(sign_num = ${dto.sign_num})}">
@@ -27,29 +28,22 @@
 		<td><span th:text="${dto.sign_res_name}"></span></td>
 		<td><span th:text="${dto.sign_status}"></span></td>
 		<td><span th:text="${dto.sign_begin}"></span></td>
+		<td><span th:text="${dto.sign_first}"></span></td>
 	</tr>
 	
-	<!-- <div class="form-inline justify-content-center" th:object="${itemSearchDto}">
-            <select th:field="*{searchDateType}" class="form-control" style="width:auto;">
-                <option value="all">전체기간</option>
-                <option value="1d">1일</option>
-                <option value="1w">1주</option>
-                <option value="1m">1개월</option>
-                <option value="6m">6개월</option>
-            </select>
-            <select th:field="*{searchStatus}" class="form-control" style="width:auto;">
-                <option value="">판매상태(전체)</option>
-                <option value="SELL">판매</option>
-                <option value="SOLD_OUT">품절</option>
-            </select>
-            <select th:field="*{searchBy}" class="form-control" style="width:auto;">
-                <option value="itemNm">상품명</option>
-                <option value="createdBy">등록자</option>
-            </select>
-            <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">
-            <button id="searchBtn" type="submit" class="btn btn-primary">검색</button>
-        </div>
-	-->
+	<tr th:each="dto:${signlist1}" >
+		<td><span th:text="${dto.template_board_num}"></span></td>
+		<td>
+		<a th:href="@{/signpage/{sign_num}(sign_num = ${dto.gettemplate_title})}">
+		<span th:text="${dto.gettemplate_title}"></span>
+		</a>
+		</td>
+		<td><span th:text="${dto.employee_name}"></span></td>
+		<td><span th:text="${dto.template_board_sign_status}"></span></td>
+		<td><span th:text="${dto.template_board_date}"></span></td>
+		<td><span th:text="${dto.template_board_sign_name}"></span></td>
+	</tr>
+	
 </tbody>
 </table>
 </body>

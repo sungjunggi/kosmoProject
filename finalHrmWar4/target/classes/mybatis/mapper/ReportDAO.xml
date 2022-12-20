@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.hrm.finalpj.dao.IReportDAO">
+	<select id="listDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
+		SELECT * FROM LISTVIEW
+	</select>
+	<select id="viewDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
+		SELECT * FROM BOARDVIEW WHERE TEMPLATE_BOARD_NUM = #{0} 
+	</select>
+	<select id="selectDAO" resultType="com.hrm.finalpj.report.dto.TemplateDTO">
+		SELECT * FROM GETTEMPLATE
+	</select>
+	<select id="templateDAO" resultType="com.hrm.finalpj.report.dto.TemplateDTO">
+		SELECT * FROM GETTEMPLATE WHERE GETTEMPLATE_NUM = #{GETTEMPLATE_NUM} 
+	</select>
+	<insert id="writeDAO1">
+		INSERT INTO TEMPLATE_BOARD 
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
+		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
+		 #{template_board_answer5}, #{template_board_answer6}, #{template_board_answer7})
+	</insert>
+	<insert id="writeDAO2">
+		INSERT INTO TEMPLATE_BOARD 
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
+		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
+		 null, null, null)
+	</insert>
+	<insert id="writeDAO3">
+		INSERT INTO TEMPLATE_BOARD 
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, null, SYSDATE,
+		 #{template_board_answer1}, #{template_board_answer2}, #{template_board_answer3}, #{template_board_answer4}, 
+		 #{template_board_answer5}, null, null)
+	</insert>
+	<update id="updateDAO">
+		
+	</update>
+	<delete id="deleteDAO">
+		DELETE FROM COMMUNICATION WHERE COMMUNICATION_NUM=#{_id}
+	</delete>
+</mapper>
