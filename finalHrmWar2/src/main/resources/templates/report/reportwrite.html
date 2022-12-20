@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 <head>
 <meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>viewtemplate</title>
+	<script type="text/javascript">
+	   window.onload = function() {
+	      today = new Date();
+	      today = today.toISOString().slice(0, 10);
+	     
+	      sysdate = document.getElementById("currentDate");
+	      sysdate.value = today;
+	   }
+	</script>
 </head>
-<style>
-	[placeholder]:empty:before {
-	  display: block;
-	  content: attr(placeholder);
-	  border-radius: 30px;
-	  color: #a6a6a6;
-	}
-</style>
-<body>
+<div layout:fragment="content">
 	<button onclick="location.href='/reportlist'" name="취소" value="취소"> ← </button>
+	<br/>
 	<br/>
 	<form id="form" name="form" method="post" action="/reportlist">
 	<div th:each="dto : ${template}">
 		<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
-			<div>
-				<div th:text="${dto.gettemplate_num}"></div>
-			</div>
-			<br/>
 			<div>
 				<div th:text="${dto.gettemplate_title}"></div>
 			</div>
@@ -35,12 +35,14 @@
 			<br/>
 			<div>
 				<div th:text="${dto.gettemplate_question2}"></div>
-				<input type="text" name="answer2" placeholder='내용을 작성해주세요.' style="width: 20%"/>
+				<input type="text" name="answer2" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
 			</div>
 			<br/>	
 			<div>
 				<div th:text="${dto.gettemplate_question3}"></div>
-				<input type="text" name="answer3" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
+				<input type="date" name="start" id="currentDate" style="width: 20%"/>
+				~
+				<input type="date" name="end" id="endDate" style="width: 20%"/>
 			</div>
 			<br/>
 			<div>
@@ -62,6 +64,7 @@
 				<div th:text="${dto.gettemplate_question7}"></div>
 				<input type="text" name="answer7" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
 			</div>
+			<br/>
 		</th:block>
 		
 		<th:block th:if="${dto.gettemplate_num}==2">
@@ -77,13 +80,21 @@
 			<br/>	
 			<div>
 				<div th:text="${dto.gettemplate_question3}"></div>
-				<input type="text" name="answer3" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
+				<input type="date" name="start" id="currentDate" style="width: 20%"/>
+				~
+				<input type="date" name="end" id="endDate" style="width: 20%"/>
 			</div>
 			<br/>
 			<div>
 				<div th:text="${dto.gettemplate_question4}"></div>
 				<input type="text" name="answer4" placeholder='내용을 작성해주세요.' style="width: 20%"/>
 			</div>
+				<br/>
+				<div>
+				<div th:text="${dto.gettemplate_question5}"></div>
+				<input type="text" name="answer5" placeholder='내용을 작성해주세요.' style="width: 20%"/>
+			</div>
+			<br/>	
 		</th:block>
 		
 		<th:block th:if="${dto.gettemplate_num}==3">
@@ -99,7 +110,9 @@
 			<br/>	
 			<div>
 				<div th:text="${dto.gettemplate_question3}"></div>
-				<input type="text" name="answer3" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
+				<input type="date" name="start" id="currentDate" style="width: 20%"/>
+				~
+				<input type="date" name="end" id="endDate" style="width: 20%"/>
 			</div>
 			<br/>
 			<div>
@@ -111,6 +124,12 @@
 				<div th:text="${dto.gettemplate_question5}"></div>
 				<input type="text" name="answer5" placeholder='내용을 작성해주세요.' style="width: 20%"/>
 			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.gettemplate_question6}"></div>
+				<input type="text" name="answer6" placeholder='내용을 작성해주세요.'  style="width: 20%"/>
+			</div>
+			<br/>
 		</th:block>
 		
 		<br/>
@@ -128,5 +147,5 @@
 	</div>	
 		<input type="submit" name="제출" value="제출" />
 	</form>	
-</body>
+</div>
 </html>

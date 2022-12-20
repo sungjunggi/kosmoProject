@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 <head>
 <meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>reportview</title>
 </head>
-<body>
+<div layout:fragment="content">
 	<div th:each="dto:${view}">
 		<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
 		<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
 		<a th:href="@{'/updateview/'+${dto.template_board_num}}"></a>
+		<button onclick="location.href='/reportlist'" name="취소" value="취소"> ← </button>
+		<br/>
 		<button onclick="">수정</button>
 		<button onclick="">삭제</button>
 			<div>
-				<div th:text="${dto.template_board_num}"></div>
+				<div th:text="${dto.gettemplate_title}"></div>
 			</div>
 			<br/>
 			<div>
@@ -26,75 +30,109 @@
 		
 		<th:block th:if="${dto.gettemplate_num}==1">
 			<div>
+				<p><strong>참가자</strong></p>
 				<div th:text="${dto.template_board_answer1}"></div>
 			</div>
 			<br/>
 			<div>
-				<div th:text="${dto.template_board_answer2}"></div>
+				<p><strong>결재자</strong></p>
+				<div th:text="${dto.template_board_sign_name}"></div>
 			</div>
 			<br/>
 			<div>
-				<div th:text="${dto.template_board_answer3}"></div>
+				<p><strong>교육기간</strong></p>
+				<div th:text="${dto.template_board_start}"></div>
+				~
+				<div th:text="${dto.template_board_end}"></div>
 			</div>
 			<br/>
 			<div>
+				<p><strong>교육장소</strong></p>
 				<div th:text="${dto.template_board_answer4}"></div>
 			</div>
 			<br/>
 			<div>
+				<p><strong>교육명</strong></p>
 				<div th:text="${dto.template_board_answer5}"></div>
 			</div>
 			<br/>
 			<div>
+				<p><strong>교육내용</strong></p>
 				<div th:text="${dto.template_board_answer6}"></div>
 			</div>
 			<br/>
 			<div>
+				<p><strong>비고</strong></p>
 				<div th:text="${dto.template_board_answer7}"></div>
 			</div>
+			<br/>
 		</th:block>
 		
 		<th:block th:if="${dto.gettemplate_num}==2">
 			<div>
+				<p><strong>작성자</strong></p>
 				<div th:text="${dto.template_board_answer1}"></div>
 			</div>
 			<br/>
 			<div>
-				<div th:text="${dto.template_board_answer2}"></div>
+				<p><strong>결재자</strong></p>
+				<div th:text="${dto.template_board_sign_name}"></div>
 			</div>
 			<br/>
 			<div>
-				<div th:text="${dto.template_board_answer3}"></div>
+				<p><strong>업무기간</strong></p>
+				<div th:text="${dto.template_board_start}"></div>
+				~
+				<div th:text="${dto.template_board_end}"></div>
 			</div>
 			<br/>
 			<div>
+				<p><strong>업무내용</strong></p>
 				<div th:text="${dto.template_board_answer4}"></div>
 			</div>
+			<br/>
+			<div>
+				<p><strong>비고</strong></p>
+				<div th:text="${dto.template_board_answer5}"></div>
+			</div>
+			<br/>
 		</th:block>
 		
 		<th:block th:if="${dto.gettemplate_num}==3">
 			<div>
+				<p><strong>출장자</strong></p>
 				<div th:text="${dto.template_board_answer1}"></div>
 			</div>
 			<br/>
 			<div>
-				<div th:text="${dto.template_board_answer2}"></div>
+				<p><strong>결재자</strong></p>
+				<div th:text="${dto.template_board_sign_name}"></div>
 			</div>
 			<br/>
 			<div>
-				<div th:text="${dto.template_board_answer3}"></div>
+				<p><strong>출장기간</strong></p>
+				<div th:text="${dto.template_board_start}"></div>
+				~
+				<div th:text="${dto.template_board_end}"></div>
 			</div>
 			<br/>
 			<div>
+				<p><strong>출장지</strong></p>
 				<div th:text="${dto.template_board_answer4}"></div>
 			</div>
 			<br/>
 			<div>
+				<p><strong>출장내용</strong></p>
 				<div th:text="${dto.template_board_answer5}"></div>
 			</div>
+			<br/>
+			<div>
+				<p><strong>비고</strong></p>
+				<div th:text="${dto.template_board_answer6}"></div>
+			</div>
+			<br/>
 		</th:block>
 		
-		<br/>
 		<div>		
 			<div th:text="${dto.getfile_old_name}"></div>
 		</div>
@@ -107,5 +145,5 @@
 			<div th:text="${dto.getcomment_content}"></div>
 		</div>	
 	</div>
-</body>
+</div>
 </html>
