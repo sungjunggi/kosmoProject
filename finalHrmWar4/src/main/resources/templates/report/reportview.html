@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>reportview</title>
+</head>
+<div layout:fragment="content">
+	<div th:each="dto:${view}">
+		<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
+		<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
+		<a th:href="@{'/updateview/'+${dto.template_board_num}}"></a>
+		<button onclick="">수정</button>
+		<button onclick="">삭제</button>
+			<div>
+				<div th:text="${dto.template_board_num}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.employee_name}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_date}"></div>
+			</div>
+			<br/>
+		
+		<th:block th:if="${dto.gettemplate_num}==1">
+			<div>
+				<div th:text="${dto.template_board_answer1}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer2}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer3}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer4}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer5}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer6}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer7}"></div>
+			</div>
+		</th:block>
+		
+		<th:block th:if="${dto.gettemplate_num}==2">
+			<div>
+				<div th:text="${dto.template_board_answer1}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer2}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer3}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer4}"></div>
+			</div>
+		</th:block>
+		
+		<th:block th:if="${dto.gettemplate_num}==3">
+			<div>
+				<div th:text="${dto.template_board_answer1}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer2}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer3}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer4}"></div>
+			</div>
+			<br/>
+			<div>
+				<div th:text="${dto.template_board_answer5}"></div>
+			</div>
+		</th:block>
+		
+		<br/>
+		<div>		
+			<div th:text="${dto.getfile_old_name}"></div>
+		</div>
+		<br/>
+		<div>
+			<div th:text="${dto.gettemplate_image}"></div> 
+		</div>
+		<br/>
+		<div>	
+			<div th:text="${dto.getcomment_content}"></div>
+		</div>	
+	</div>
+</div>
+</html>
