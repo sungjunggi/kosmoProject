@@ -11,6 +11,8 @@ public interface IAttendanceDao2 {
 	
 	public List<AttendanceDto2> totalAtt();
 
-	public List<AttendanceDto2> attRate1();
-	public List<AttendanceDto2> attRate2();
+	public int attRate1();
+	public int attRate2();
+
+	public List<AttendanceDto2> alreadyAtt();
 }
