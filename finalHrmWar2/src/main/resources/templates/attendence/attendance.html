@@ -22,27 +22,41 @@
 	<h3>출퇴근 현황</h3><!-- grid 사용 -->
 	<p>단위 : 명</p>
 	<p>출근율</p>
+<!-- 	<p th:text="${dao.attRate1}"></p> -->
 	<table>
- 		<tr th:each="dao : ${attRate1}">
-			<td th:text="${dao.attRate1}"></td>
-		</tr> 	
-		<tr th:each="dao : ${attRate2}">
-			<td th:text="${dao.attRate2}"></td>
+	<tr>
+ 	<!-- 	<tr th:each="dao : ${attRate1}"> -->
+			<td th:text="${attRate1}"></td>
+		<!-- </tr>  -->	
+		<!-- <tr th:each="dao : ${attRate2}"> -->
+			<td th:text="${attRate2}"></td>
+			<td th:text="${average}"></td>
+	<!-- 	</tr> -->
+	</tr>
+	</table>
+	
+	<table>
+		<tr>
+			<td>이름</td>
+			<td>직급</td>
+			<td>근무상태</td>
+			<td>스케줄</td>
+			<td>출퇴근시각</td>
+			<td></td><td></td>
+			<td>특이사항</td>
+			<td>지각</td>
+			<td>조퇴</td>
+		</tr>
+		<tr th:each="dao : ${totalAtt}">
+			<td th:text="${dao.employee_name}"></td>
+			<td th:text="${dao.job_name}"></td>
+			<td th:text="${dao.type_category}"></td>
+			<td th:text="${dao.schedule_name}"></td>
+			<td th:text="${dao.attendance_workstart}"></td>
+			<td>-</td>
+			<td th:text="${dao.attendance_workend}"></td>
 		</tr>
 	</table>
-
-
-
-
-<!-- 	<p>사람 아이콘 0/0</p> -->
-
-<!-- 	<br/> -->
-	
-<!-- 	<div> -->
-<!-- 		<button>출근함</button> -->
-<!-- 		-명 -->
-<!-- 		당일 출근시각이 현재시각보다 빠른사람 select -->
-<!-- 	</div> -->
 <!-- 	<div> -->
 <!-- 		<button>출근전</button> -->
 <!-- 		9시 이전이며 출근시각이 존재하지 않는 직원 select -->
@@ -82,29 +96,6 @@
 <!-- 	<div> -->
 <!-- 		<button>일정없음</button> -->
 <!-- 	</div> -->
-	
-<!-- 	<table> -->
-<!-- 		<tr> -->
-<!-- 			<td>이름</td> -->
-<!-- 			<td>직급</td> -->
-<!-- 			<td>근무상태</td> -->
-<!-- 			<td>스케줄</td> -->
-<!-- 			<td>출퇴근시각</td> -->
-<!-- 			<td></td><td></td> -->
-<!-- 			<td>특이사항</td> -->
-<!-- 			<td>지각</td> -->
-<!-- 			<td>조퇴</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr th:each="dao : ${totalAtt}"> -->
-<!-- 			<td th:text="${dao.employee_name}"></td> -->
-<!-- 			<td th:text="${dao.job_name}"></td> -->
-<!-- 			<td th:text="${dao.type_category}"></td> -->
-<!-- 			<td th:text="${dao.schedule_name}"></td> -->
-<!-- 			<td th:text="${dao.attendance_workstart}"></td> -->
-<!-- 			<td>-</td> -->
-<!-- 			<td th:text="${dao.attendance_workend}"></td> -->
-<!-- 		</tr> -->
-<!-- 	</table> -->
 	
 <!-- 	<div> -->
 <!-- 		<p>전체인원</p> -->

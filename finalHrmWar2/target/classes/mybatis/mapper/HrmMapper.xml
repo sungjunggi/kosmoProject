@@ -26,4 +26,12 @@
  		update sign set sign_status='반려' where sign_num = #{sign_num}
  	</update>
  	
+ 	<select id="numDAO" resultType="String">
+ 		select employee_name from employee where employee_email = #{name}
+ 	</select>
+ 	
+ 	<select id="resDAO" resultType="String">
+ 		select sign_first from sign where sign_num= #{res}
+ 	</select>
+ 	
 </mapper>
