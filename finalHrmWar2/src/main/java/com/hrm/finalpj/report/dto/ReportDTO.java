@@ -42,5 +42,4 @@ public class ReportDTO {
 	private String getcomment_content;
 	private String count;
 	
-	
 }

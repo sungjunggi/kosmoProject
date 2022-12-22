@@ -27,11 +27,11 @@ public class HrmMainController {
 	@Resource
 	private HrmTableService hrmtableService;
 	
-   @RequestMapping("/")
-   public String test(Model model) {
-      System.out.println("guest");
-      return "/test";
-   }
+//   @RequestMapping("/")
+//   public String test(Model model) {
+//      System.out.println("guest");
+//      return "/test";
+//   }
 	
 	@RequestMapping(value="list")
 	public ModelAndView AllListView(Map<String, Object> map) throws Exception{
