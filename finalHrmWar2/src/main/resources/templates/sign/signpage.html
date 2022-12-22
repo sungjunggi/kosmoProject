@@ -1,40 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
-	<h2>승인 페이지</h2>
-	    <table width="800px" border="1";>
-	    	<thead>
-					<tr>
-						<td>번호</td>
-						<td th:text="${dto.sign_num}"></td>
-						<td>작성자</td>
-						<td th:text="${dto.sign_res_name}"></td>
-						<td>작성일</td>
-						<td th:text="${dto.sign_begin}"></td>
-					</tr>
-					
-					<tr>
-						<td>제목</td>
-						<td colspan="5"><span th:text="${dto.sign_req_title}"></span></td>
-					</tr>
-					<tr>
-						<td>내용</td>
-						<td colspan="5"><span th:text="${dto.sign_req_contents }"></span></td>
-					</tr>
-			</thead>
-		</table>
-		
-		<a href="/signlist" >뒤로가기</a>
-		<form th:action="@{${sign_num}}" method="get">
-		 <div th:if="${name == res}">
-		<input type="submit" name="approve" value="승인"> 
-		<input type="submit" name="deny" value="반려">
+	<div layout:fragment="content">
+		<div style="display: flex; align-items: center; margin-bottom: 10px;">
+			<a th:href="@{/signlist}" style="display: inline-block;">
+				<span>
+					<i class="back-icon icon"></i>
+				</span>
+			</a>
+			<h4 style="float: left; display: inline-block; margin:0;">승인 정보</h4>
 		</div>
+		<div class="sign-info-wrap">
+		  	<div class="sign-info">
+				<div class="sign-info-title">
+					<div class="sign-info-block">
+						<h5>제목</h5>
+						<span th:text="${dto.sign_req_title}"></span>
+					</div>
+					<div class="sign-info-block">
+						<h5>번호</h5>
+						<span th:text="${dto.sign_num}"></span>
+					</div>
+					<div class="sign-info-block">
+						<h5>작성자</h5>
+						<span th:text="${dto.sign_res_name}"></span>
+					</div>
+					<div class="sign-info-block">
+						<h5>작성일</h5>
+						<span th:text="${dto.sign_begin}"></span>
+					</div>
+				</div>
+				<hr>
+				<div class="sign-info-content">
+					<h5 style="margin-bottom:5px;">내용</h5>
+					<span th:text="${dto.sign_req_contents }"></span>
+				</div>
+			</div>
+		</div>	
+		<form th:action="@{${sign_num}}" method="get">
+			<input class="sign-ap-btn" type="submit" name="approve" value="승인"> 
+			<input class="sign-rj-btn" type="submit" name="deny" value="반려">
 		</form>
 	</div>
 </body>
