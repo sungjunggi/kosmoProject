@@ -34,11 +34,22 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<p th:text="${dto.communication_content}"></p>
 			<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
 			<div class="todo-info-content-btn">
-				<button onclick="editPopupShow()">수정하기</button>
+				<input type="button" id="edit" onclick="editPopupShow()" value="수정">
 				<form th:action="@{/deleteBoard}" id='frm' method="get">
-					<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
-					<input type="submit" id="delete" value="삭제하기">
+					<input type="submit" id="delete" value="삭제">
 				</form>
+				<div th:if="${dto.communication_state}==진행예정">
+				<form action="/todo/1" method="get">
+					<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
+   					<input id="ready-btn" type="submit" name="starting" value="진행시작">
+   				</form>
+   				</div>
+   				<div th:if="${dto.communication_state}==진행중">
+				<form action="/todo/1" method="get">
+					<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
+   					<input id="compl-btn" type="submit" name="ending" value="진행완료">
+   				</form>
+   				</div>
 			</div>
 		</div>
 	</div>
@@ -63,6 +74,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<label>작업</label><br/>
 			<input type="text" name="content" th:value="${dto.communication_content}">
 		</form>
+		
+			
 	</div>
 </div>
 <th:block layout:fragment="script">

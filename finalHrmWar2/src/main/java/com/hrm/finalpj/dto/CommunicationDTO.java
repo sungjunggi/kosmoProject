@@ -21,4 +21,5 @@ public class CommunicationDTO {
 	private int file_num;
 	private String bookmark_id;
 	private int employee_num;
+	private int category_num;
 }

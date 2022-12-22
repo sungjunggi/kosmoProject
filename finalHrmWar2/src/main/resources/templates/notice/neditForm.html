@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<div layout:fragment="content">
+<form th:action="@{'/nedit/'+ ${dto.communication_num}}" method="post">
+<span><a th:href="@{/nview/{num}(num=${dto.communication_num})}">← 할일 만들기</a>
+<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
+	<input type="submit" value="저장">
+</span><br/>
+	<label>타이틀</label><br/>
+	<input type="text" name="title" th:value="${dto.communication_title}"><br/><br/>
+	<label>누구에게 배정하나요?</label><br/>
+	<select name="employee">
+		<option value="allEmployee">전체 직원</option>
+		<option value="group">그룹</option>
+		<option value="specificEmployee">특정 직원</option>
+	</select><br/><br/>
+	<label>기간</label><br/>
+	작업 시작일 <input type="date" name="start" th:value="${dto.communication_start}"><br/>
+	작업 종료일 <input type="date" name="end" th:value="${dto.communication_end}"><br/><br/>
+	<label>작업</label><br/>
+	<input type="text" name="content" th:value="${dto.communication_content}">
+	
+	
+	
+</form>
+</div>
+</html>
