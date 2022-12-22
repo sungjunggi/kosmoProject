@@ -31,6 +31,7 @@ public class TodoController {
    
    @Autowired
    ITodoDAO dao;
+   
    @Autowired
    TodoServiceImpl todoservice;
    
@@ -98,6 +99,7 @@ public class TodoController {
     	  model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
           return "TodoMain";
       }
+      
 
        if(search !=null && start=="" && end=="") {
     	   System.out.println("검색만");

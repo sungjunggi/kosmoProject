@@ -1,5 +1,6 @@
 package com.hrm.finalpj.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -27,11 +28,11 @@ public class HrmMainController {
 	@Resource
 	private HrmTableService hrmtableService;
 	
-   @RequestMapping("/")
-   public String test(Model model) {
-      System.out.println("guest");
-      return "/test";
-   }
+//   @RequestMapping("/")
+//   public String test(Model model) {
+//      System.out.println("guest");
+//      return "/test";
+//   }
 	
 	@RequestMapping(value="list")
 	public ModelAndView AllListView(Map<String, Object> map) throws Exception{
@@ -53,15 +54,22 @@ public class HrmMainController {
 		ReportDTO dto1 = new ReportDTO();
 		model.addAttribute("signlist1", imap.SelectSignList2(dto1));
 		
-		return "signlist";
+		return "sign/signlist";
 	   }
 	
 	
 	
 	@RequestMapping("/signpage/{sign_num}")
-	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model,HttpServletRequest req) {
+	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model,HttpServletRequest req, Principal principal) {
+		String name = imap.numDAO(principal.getName());
+		model.addAttribute("name", name);
+		
 		signDTO dto = imap.SelectSignPage(sign_num);
 		model.addAttribute("dto", dto);
+		
+		String res = imap.resDAO(sign_num);
+		model.addAttribute("res", res);
+		
 		String approve = req.getParameter("approve");
 		String deny = req.getParameter("deny");
 		if(approve != null && deny == null) {
@@ -72,6 +80,6 @@ public class HrmMainController {
 			model.addAttribute("dto", dto);
 		}
 		
-	      return "signpage";
+	      return "sign/signpage";
 	   }
 }
