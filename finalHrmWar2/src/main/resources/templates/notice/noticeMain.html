@@ -11,11 +11,6 @@
    <div id="todo-header-wrap">
       <form th:action="@{/notice/1}"  method="get">
          <div class="todo-search-wrap">
-            <div class="todo-date-wrap">
-                <input id="todo-date" type="date" name="start">
-                ~
-                <input id="todo-date" type="date" name="end">
-            </div>            
             <div class="todo-search-bar-wrap">
                 <input class="todo-search-bar" name="searchText" type="text" placeholder="검색어를 입력하세요.">
                 <input class="todo-search-btn" type="submit" value="검색"/>
@@ -29,7 +24,7 @@
       </div>
       <button class="todo-write-btn" type="button" onclick="todoPopupShow()">+ 공지사항 만들기</button>
       
-      <!-- 모달창 영역 -->
+<!--       모달창 영역 -->
       <div class="popup-back"></div> <!-- 모달 백그라운드 -->
       <div id="todo-write-popup">
          <form action="/nwriting" method="post">

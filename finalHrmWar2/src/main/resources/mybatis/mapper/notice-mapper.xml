@@ -7,20 +7,24 @@
       
       <insert id="nwriteDAO" parameterType = "hashmap">
          insert into communication (communication_num,communication_title,communication_date,communication_content,EMPLOYEE_NUM,category_num)
-       values (seq_communication_num.nextval,#{title},#{date},#{content},#{num},20)   
+       values (seq_communication_num.nextval,#{title},#{today},#{content},#{num},20)   
       </insert>
       
       <select id="nviewDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO">
       select * from communication where communication_num=#{0} <!-- 인덱스값 -->
    	</select>
+   	
+   	<select id="ngetTotal" resultType="int">
+       select count(*) as total from communication where category_num=20
+      </select>
    
    <delete id="ndeleteDAO">
       delete from communication where communication_num = #{param1}
    </delete>
    
    <update id="nupdateDAO" parameterType="com.hrm.finalpj.dto.CommunicationDTO">
-      update communication set communication_date=#{communication_date,jdbcType=VARCHAR},communication_content=#{communication_content,jdbcType=VARCHAR}
-      , communication_title=#{communication_title,jdbcType=VARCHAR} where communication_num=#{communication_num,jdbcType=NUMERIC}
+      update communication set communication_date=#{communication_date},communication_content=#{communication_content}
+      , communication_title=#{communication_title} where communication_num=#{communication_num}
    </update>
    
    <delete id="ndeleteBoardDAO" parameterType="int">
@@ -29,7 +33,7 @@
    
    <select id="ngetList" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.PageDTO">
        <![CDATA[
-       select * from( select rownum r, C.* from(select communication_num,communication_title,communication_date,communication_assign,communication_state,employee_name,category_num
+       select * from( select rownum r, C.* from(select communication_num,communication_title,communication_date,employee_name,category_num
         from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc) C WHERE rownum <=#{pageNum} * #{amount} and category_num=20 )
        where r>(#{pageNum}-1) * #{amount}
        ]]>

@@ -23,6 +23,7 @@ public interface INoticeDAO {
    public List<Criteria> nsearchDateDAO(Criteria criteria);
    public List<CommunicationDTO> nsearchAllDAO(Criteria dto);
    public int nnumDAO(String name);
+   public Integer ngetTotal();
    
 }
 

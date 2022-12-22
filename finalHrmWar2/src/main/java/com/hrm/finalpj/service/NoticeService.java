@@ -7,6 +7,7 @@ import com.hrm.finalpj.dto.Criteria;
 
 
 public interface NoticeService {
-	public List<CommunicationDTO> getList(Criteria criteria);
-	public Integer getTotal();
+	public List<CommunicationDTO> ngetList(Criteria criteria);
+	public Integer ngetTotal();
+
 }

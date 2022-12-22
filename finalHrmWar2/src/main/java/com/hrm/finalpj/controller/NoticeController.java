@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.hrm.finalpj.dao.INoticeDAO;
-import com.hrm.finalpj.dao.ITodoDAO;
 import com.hrm.finalpj.dto.CommunicationDTO;
 import com.hrm.finalpj.dto.Criteria;
 import com.hrm.finalpj.dto.PageDTO;
 import com.hrm.finalpj.service.NoticeServiceImpl;
-import com.hrm.finalpj.service.TodoServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,41 +44,25 @@ public class NoticeController {
        test.setCommunication_search(search);
        test.setCommunication_start(start);
        test.setCommunication_end(end);
+       int total = nservice.ngetTotal();
+       model.addAttribute("total",total);
        
-       int myNum = dao.nnumDAO(principal.getName());
-       
-       if(search !=null && start=="" && end=="") {
-    	   System.out.println("검색만");
+       if(search !=null) {
           model.addAttribute("list",dao.nsearchTextDAO(test));
-       }else if(search == "" && start!=null && end!=null) {
-           List<Criteria> check = dao.nsearchDateDAO(test);
-           System.out.println(check.get(0) + "커뮤넘");
-	          if(check.get(0) == null ) {
-	        	  Criteria test1 = new Criteria(num,0);
-	        	  model.addAttribute("pageMaker", new PageDTO(nservice.getTotal(), 1, test1));
-	             model.addAttribute("booleancheck",true);
-	             return "TodoMain";
-	          }else {
-	          model.addAttribute("list",dao.nsearchDateDAO(test));
-          model.addAttribute("booleancheck",false);
-          }
-       }else if(search != null && start!=null && end!=null) {
-          model.addAttribute("list",dao.nsearchAllDAO(test));
        }else {
-          model.addAttribute("list", nservice.getList(test));
+          model.addAttribute("list", nservice.ngetList(test));
        }
-       model.addAttribute("pageMaker", new PageDTO(nservice.getTotal(), 10, test));
-       return "noticeMain";
+       model.addAttribute("pageMaker", new PageDTO(nservice.ngetTotal(), 10, test));
+       return "/notice/noticeMain";
     }
    
    @GetMapping("/nwrite")
    public String writeForm() {
-      return "nwriteForm";
+      return "/notice/nwriteForm";
    }
    
    @PostMapping("/nwriting")
    public String write(HttpServletRequest req, Model model, Principal principal) {
-      model.addAttribute("enum",principal.getName());
       int num = dao.nnumDAO(principal.getName());
 	   nservice.write(req,num);
       return "redirect:notice/1"; 
@@ -89,7 +71,7 @@ public class NoticeController {
    @GetMapping("/nview/{num}")
    public String detailView(@PathVariable("num") String num,HttpServletRequest req, Model model) {
       model.addAttribute("dto",dao.nviewDAO(num));
-      return "nviewForm";
+      return "/notice/nviewForm";
    }
    
    @PostMapping("/ndelete")
@@ -105,14 +87,13 @@ public class NoticeController {
    @GetMapping("/nedit/{num}")
    public String editForm(@PathVariable("num") String num,Model model) {
       model.addAttribute("dto",dao.nviewDAO(num));
-      return "neditForm";
+      return "/notice/neditForm";
    }
    
    @PostMapping("/nedit/{num}")
    public String edit(@PathVariable("num") String num, CommunicationDTO dto,HttpServletRequest req) {
       dto.setCommunication_title(req.getParameter("title"));
-      dto.setCommunication_start(req.getParameter("start"));
-      dto.setCommunication_end(req.getParameter("end"));
+      dto.setCommunication_date(req.getParameter("date"));
       dto.setCommunication_content(req.getParameter("content"));
       dao.nupdateDAO(dto);
       return "redirect:/notice/1";

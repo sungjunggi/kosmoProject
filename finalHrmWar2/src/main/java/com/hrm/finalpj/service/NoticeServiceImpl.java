@@ -9,47 +9,43 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hrm.finalpj.dao.INoticeDAO;
 import com.hrm.finalpj.dao.ITodoDAO;
 import com.hrm.finalpj.dto.CommunicationDTO;
 import com.hrm.finalpj.dto.Criteria;
 
 
 @Service
-public class NoticeServiceImpl implements TodoService{
+public class NoticeServiceImpl implements NoticeService{
 	@Autowired
-	ITodoDAO dao;
+	INoticeDAO dao;
 	
 	public void write(HttpServletRequest req, int num) {
 		String tit = req.getParameter("title");
 		String con = req.getParameter("content");
-		String sta = req.getParameter("start");
-		String end = req.getParameter("end");
-		System.out.println(num);
-		System.out.println(tit);
-//		num = Integer.parseInt(req.getParameter("num"));
+		String today = req.getParameter("today");
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("title", tit);
 		map.put("content", con);
-		map.put("start", sta);
-		map.put("end", end);
+		map.put("today", today);
 		map.put("num",num);
-		dao.writeDAO(map);
+		dao.nwriteDAO(map);
 	}
 	
-	public void delete(int communication_num) {
-		dao.deleteBoardDAO(communication_num);
+	public void ndelete(int communication_num) {
+		dao.ndeleteBoardDAO(communication_num);
 	}
 
 	@Override
-	public List<CommunicationDTO> getList(Criteria criteria) {
+	public List<CommunicationDTO> ngetList(Criteria criteria) {
 		
-		return dao.getList(criteria);
+		return dao.ngetList(criteria);
 	}
 
 	@Override
-	public Integer getTotal() {
+	public Integer ngetTotal() {
 		System.out.println();
-		return dao.getTotal();
+		return dao.ngetTotal();
 	}
 
 	
