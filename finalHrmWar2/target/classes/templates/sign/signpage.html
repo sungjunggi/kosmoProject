@@ -31,10 +31,10 @@
 		
 		<a href="/signlist" >뒤로가기</a>
 		<form th:action="@{${sign_num}}" method="get">
-		<!-- <div th:if="${sign_res_name == sign_first}"> -->
+		 <div th:if="${name == res}">
 		<input type="submit" name="approve" value="승인"> 
 		<input type="submit" name="deny" value="반려">
-		<!-- </div> -->
+		</div>
 		</form>
 	</div>
 </body>
