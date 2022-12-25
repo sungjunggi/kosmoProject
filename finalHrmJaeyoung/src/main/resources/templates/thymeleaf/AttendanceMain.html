@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<style>
+.container {
+	display: grid;
+}
+</style>
+</head>
+<body>
+	<div>
+		<span>출퇴근 현황</span>
+		<span>통계</span>
+	</div>
+
+	<input type='date' id='currentDate'/>
+	<select>
+		<option value="" selected>직원</option>
+		<option value=""></option>
+		<option value=""></option>
+		<option value=""></option>
+		<option value=""></option>
+	</select>
+
+	<h3>출퇴근 현황</h3><!-- grid 사용 -->
+	<p>단위 : 명</p>
+	<p>출근율</p><br/>	
+	
+	<table>
+		<tr th:each="dao : ${totalList}">
+			<td th:text="${dao.attendance_num}"></td>
+			<td th:text="${dao.attendance_workstart}"></td>
+			<td th:text="${dao.attendance_workend}"></td>
+			<td th:text="${dao.employee_num}"></td>
+		</tr>
+	</table>
+
+
+	<div>
+		<p>출근함</p>
+		-명
+		당일 출근시각이 현재시각보다 빠른사람 select
+	</div>
+	<div>
+		<p>미출근</p>
+		9시 이전이며 출근시각이 존재하지 않는 직원 select
+	</div>
+	<div>
+		<p>출근 대상</p>
+		스케줄 상 대조..
+	</div>
+	<div>
+		<p>지각</p>
+		9시 이후이며 출근시각이 존재하지 않는 직원 select
+	</div>
+	<div>
+		<p>조퇴</p>
+	</div>
+	
+	<h3>스케줄</h3>
+	<div>
+		<p>출근 대상</p>
+	</div>
+	<div>
+		<p>휴무</p>
+	</div>
+	<div>
+		<p>휴가</p>
+	</div>
+	<div>
+		<p>교육</p>
+	</div>
+	<div>
+		<p>기타</p>
+	</div>
+	<div>
+		<p>일정없음</p>
+	</div>
+	<div>
+		<p>전체인원</p>
+	</div>
+	출퇴근 특이사항
+	출근 미대상이지만 출근
+	미배정 근무지에 출근
+	출퇴근 기록 수정됨
+	자동 퇴근 처리
+	임시 근무지에서 출퇴근
+	
+	출근인원 근무상태
+	단위 : 명
+	근무중
+	자리비움
+	이동중
+	퇴근
+	
+	전체 xx 다운로드 공지/설문 발송
+	새로고침 버튼 선택된 출퇴근 상태
+	이름 직급 선택바 근무상태 선택바
+	
+	<script>
+		document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+	</script>
+</body>
+</html>
