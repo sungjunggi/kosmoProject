@@ -31,6 +31,7 @@ public class TodoController {
    
    @Autowired
    ITodoDAO dao;
+   
    @Autowired
    TodoServiceImpl todoservice;
    
@@ -46,6 +47,8 @@ public class TodoController {
        test.setCommunication_search(search);
        test.setCommunication_start(start);
        test.setCommunication_end(end);
+       String starting = req.getParameter("starting");
+       String ending = req.getParameter("ending");
        
        int myNum = dao.numDAO(principal.getName());
        int scheduled = dao.scheduledTotalDAO();
@@ -61,9 +64,17 @@ public class TodoController {
        req.setAttribute("myTodoCount", myTodoCount);
        String clickScheduled = req.getParameter("scheduled");
        String clickProceeding = req.getParameter("proceeding");
-     
        String clickFinish = req.getParameter("finish");
+       if(starting != null) {
+    	   int communication_num=Integer.parseInt(req.getParameter("communication_num"));
+    	   dao.startingDAO(communication_num);
+       }else if(ending != null) {
+    	   int communication_num=Integer.parseInt(req.getParameter("communication_num"));
+    	   dao.endingDAO(communication_num);
+       }
        
+       int total = todoservice.getTotal();
+       model.addAttribute("total",total);
        if(clickScheduled != null) {
     	   System.out.println("진행예정");
     	   model.addAttribute("list",dao.clickScheduledDAO(test,clickScheduled));
@@ -88,6 +99,7 @@ public class TodoController {
     	  model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
           return "TodoMain";
       }
+      
 
        if(search !=null && start=="" && end=="") {
     	   System.out.println("검색만");
@@ -105,16 +117,10 @@ public class TodoController {
           model.addAttribute("booleancheck",false);
           }
        }else if(search != null && start!=null && end!=null) {
-    	   System.out.println("날짜검색검색만");
-    	   System.out.println(search);
-    	   System.out.println(start);
-    	   System.out.println(end);
           model.addAttribute("list",dao.searchAllDAO(test));
        }else {
           model.addAttribute("list", todoservice.getList(test));
        }
-       
-       
        model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
        return "TodoMain";
     }

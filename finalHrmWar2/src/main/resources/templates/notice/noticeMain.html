@@ -9,83 +9,44 @@
 <body>
 <div layout:fragment="content">
    <div id="todo-header-wrap">
-      <form th:action="@{/todo/1}"  method="get">
+      <form th:action="@{/notice/1}"  method="get">
          <div class="todo-search-wrap">
-            <div class="todo-date-wrap">
-                <input id="todo-date" type="date" name="start">
-                ~
-                <input id="todo-date" type="date" name="end">
-            </div>            
             <div class="todo-search-bar-wrap">
-                <select>
-                   <option value="${communication_title}">제목</option>
-                   <option value="${communication_assign}">배정대상</option>
-                   <option value="${communication_state}">상태</option>
-               </select>
                 <input class="todo-search-bar" name="searchText" type="text" placeholder="검색어를 입력하세요.">
                 <input class="todo-search-btn" type="submit" value="검색"/>
             </div>
          </div>
       </form>
       <div id="todo-btn-wrap">
-         <form th:action="@{/todo/1}" method="get"> 
-            <button class="todo-btns" type="submit" name="allTodo" value="전체 할 일">
-               <span>전체 할 일</span>
-               <span th:text="${allTodoCount}"></span>
+            <button class="todo-btns" name="notice" value="공지사항">
+               공지사항
             </button>
-            <button class="todo-btns" type="submit" name="myTodo" value="내가 배정한 할 일">
-               <span>내가 배정한 할 일</span>
-               <span th:text="${myTodoCount}"></span>
-            </button>
-            <button class="todo-btns" type="submit" name="scheduled" value="진행예정">
-               <span>진행예정</span>
-                <span th:text="${scheduled}"></span>
-            </button>
-            <button class="todo-btns" type="submit" name="proceeding" value="진행중">
-               <span>진행중</span>
-                <span th:text="${proceeding}"></span>
-            </button>
-            <button class="todo-btns" type="submit" name="finish" value="진행완료">
-               <span>진행완료</span>
-                <span th:text="${finish}"></span>
-            </button>
-         </form>
       </div>
-      <button class="todo-write-btn" type="button" onclick="todoPopupShow()">+ 할일 만들기</button>
+      <button class="todo-write-btn" type="button" onclick="todoPopupShow()">+ 공지사항 만들기</button>
       
-      <!-- 모달창 영역 -->
+<!--       모달창 영역 -->
       <div class="popup-back"></div> <!-- 모달 백그라운드 -->
       <div id="todo-write-popup">
-         <form action="/writing" method="post">
+         <form action="/nwriting" method="post">
             <label>타이틀</label><br/>
             <input class="write-title" type="text" name="title" placeholder="타이틀을 입력하세요"><br/><br/>
-            <label>누구에게 배정하나요?</label><br/>
-            <select name="employee">
-               <option value="allEmployee">전체 직원</option>
-               <option value="group">그룹</option>
-               <option value="specificEmployee">특정 직원</option>
-            </select><br/><br/>
-            <label>기간</label><br/>
-            작업 시작일 <input type="date" name="start"><br/>
-            작업 종료일 <input type="date" name="end"><br/><br/>
-            <label>작업</label><br/>
+            <label>작성일</label><br/>
+            <input type="date" name="today"><br/>
+            <label>내용</label><br/>
             <input class="write-content" type="text" name="content" placeholder="지시사항 입력(필수)">
             <input type="submit" value="저장" class="todo-write-save">
          </form>
       </div>      
    </div>
    
-   <form action="/delete" id="frm" method="post">
+   <form action="/ndelete" id="frm" method="post">
       <div>
          <table  width="100%" id="todo-table">
             <tr class="todo-table-header">
                <th style="text-align: center; width:25px;"><input type="checkbox" id="chkAll" /></th>
                <th style="width:50px; font-size:11px; font-weight: 200; text-align: center;">No.</th>
                <th style="width:600px;">타이틀</th>
-               <th style="width:100px;">시작일</th>
-               <th style="width:100px;">종료일</th>
-               <th style="width:80px;">배정대상</th>
-               <th style="width:80px;">상태</th>
+               <th style="width:100px;">작성일</th>
                <th style="width:80px;">작성자</th>
             </tr>
              <tr th:if="${booleancheck}" >
@@ -97,14 +58,11 @@
                   <td style="text-align: center;"><input type="checkbox" class="chk" name="deleteId" th:value="${dto.communication_num}"></td>
                   <td th:text="${total-i.index}" style="width:50px; font-size:11px; font-weight: 200; text-align: center;"></td>
                   <td>
-                     <a th:href="@{'/view/'+${dto.communication_num}}">
+                     <a th:href="@{'/nview/'+${dto.communication_num}}">
                         <span th:text="${dto.communication_title}"></span>
                      </a>
                   </td>
-                  <td th:text="${dto.communication_start}" style="font-size:13px; font-weight: 200; text-align: center;">시작일</td>
-                  <td th:text="${dto.communication_end}" style="font-size:13px; font-weight: 200; text-align: center;">종료일</td>
-                  <td th:text="${dto.communication_assign}" style="font-size:13px; font-weight: 200; text-align: center;">배정자</td>
-                  <td th:text="${dto.communication_state}" style="font-size:13px; font-weight: 200; text-align: center;">상태</td>
+                  <td th:text="${dto.communication_date}" style="font-size:13px; font-weight: 200; text-align: center;">시작일</td>
                   <td th:text="${dto.employee_name}" style="font-size:13px; font-weight: 200; text-align: center;">작성자</td>
                </tr>
                 
@@ -115,7 +73,7 @@
                      <a class="changePage" th:if="*{prev}" th:href="*{startPage - 1}"><code>&lt;</code></a>
                      <th:block th:each="num : ${#numbers.sequence(pageMaker.getStartPage(), pageMaker.getEndPage())}">
                          <code th:if="${pageMaker.criteria.getPageNum() == num}" th:text="${num}"></code>
-                         <a class="changePage" th:unless="${pageMaker.criteria.getPageNum() == num}" th:href="@{/todo/{num}(num=${num})}"><code th:text="${num}"></code></a>
+                         <a class="changePage" th:unless="${pageMaker.criteria.getPageNum() == num}" th:href="@{/notice/{num}(num=${num})}"><code th:text="${num}"></code></a>
                      </th:block>
                      <a class="changePage" th:if="*{next}" th:href="*{endPage + 1}"><code>&gt;</code></a>
                  </div>
@@ -125,11 +83,14 @@
                      <input type="hidden" name="pageNum" th:field="*{pageNum}">
                      <input type="hidden" name="amount" th:field="*{amount}">
                  </form>
+                  
              </div>
-   		</div>
+      </div>
    </form>
    			
 </div>
+   
+
 
 </body>
 
@@ -166,7 +127,7 @@
             if(dellnpChkLen > 0){
                if(confirm("삭제하시겠습니까?")){
                   let frm = $("#frm");
-                  frm.attr("action","/delete");
+                  frm.attr("action","/ndelete");
                   frm.attr("method","post");
                   frm.submit();
                }

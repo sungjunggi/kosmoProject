@@ -10,9 +10,6 @@ import com.hrm.finalpj.dto.AttendanceDto2;
 public interface IAttendanceDao2 {
 	
 	public List<AttendanceDto2> totalAtt();
-
-	public int attRate1();
-	public int attRate2();
-
-	public List<AttendanceDto2> alreadyAtt();
+	public List<AttendanceDto2> attRate1();
+	public List<AttendanceDto2> attRate2();
 }
