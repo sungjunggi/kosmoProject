@@ -16,6 +16,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<th class="sign-th">작성자</th>
 					<th class="sign-th">승인상태</th>
 					<th class="sign-th">작성일</th>
+					<th class="sign-th">결재자</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,6 +30,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_res_name}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_status}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_begin}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_first}"></span></td>
+				</tr>
+				<tr th:each="dto:${signlist1}" >
+					<td style="text-align: center; width:50px; font-size:13px; font-weight: 300;" ><span th:text="${dto.template_board_num}"></span></td>
+					<td style="width:700px;">
+						<a th:href="@{/signpage1/{sign_num}(sign_num = ${dto.gettemplate_num})}">
+							<span th:text="${dto.gettemplate_title}"></span>
+						</a>
+					</td>
+					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.employee_name}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.template_board_sign_status}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.template_board_date}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.template_board_sign_name}"></span></td>
 				</tr>
 			</tbody>
 		</table>

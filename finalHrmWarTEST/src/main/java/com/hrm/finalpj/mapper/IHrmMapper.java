@@ -26,5 +26,9 @@ public interface IHrmMapper {
     public void approveDAO(int sign_num); 
     
     public void denyDAO(int sign_num);
+    
+    public String numDAO(String name);
+    
+    public String resDAO(int res);
    
 }
