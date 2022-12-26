@@ -1,5 +1,6 @@
 package com.hrm.finalpj.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -59,9 +60,16 @@ public class HrmMainController {
 	
 	
 	@RequestMapping("/signpage/{sign_num}")
-	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model,HttpServletRequest req) {
+	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model,HttpServletRequest req, Principal principal) {
+		String name = imap.numDAO(principal.getName());
+		model.addAttribute("name", name);
+		
 		signDTO dto = imap.SelectSignPage(sign_num);
 		model.addAttribute("dto", dto);
+		
+		String res = imap.resDAO(sign_num);
+		model.addAttribute("res", res);
+		
 		String approve = req.getParameter("approve");
 		String deny = req.getParameter("deny");
 		if(approve != null && deny == null) {
@@ -72,6 +80,6 @@ public class HrmMainController {
 			model.addAttribute("dto", dto);
 		}
 		
-	      return "signpage";
+	      return "sign/signpage";
 	   }
 }

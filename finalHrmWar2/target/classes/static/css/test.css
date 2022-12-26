@@ -38,13 +38,11 @@
 
 *::-webkit-scrollbar {
    width: 10px;
-   height: 10px;
 }
 *::-webkit-scrollbar-thumb{
    height: 1px;
    background: #30afff;
    border-radius: 20px;
-   
 }
 *::-webkit-scrollbar-track {
    background: #e3f1ff;
@@ -447,22 +445,6 @@ li[data-depth="1"] a {
    border-radius: 10px;
    background: #fafafa;
 }
-#compl-btn {
-	color : #fff;
-	background: #80d330;
-	transition: 0.3s;
-}
-#compl-btn:hover {
-	background: #55a923;
-}
-#ready-btn {
-	color : #fff;
-	background: #f9da25;
-	transition: 0.3s;
-}
-#ready-btn:hover {
-	background: #e2c105;
-}
 .back-icon {
    background-image: url(../img/arrow_left_w.png);
     object-fit: cover;
@@ -486,26 +468,26 @@ li[data-depth="1"] a {
 .todo-info-content-btn a, .todo-info-content-btn input {
    margin:10px;
 }
-.todo-info-content-btn input {
+.todo-info-content-btn button, .todo-info-content-btn input {
    border:none;
    border-radius: 10px;
    width: 80px;
    height: 40px;
 }
-#delete {
+.todo-info-content-btn input {
    color: #fff;
    background: #ff4545;
    transition: 0.3s;
 }
-#delete:hover {
+.todo-info-content-btn input:hover {
    background: #cc2828;
 }
-#edit{
+.todo-info-content-btn button{
    color: #fff;
    background: #30afff;
    transition: 0.3s;
 }
-#edit:hover {
+.todo-info-content-btn button:hover {
    background: #259ddd;
 }
 .todo-info-content p{
@@ -726,7 +708,7 @@ li[data-depth="1"] a {
     padding: 30px;
     width : 700px;
     margin-left:-18%;
-    margin-top: -200px;
+    margin-top: -350px;
     z-index: 1000;
     background: white;
     box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);

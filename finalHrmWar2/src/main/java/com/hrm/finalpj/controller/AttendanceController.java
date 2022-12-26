@@ -10,14 +10,14 @@ import com.hrm.finalpj.dao.IAttendanceDao2;
 @Controller
 public class AttendanceController {
 	
-	@Autowired
-	IAttendanceDao2 dao;
-	
-	@RequestMapping("/attMain")
-	public String defaultAtt(Model model) {
-		model.addAttribute("totalAtt",dao.totalAtt());
-		return "attendence/attendance";
-	}
+	/*
+	 * @Autowired IAttendanceDao2 dao;
+	 */
+	/*
+	 * @RequestMapping("/attMain") public String defaultAtt(Model model) {
+	 * model.addAttribute("totalAtt",dao.totalAtt()); return
+	 * "attendence/attendance"; }
+	 */
 	
 //	@RequestMapping("/attMain")
 //		public String attRate1(Model model) {

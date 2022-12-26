@@ -7,71 +7,104 @@
 	<select id="listDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
 		SELECT * FROM LISTVIEW ORDER BY TEMPLATE_BOARD_NUM DESC
 	</select>
-	<select id="viewDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
-		SELECT TB.*, E.EMPLOYEE_NAME 
-		FROM TEMPLATE_BOARD TB, EMPLOYEE E
-		WHERE TB.EMPLOYEE_NUM = E.EMPLOYEE_NUM
-		AND TEMPLATE_BOARD_NUM = #{template_board_num} 
+	
+	<select id="commentReadDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
+		SELECT GC.GETCOMMENT_CONTENT, GC.GETCOMMENT_DATE, GC.GETCOMMENT_WRITER
+		FROM TEMPLATE_BOARD TB, GETTEMPLATE GT, EMPLOYEE E, GETCOMMENT GC
+		WHERE TB.EMPLOYEE_NUM = E.EMPLOYEE_NUM 
+		AND TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM
+		AND GC.TEMPLATE_BOARD_NUM(+) = TB.TEMPLATE_BOARD_NUM
+		AND TB.TEMPLATE_BOARD_NUM = #{template_board_num} 
 	</select>
+	
+	<select id="viewDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
+		SELECT TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE, E.EMPLOYEE_NAME, 
+    			TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_ANSWER1, TB.TEMPLATE_BOARD_SIGN_NAME,
+    			TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END, TB.TEMPLATE_BOARD_ANSWER4, 
+    			TB.TEMPLATE_BOARD_ANSWER5, TB.TEMPLATE_BOARD_ANSWER6, TB.TEMPLATE_BOARD_ANSWER7 
+		FROM TEMPLATE_BOARD TB, GETTEMPLATE GT, EMPLOYEE E
+		WHERE TB.EMPLOYEE_NUM = E.EMPLOYEE_NUM 
+		AND TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM
+		AND TB.TEMPLATE_BOARD_NUM = #{template_board_num} 
+	</select>
+	
 	<select id="selectDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
 		SELECT * FROM GETTEMPLATE
 	</select>
+	
 	<select id="templateDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
 		SELECT * FROM GETTEMPLATE WHERE GETTEMPLATE_NUM = #{GETTEMPLATE_NUM} 
 	</select>
+	
 	<insert id="writeDAO1">
 		INSERT INTO TEMPLATE_BOARD 
-		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, #{employee_num}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
 		 #{template_board_answer1}, null, null, #{template_board_answer4}, #{template_board_answer5}, 
 		 #{template_board_answer6}, #{template_board_answer7}, '승인대기', 
 		 #{template_board_sign_name}, #{template_board_start}, #{template_board_end})
 	</insert>
+	
 	<insert id="writeDAO2">
 		INSERT INTO TEMPLATE_BOARD 
-		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, #{employee_num}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
 		 #{template_board_answer1}, null, null, #{template_board_answer4}, #{template_board_answer5}, 
 		 null, null, '승인대기', #{template_board_sign_name}, #{template_board_start}, #{template_board_end})
 	</insert>
+	
 	<insert id="writeDAO3">
 		INSERT INTO TEMPLATE_BOARD 
-		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, #{employee_num}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
 		 #{template_board_answer1}, null, null, #{template_board_answer4}, #{template_board_answer5}, 
 		 #{template_board_answer6}, null, '승인대기', #{template_board_sign_name}, 
 		 #{template_board_start}, #{template_board_end})
 	</insert>
+	
 	<update id="updateDAO1" parameterType="com.hrm.finalpj.report.dto.ReportDTO">
 		UPDATE TEMPLATE_BOARD SET 
-			TEMPLATE_BOARD_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TEMPLATE_BOARD_ANSWER1 = #{template_board_answer1}, 
+			TEMPLATE_BOARD_ANSWER1 = #{template_board_answer1}, 
 			TEMPLATE_BOARD_SIGN_NAME = #{template_board_sign_name},
 			TEMPLATE_BOARD_START = #{template_board_start}, TEMPLATE_BOARD_END = #{template_board_end},
 			TEMPLATE_BOARD_ANSWER4 = #{template_board_answer4}, TEMPLATE_BOARD_ANSWER5 = #{template_board_answer5},
 			TEMPLATE_BOARD_ANSWER6 = #{template_board_answer6}, TEMPLATE_BOARD_ANSWER7 = #{template_board_answer7}
 		WHERE TEMPLATE_BOARD_NUM = #{template_board_num}
 	</update>
+	
 	<update id="updateDAO2" parameterType="com.hrm.finalpj.report.dto.ReportDTO">
 		UPDATE TEMPLATE_BOARD SET 
-			TEMPLATE_BOARD_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TEMPLATE_BOARD_ANSWER1 = #{template_board_answer1}, 
+			TEMPLATE_BOARD_ANSWER1 = #{template_board_answer1}, 
 			TEMPLATE_BOARD_SIGN_NAME = #{template_board_sign_name},
 			TEMPLATE_BOARD_START = #{template_board_start}, TEMPLATE_BOARD_END = #{template_board_end},
 			TEMPLATE_BOARD_ANSWER4 = #{template_board_answer4}, TEMPLATE_BOARD_ANSWER5 = #{template_board_answer5}
 		WHERE TEMPLATE_BOARD_NUM = #{template_board_num}
 	</update>
+	
 	<update id="updateDAO3" parameterType="com.hrm.finalpj.report.dto.ReportDTO">
 		UPDATE TEMPLATE_BOARD SET 
-			TEMPLATE_BOARD_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TEMPLATE_BOARD_ANSWER1 = #{template_board_answer1}, 
+			TEMPLATE_BOARD_ANSWER1 = #{template_board_answer1}, 
 			TEMPLATE_BOARD_SIGN_NAME = #{template_board_sign_name},
 			TEMPLATE_BOARD_START = #{template_board_start}, TEMPLATE_BOARD_END = #{template_board_end},
 			TEMPLATE_BOARD_ANSWER4 = #{template_board_answer4}, TEMPLATE_BOARD_ANSWER5 = #{template_board_answer5},
 			TEMPLATE_BOARD_ANSWER6 = #{template_board_answer6}
 		WHERE TEMPLATE_BOARD_NUM = #{template_board_num}
 	</update>
+	
 	<delete id="deleteDAO" parameterType="int">
 		DELETE FROM TEMPLATE_BOARD WHERE TEMPLATE_BOARD_NUM = #{template_board_num}
 	</delete>
-	<insert id="commentDAO">
+	
+	<select id="numDAO" resultType="int">
+      	SELECT EMPLOYEE_NUM FROM EMPLOYEE WHERE EMPLOYEE_EMAIL = #{name} AND ROWNUM = 1
+    </select>
+	
+	<insert id="commentDAO" parameterType="com.hrm.finalpj.report.dto.CommentDTO">
 		INSERT INTO GETCOMMENT(GETCOMMENT_NUM, GETCOMMENT_CONTENT, GETCOMMENT_DATE, GETCOMMENT_WRITER, TEMPLATE_BOARD_NUM)
-		VALUES (SEQ_COMMENT_NUM.NEXTVAL, #{getcomment_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{getcomment_writer}, #{template_board_num})
+		VALUES (SEQ_COMMENT_NUM.NEXTVAL, #{getcomment_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{name}, #{template_board_num})
 	</insert>
+	
+	<select id="boardDAO" resultType="com.hrm.finalpj.report.dto.CommentDTO">
+		SELECT * FROM GETCOMMENT WHERE TEMPLATE_BOARD_NUM = #{template_board_num}
+	</select>
+	
 	<select id="searchDateDAO" resultType="com.hrm.finalpj.report.dto.Criteria" parameterType="com.hrm.finalpj.report.dto.Criteria">
 	<![CDATA[
 		SELECT * FROM(
@@ -112,8 +145,9 @@
 		) 
 	]]>
 	</select>
+	
 	<select id="getList" resultType="com.hrm.finalpj.report.dto.ReportDTO" parameterType="com.hrm.finalpj.report.dto.PageDTO">
-    	<![CDATA[
+    <![CDATA[
     	SELECT * FROM(
     		SELECT ROWNUM R, C.* FROM (
     			SELECT E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
@@ -129,7 +163,29 @@
    		WHERE R>(#{pageNum}-1) * #{amount}
      ]]>
     </select>
+    
     <select id="getTotal" resultType="int">
     	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD
     </select>
+    
+    <select id="myReportDAO" resultType="com.hrm.fianlpj.report.dto.ReportDTO" parameterType="com.hrm.finalpj.report.dto.Criteria">
+   		SELECT TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_TITLE, TB.TEMPLATE_BOARD_DATE, E.EMPLOYEE_NAME,
+        		TB.TEMPLATE_BOARD_SIGN_STATUS, COUNT(GC.TEMPLATE_BOARD_NUM) AS COUNT
+		FROM GETTEMPLATE GT, EMPLOYEE E, TEMPLATE_BOARD TB, GETCOMMENT GC
+		WHERE TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM 
+		AND TB.EMPLOYEE_NUM = E.EMPLOYEE_NUM
+		AND GC.TEMPLATE_BOARD_NUM(+) = TB.TEMPLATE_BOARD_NUM
+		AND E.EMPLOYEE_NUM = #{employee_num}
+		GROUP BY TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_TITLE, TB.TEMPLATE_BOARD_DATE, 
+        		E.EMPLOYEE_NAME, TB.TEMPLATE_BOARD_SIGN_STATUS
+    </select> 
+    
+    <select id="myReportCount" resultType="int">
+    	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD WHERE EMPLOYEE_NUM = #{employee_num}
+    </select>
+    
+    <select id="allReportCount" resultType="int">
+    	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD
+    </select>
+    
 </mapper>

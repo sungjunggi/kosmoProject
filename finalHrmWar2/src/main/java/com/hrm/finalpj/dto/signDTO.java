@@ -13,7 +13,7 @@ public class signDTO {
     private String sign_end;
     private Integer employee_num;
     private String sign_res_name;
-    private Integer type_num;
+    private int type_num;
     private String sign_req_contents;
     private String sign_req_date;
     private String sign_first;
@@ -25,6 +25,17 @@ public class signDTO {
     private String sign_third;
     private String sign_third_date;
     private String sign_third_status;
-	
+    private String employee_name;
+    
+    private int dayoff_num;
+    private String dayoff_begin;
+    private String dayoff_end;
+    private int dayoff_count;
+    private String dayoff_reason;
+    private String dayoff_status;
+	private String type_category;
+	private String dayoff_approver;
+	private String dayoff_date;
+    
 }
 
