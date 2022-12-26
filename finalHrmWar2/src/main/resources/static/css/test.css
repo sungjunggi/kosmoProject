@@ -872,4 +872,19 @@ li[data-depth="1"] a {
 .sign-info h5 {
 	margin: 0;
 }
-
+.notice-edit-btn {
+	color: #fff;
+  	background: #30afff;
+    transition: 0.3s;
+}
+.notice-edit-btn:hover {
+	background: #259ddd;
+}
+.notice-del-btn {
+	color: #fff;
+   	background: #ff4545;
+   	transition: 0.3s;
+}
+.notice-del-btn:hover {
+	background: #cc2828;
+}
