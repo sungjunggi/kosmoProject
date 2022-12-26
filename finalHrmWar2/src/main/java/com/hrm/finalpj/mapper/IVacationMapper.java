@@ -13,11 +13,11 @@ import com.hrm.finalpj.report.dto.ReportDTO;
 @Mapper
 public interface IVacationMapper {
     
-    public List<vacationDTO> vacationList(vacationDTO dto); 
+    public List<vacationDTO> vacationList(vacationDTO dto,int num); 
     
     public signDTO SelectSignPage(int dto);
     
-    public String numDAO(String name);
+    public int numDAO(String name);
     
     public String resDAO(int res);
     

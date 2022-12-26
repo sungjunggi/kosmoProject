@@ -20,9 +20,9 @@ public interface IReportDAO {
 	public Integer getTotal(); // 게시물 페이징
 	public List<TemplateDTO> selectDAO();  // 템플릿 고르기
 	public ReportDTO templateDAO(String tnum);  // 템플릿 보기
-	public int writeDAO1(Map<String,Object> map);  // 1번 템플릿 게시글 작성
-	public int writeDAO2(Map<String,Object> map);  // 2번 템플릿 게시글 작성
-	public int writeDAO3(Map<String,Object> map);  // 3번 템플릿 게시글 작성
+	public int writeDAO1(ReportDTO map);  // 1번 템플릿 게시글 작성
+	public int writeDAO2(ReportDTO map);  // 2번 템플릿 게시글 작성
+	public int writeDAO3(ReportDTO map);  // 3번 템플릿 게시글 작성
 	public int updateDAO1(ReportDTO dto);  // 1번 템플릿 게시글 수정
 	public int updateDAO2(ReportDTO dto);  // 2번 템플릿 게시글 수정
 	public int updateDAO3(ReportDTO dto);  // 3번 템플릿 게시글 수정
@@ -33,4 +33,5 @@ public interface IReportDAO {
 	public int allReportCount();  // 전체 보고서 개수 세기
 	public int myReportCount(int num);  // 내 보고서 개수 세기
 	public List<ReportDTO> myReportDAO(int num);  // 내 보고서 보기
+	public String getName(int myNum); // 회원 이름 가져오기
 }
