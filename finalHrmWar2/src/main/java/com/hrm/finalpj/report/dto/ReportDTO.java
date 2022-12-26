@@ -1,8 +1,5 @@
 package com.hrm.finalpj.report.dto;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +23,6 @@ public class ReportDTO {
 	private String gettemplate_question6;
 	private String gettemplate_question7;
 	
-	@OneToMany
 	private int template_board_num;
 	private String template_board_date;
 	private String template_board_answer1;
@@ -41,13 +37,9 @@ public class ReportDTO {
 	private String template_board_start;
 	private String template_board_end;
 	
-	@ManyToOne
 	private int getcomment_num;
-	@ManyToOne
 	private String getcomment_content;
-	@ManyToOne
 	private String getcomment_date;
-	@ManyToOne
 	private String getcomment_writer;
 	private String count;
 	

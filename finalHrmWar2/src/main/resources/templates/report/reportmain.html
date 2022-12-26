@@ -26,10 +26,13 @@
 		<input type="submit" value="검색" class="report-search-btn"/>
 		</form>
 		<div class="report-btn-all">
-			<button type="button" id="all" onclick="location.href='/reportlist'">전체 보고서</button>
-			<button type="button" id="my" onclick="location.href=''">
+			<button class="" type="submit" name="all">
+				<span>전체 보고서</span>
+				<span th:text=${allReportCount}></span>
+			</button>
+			<button class="" type="submit" name="myReport">
 				<span>내 보고서</span>
-				<span th:text=${myReport}></span>
+				<span th:text=${myReportCount}></span>
 			</button>
 		</div>
 	</div>
