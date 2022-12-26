@@ -8,6 +8,7 @@
 </head>
 <div layout:fragment="content">
    <div th:each="dto:${view}">
+   	  <input type="hidden" name="name" th:value="${dto.employee_name}" />
    	  <input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}" />
       <input type="hidden" name="template_board_num" th:value="${dto.template_board_num}" />
       <a th:href="@{'/updateview/'+${dto.template_board_num}}"></a>
@@ -174,15 +175,20 @@
          	<input type="submit" class="report-comment-btn" value="등록" />
         </form>
       </div>
-      <div class="report-comment-view" th:each="dto2 : ${commentRead}">
-      	<input type="hidden" name="name" />
-      	<div th:text="${dto2.getcomment_writer}"></div>
-      	<div th:text="${dto2.getcomment_date}"></div>
-        <div th:text="${dto2.getcomment_content}"></div>
-        <br/>
-      </div>
-       <input type="hidden" name="num" value="${dto.getcomment_num}"></div>
+      <input type="hidden" name="num" value="${dto.getcomment_num}"></div>
    </div>
+ 
+	      <div class="report-comment-view" th:each="dto2 : ${commentRead}">
+	      	<input type="hidden" name="name" />
+	      	<div th:if="${dto2.getcomment_writer } ">
+	      	<div th:text="${dto2.getcomment_writer}"></div>
+	      	<div th:text="${dto2.getcomment_date}"></div>
+	        <div th:text="${dto2.getcomment_content}"></div>
+	        </div>
+	        <br/>
+	       </div>
+
+
    <div class="popup-back"></div>
    <div id="report-update-popup">
       <div th:each="dto:${view}">

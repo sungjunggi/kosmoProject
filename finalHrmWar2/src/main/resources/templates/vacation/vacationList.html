@@ -4,7 +4,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
-<title>Sign List</title>
+<title>Vacation List</title>
 </head>
 <div layout:fragment="content">
 	<div class="sign-list-wrap">
@@ -24,11 +24,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<tbody>
 				<tr th:each="dto,i:${vacationlist}" >
 					<td style="text-align:center; width:50px; font-size:13px; font-weight: 300; border-right: 1px solid #d3d3d3;" ><span th:text="${total-i.index}"></span></td>
-					<td style="width:100px; text-align: center;">
-						<a th:href="@{/vacationPage/{dayoff_num}(dayoff_num = ${dto.dayoff_num})}">
-							<span th:text="${dto.type_category}"></span>
-						</a>
-					</td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.type_category}"></span></td>
 					<td style="width:600px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_reason}"></span></td>
 					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_begin}"></span></td>
 					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_end}"></span></td>
@@ -38,7 +34,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				</tr>
 				
 				<form action="/vacationWrite" method="get">
-				<button class="todo-write-btn" type="submit">+ 할일 만들기</button>
+				<button class="todo-write-btn" type="submit">+ 휴가 만들기</button>
 				</form>
 			</tbody>
 		</table>

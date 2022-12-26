@@ -30,7 +30,7 @@ public class ReportController {
 	ReportServiceImpl reportservice;
 	
 	@GetMapping("/reportlist")
-	public String reportList( Model model, HttpServletRequest req) {
+	public String report( Model model, HttpServletRequest req) {
 		model.addAttribute("list", dao.listDAO());
 		model.addAttribute("select", dao.selectDAO());
 
@@ -38,7 +38,7 @@ public class ReportController {
 	}
 	
 	@GetMapping("/reportlist/{num}")
-	public String reportList3(@PathVariable("num") int num, Model model, HttpServletRequest req, Principal principal) {
+	public String reportList(@PathVariable("num") int num, Model model, HttpServletRequest req, Principal principal) {
 		
 		Criteria test = new Criteria(num, 15);
 		String start = req.getParameter("start");
@@ -77,7 +77,7 @@ public class ReportController {
 	    
 	    } else if(myReport != null) {
 	    	mynum = dao.numDAO(principal.getName());
-//	    	model.addAttribute("list", dao.myReportDAO(test, mynum));
+	    	model.addAttribute("list", dao.myReportDAO(mynum));
 	    	model.addAttribute("pageMaker", new PageDTO(reportservice.getTotal(), 10, test));
 	    	
 	    	return "report/reportmain";
@@ -93,6 +93,8 @@ public class ReportController {
 	@PostMapping("/reportlist")
 	public String reportWrite(Model model, HttpServletRequest req, Principal principal) {
 		ReportDTO dto = new ReportDTO();
+		int myNum = dao.numDAO(principal.getName());
+		String getName = dao.getName(myNum);
 		
 		dto.setGettemplate_num(Integer.parseInt(req.getParameter("gettemplate_num")));
 		dto.setTemplate_board_answer1(req.getParameter("answer1"));
@@ -103,18 +105,19 @@ public class ReportController {
 		dto.setTemplate_board_answer5(req.getParameter("answer5"));
 		dto.setTemplate_board_answer6(req.getParameter("answer6"));
 		dto.setTemplate_board_answer7(req.getParameter("answer7"));
+		dto.setEmployee_num(myNum);
+		dto.setEmployee_name(getName);
 		
 		if(Integer.parseInt(req.getParameter("gettemplate_num")) == 1) {
-			int num = dao.numDAO(principal.getName());
-			reportservice.write(req, num);
+			
+			dao.writeDAO1(dto);
 		
 		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 2) {
-			int num = dao.numDAO(principal.getName());
-			reportservice.write(req, num);
+			dao.writeDAO2(dto);
 		
 		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 3) {
-			int num = dao.numDAO(principal.getName());
-			reportservice.write(req, num);
+			dao.writeDAO3(dto);
+			
 		}
 		
 		return "redirect:reportlist/1";
@@ -125,18 +128,30 @@ public class ReportController {
 		CommentDTO dto = new CommentDTO();
 		
 		dto.setTemplate_board_num(Integer.parseInt(num));
-		dto.setGetcomment_content(req.getParameter("content"));
+		
 		model.addAttribute("view", dao.viewDAO(num));
-		model.addAttribute("commentRead", dao.commentReadDAO(num));
+
+		
+		if(dao.commentReadDAO(num).get(0) != null) {
+			model.addAttribute("commentRead", dao.commentReadDAO(num));
+	
+		}
 		
 		if(req.getParameter("content") != null) {
+			dto.setGetcomment_content(req.getParameter("content"));
 			int myNum = dao.numDAO(principal.getName());
-			dto.setEmployee_num(myNum);
-			
-			model.addAttribute("comment", dao.commentDAO(dto));
-			dao.boardDAO(num);
+			String getName = dao.getName(myNum);
+			dto.setGetcomment_writer(getName);
+			dao.commentDAO(dto);
+			/* model.addAttribute("comment", dao.commentDAO(dto)); */
+			/* dao.boardDAO(num); */
+			model.addAttribute("commentRead", dao.commentReadDAO(num));
+			model.addAttribute("view", dao.viewDAO(num));
 			
 			return "redirect:"+num;
+		
+		} else {
+			model.addAttribute("view", dao.viewDAO(num));
 		}
 		return "report/reportview";
 	}
