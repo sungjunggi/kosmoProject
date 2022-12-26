@@ -27,7 +27,10 @@
 		</form>
 		<div class="report-btn-all">
 			<button type="button" id="all" onclick="location.href='/reportlist'">전체 보고서</button>
-			<button type="button" id="mine" onclick="">내 보고서</button>
+			<button type="button" id="my" onclick="location.href=''">
+				<span>내 보고서</span>
+				<span th:text=${myReport}></span>
+			</button>
 		</div>
 	</div>
 
