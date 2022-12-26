@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
 <title>Dashboard</title>
 </head>
-<body>
+<div layout:fragment="content">
 	<div>
 		<span>출퇴근 현황</span>
 		<span>통계</span>
@@ -19,21 +21,32 @@
 		<option value=""></option>
 	</select>
 
-	<h3>출퇴근 현황</h3><!-- grid 사용 -->
+	<h3>출퇴근 현황</h3>
 	<p>단위 : 명</p>
 	<p>출근율</p>
-<!-- 	<p th:text="${dao.attRate1}"></p> -->
 	<table>
-	<tr>
- 	<!-- 	<tr th:each="dao : ${attRate1}"> -->
+		<tr>
 			<td th:text="${attRate1}"></td>
-		<!-- </tr>  -->	
-		<!-- <tr th:each="dao : ${attRate2}"> -->
 			<td th:text="${attRate2}"></td>
 			<td th:text="${average}"></td>
-	<!-- 	</tr> -->
-	</tr>
+		</tr>
 	</table>
+	
+	<button>출근함</button>
+	<button>출근전</button>
+	<button>미출근</button>
+	<button>출근 대상</button>
+	<button>지각</button>
+	<button>조퇴</button>
+	
+	<h3>스케줄</h3>
+	<button>출근 대상</button>
+	<button>출장</button>
+	<button>휴가</button>
+	<button>교육</button>
+	<button>기타</button>
+	<button>일정없음</button>
+	<button>전체인원</button>
 	
 	<table>
 		<tr>
@@ -57,56 +70,5 @@
 			<td th:text="${dao.attendance_workend}"></td>
 		</tr>
 	</table>
-<!-- 	<div> -->
-<!-- 		<button>출근전</button> -->
-<!-- 		9시 이전이며 출근시각이 존재하지 않는 직원 select -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>미출근</button> -->
-<!-- 		9시 이후이며 출근시각이 존재하지 않는 직원 select -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>출근 대상</button> -->
-<!-- 		스케줄 상 대조.. -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>지각</button> -->
-<!-- 		9시 이후이며 출근시각이 존재하지 않는 직원 select -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>조퇴</button> -->
-<!-- 	</div> -->
-	
-<!-- 	<h3>스케줄</h3> -->
-<!-- 	<div> -->
-<!-- 		<button>출근 대상</button> -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>휴무</button> -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>휴가</button> -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>교육</button> -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>기타</button> -->
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<button>일정없음</button> -->
-<!-- 	</div> -->
-	
-<!-- 	<div> -->
-<!-- 		<p>전체인원</p> -->
-<!-- 	</div> -->
-	
-<!-- 	전체 xx 다운로드 공지/설문 발송 -->
-<!-- 	새로고침 버튼 선택된 출퇴근 상태 -->
-<!-- 	이름 직급 선택바 근무상태 선택바 -->
-	
-<!-- 	<script> -->
-<!-- 		document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10); -->
-<!-- 	</script> -->
- </body> 
+ </div> 
 </html>
