@@ -12,16 +12,15 @@
    }
 #content-box {
    position: absolute;
-   top:60px;
    left: 240px;
    width: 100%;
    height: 100%;
-   max-width: 1550px;
+   max-width: 1660px;
 }
 .content {
    position: absolute;
    left:0;
-   top:0;
+   top:60px;
    padding: 50px;
    width: 100%;
    min-width: 100%;
@@ -51,6 +50,7 @@
     text-decoration: none;
     color: #eaeaea;  
 }
+
 td a {
    color: #131313;
 }
@@ -251,6 +251,13 @@ code {
 .lside-scroll-box::-webkit-scrollbar-track {
    background: #e3f1ff;
 }
+.lside-content-table a {
+	color: #374e63;
+}
+.lside-content-table a:hover {
+	text-decoration: none;
+}
+
 li[data-depth="1"] {
     padding: 2px 10px;
 }
@@ -259,19 +266,92 @@ li[data-depth="1"] a {
     font-size: 13px;
     line-height: 18px;
     padding: 9px 0 9px 37px;
-    color: #374e63;
     display: block;
 }
-li[data-depth="1"] a::before {
+
+.nav-att::before {
+	background-image: url(../img/att_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
 	content: '';
     position: absolute;
     left: 15px;
     top: calc(50% - 7px);
     height: 14px;
     width: 14px;
-	border:1px solid #d3d3d3;
-	border-radius: 50%;
-
+}
+.nav-sch::before {
+	background-image: url(../img/sch_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-off::before {
+	background-image: url(../img/off_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-todo::before {
+	background-image: url(../img/todo_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-cte::before {
+	background-image: url(../img/cte_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-rep::before {
+	background-image: url(../img/rep_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-aprv::before {
+	background-image: url(../img/aprv_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
 }
 #content-side {
    position: absolute;
@@ -729,7 +809,7 @@ li[data-depth="1"] a::before {
 }
 .sign-list-wrap {
     margin-top: 50px;
- 
+
 }
 .sign-list-wrap thead {
 	padding: 10px;
@@ -767,20 +847,20 @@ li[data-depth="1"] a::before {
    	width: 80px;
    	height: 40px;
 }
-.sign-ap-btn {
+.sign-rj-btn {
    color: #fff;
    background: #ff4545;
    transition: 0.3s;
 }
-.sign-ap-btn:hover {
+.sign-rj-btn:hover {
    background: #cc2828;
 }
-.sign-rj-btn{
+.sign-ap-btn{
    color: #fff;
    background: #30afff;
    transition: 0.3s;
 }
-.sign-rj-btn:hover {
+.sign-ap-btn:hover {
    background: #259ddd;
 }
 .sign-list-wrap {
