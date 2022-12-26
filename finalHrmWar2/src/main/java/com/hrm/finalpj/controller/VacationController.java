@@ -26,11 +26,13 @@ public class VacationController {
 	IVacationMapper vmap;
 	
 	@RequestMapping("/vacationlist")
-	   public String getvacationlist(Model model) {
+	   public String getvacationlist(Model model, Principal principal) {
 		vacationDTO dto = new vacationDTO();
-		model.addAttribute("vacationlist", vmap.vacationList(dto));
+		int num = vmap.numDAO(principal.getName());
+		model.addAttribute("vacationlist", vmap.vacationList(dto,num));
 		int total = vmap.vacationTotal();
 		model.addAttribute("total",total);
+		model.addAttribute("num",num);
 		return "vacation/vacationList";
 	   }
 	
@@ -40,37 +42,27 @@ public class VacationController {
 	   }
 	
 	@PostMapping("/vacationWriting")
-		public String writing(HttpServletRequest req) {
+		public String writing(HttpServletRequest req,Principal principal) {
 		String vac = req.getParameter("vacation");
 		String sta = req.getParameter("start");
 		String end = req.getParameter("end");
+		String sta1 = sta.substring(0,10);
+		String sta2 = sta.substring(11);
+		String sta3 = sta1+"/"+sta2;
+		String end1 = end.substring(0,10);
+		String end2 = end.substring(11);
+		String end3 = end1+"/"+end2;
 		String rea = req.getParameter("reason");
+		int num = vmap.numDAO(principal.getName());
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("vacation", vac);
-		map.put("start", sta);
-		map.put("end", end);
+		map.put("start", sta3);
+		map.put("end", end3);
 		map.put("reason", rea);
+		map.put("num", num);
 		vmap.vacationWriteDAO(map);
 		
 		return "redirect:vacationlist";
 	}
 	   
-	  
-	
-	
-	@RequestMapping("/vacationPage/{sign_num}")
-	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model,HttpServletRequest req, Principal principal) {
-		String name = vmap.numDAO(principal.getName());
-		model.addAttribute("name", name);
-		
-		signDTO dto = vmap.SelectSignPage(sign_num);
-		model.addAttribute("dto", dto);
-		
-		String res = vmap.resDAO(sign_num);
-		model.addAttribute("res", res);
-	
-		model.addAttribute("dto", dto);
-		
-	      return "vacation/vacationPage";
-	   }
 }
