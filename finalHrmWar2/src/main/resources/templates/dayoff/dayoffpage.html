@@ -21,33 +21,33 @@
 				<div class="sign-info-title">
 					<div class="sign-info-block">
 						<h5>제목</h5>
-						<span th:text="${dto.sign_req_title}"></span>
+						<span th:text="${dto.type_category}"></span>
 					</div>
 					<div class="sign-info-block">
 						<h5>번호</h5>
-						<span th:text="${dto.sign_num}"></span>
+						<span th:text="${dto.dayoff_num}"></span>
 					</div>
 					<div class="sign-info-block">
 						<h5>작성자</h5>
-						<span th:text="${dto.sign_res_name}"></span>
+						<span th:text="${dto.employee_name}"></span>
 					</div>
 					<div class="sign-info-block">
 						<h5>작성일</h5>
-						<span th:text="${dto.sign_begin}"></span>
+						<span th:text="${dto.dayoff_date}"></span>
 					</div>
 					<div class="sign-info-block">
 						<h5>결재자</h5>
-						<span th:text="${dto.sign_first}"></span>
+						<span th:text="${dto.dayoff_approver}"></span>
 					</div>
 				</div>
 				<hr>
 				<div class="sign-info-content">
 					<h5 style="margin-bottom:5px;">내용</h5>
-					<span th:text="${dto.sign_req_contents }"></span>
+					<span th:text="${dto.dayoff_reason}"></span>
 				</div>
 			</div>
 		</div>	
-		<form th:action="@{${sign_num}}" method="get">
+		<form th:action="@{${dayoff_num}}" method="get">
 			<div th:if="${name == res}">
 			<input class="sign-ap-btn" type="submit" name="approve" value="승인"> 
 			<input class="sign-rj-btn" type="submit" name="deny" value="반려">

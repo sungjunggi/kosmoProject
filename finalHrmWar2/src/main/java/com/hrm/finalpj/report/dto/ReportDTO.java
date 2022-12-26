@@ -39,6 +39,7 @@ public class ReportDTO {
 	private String template_board_start;
 	private String template_board_end;
 	private String getcomment_content;
+	private String template_board_sign_name;
 	private String count;
 	
 }
