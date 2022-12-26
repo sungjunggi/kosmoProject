@@ -84,10 +84,22 @@ public class HrmMainController {
 	      return "sign/signpage";
 	   }
 	
+		
+	
 	@RequestMapping("/dayoffpage/{dayoff_num}")
-	   public String getdayoffpage(@PathVariable("dayoff_num") int dayoff_num, Model model) {
+	   public String getdayoffpage(@PathVariable("dayoff_num") int dayoff_num, Model model, HttpServletRequest req) {
 		signDTO dto = imap.SelectDayoffPage(dayoff_num);
 		model.addAttribute("dto", dto);
+		
+		String approve = req.getParameter("approve");
+		String deny = req.getParameter("deny");
+		if(approve != null && deny == null) {
+			imap.approveDAO1(dayoff_num);
+		}else if(deny !=null && approve == null) {
+			imap.denyDAO1(dayoff_num);
+		}else {  
+			model.addAttribute("dto", dto);
+		}
 		
 		return "dayoff/dayoffpage";
 	}

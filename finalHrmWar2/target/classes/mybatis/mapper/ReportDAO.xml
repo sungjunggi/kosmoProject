@@ -168,6 +168,17 @@
     	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD
     </select>
     
+<!--     <select id="myReportDAO" resultType="com.hrm.fianlpj.report.dto.ReportDTO" parameterType="com.hrm.finalpj.report.dto.Criteria"> -->
+<!--    		SELECT TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_TITLE, TB.TEMPLATE_BOARD_DATE, E.EMPLOYEE_NAME, -->
+<!--         		TB.TEMPLATE_BOARD_SIGN_STATUS, COUNT(GC.TEMPLATE_BOARD_NUM) AS COUNT -->
+<!-- 		FROM GETTEMPLATE GT, EMPLOYEE E, TEMPLATE_BOARD TB, GETCOMMENT GC -->
+<!-- 		WHERE TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM  -->
+<!-- 		AND TB.EMPLOYEE_NUM = E.EMPLOYEE_NUM -->
+<!-- 		AND GC.TEMPLATE_BOARD_NUM(+) = TB.TEMPLATE_BOARD_NUM -->
+<!-- 		AND E.EMPLOYEE_NUM = #{employee_num} -->
+<!-- 		GROUP BY TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_TITLE, TB.TEMPLATE_BOARD_DATE,  -->
+<!--         		E.EMPLOYEE_NAME, TB.TEMPLATE_BOARD_SIGN_STATUS -->
+<!--     </select>  -->
     
     <select id="myReportCount" resultType="int">
     	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD WHERE EMPLOYEE_NUM = #{employee_num}
