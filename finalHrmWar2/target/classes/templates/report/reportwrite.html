@@ -28,7 +28,8 @@
 	<div class="write-box">
 		<form id="form" name="form" method="post" action="/reportlist">
 			<div th:each="dto : ${template}">
-				<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
+				<input type="hidden" name="employee_num" th:value="${dto.employee_num}" />
+				<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}" />
 				<div>
 					<div th:text="${dto.gettemplate_title}"></div>
 				</div>
@@ -129,7 +130,7 @@
 				<br/>
 					<div>
 					<div th:text="${dto.gettemplate_question5}"></div>
-					<input type="text" name="answer5" placeholder='내용을 작성해주세요.'/>
+					<textarea class="report-write-content" name="answer5" placeholder='내용을 작성해주세요.' style="resize: none;"></textarea>
 				</div>
 				<br/>
 				<div>
@@ -139,10 +140,6 @@
 				<br/>
 			</th:block>
 			
-				<br/>
-				<div>
-					<div th:text="${dto.gettemplate_date}"></div> 
-				</div>
 				<br/>
 				<div>
 					<div th:text="${dto.gettemplate_writer}"></div>

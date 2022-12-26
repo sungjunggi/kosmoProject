@@ -692,21 +692,40 @@ li[data-depth="1"] a::before {
    	width: 80px;
    	height: 40px;
 }
-.report-edit-btn {
+.report-del-btn {
    color: #fff;
    background: #ff4545;
    transition: 0.3s;
 }
-.report-edit-btn:hover {
+.report-del-btn:hover {
    background: #cc2828;
 }
-.report-del-btn{
+.report-edit-btn{
    color: #fff;
    background: #30afff;
    transition: 0.3s;
 }
-.report-del-btn:hover {
+.report-edit-btn:hover {
    background: #259ddd;
+}
+#report-update-popup {
+	visibility: hidden;
+   opacity : 0;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    padding: 30px;
+    width : 700px;
+    margin-left:-18%;
+    margin-top: -200px;
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
+    font-size: 16px;
+    font-weight: 100;
+    transition: 0.3s;
+    border-radius: 10px;
+    border:none;
 }
 .sign-list-wrap {
     margin-top: 50px;

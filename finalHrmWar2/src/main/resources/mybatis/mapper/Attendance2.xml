@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hrm.finalpj.dao.IAttendanceDao2">
-	<select id="attRate1" resultType="int" parameterType="com.hrm.finalpj.dto.AttendanceDto2">
+<!-- 	<select id="attRate1" resultType="int" parameterType="com.hrm.finalpj.dto.AttendanceDto2">
 		SELECT COUNT(*) AS attRate1
 		FROM EMPLOYEE E, CALENDAR C, SCHEDULE S, ATTENDANCE A
 		WHERE E.EMPLOYEE_NUM=C.EMPLOYEE_NUM
@@ -32,7 +32,7 @@
 		AND D.DEPARTMENT_NUM=E.DEPARTMENT_NUM
 		AND D.JOB_NUM=J.JOB_NUM
 		AND SUBSTR(C.CALENDAR_DATE,1,10) = TO_CHAR(SYSDATE,'yyyy-mm-dd')
-	</select>
+	</select> -->
 
 <!-- 	<select id="alreadyAtt" resultType="com.hrm.finalpj.dto.AttendanceDto2">
 		SELECT E.EMPLOYEE_NAME,J.JOB_NAME,T.TYPE_CATEGORY, S.SCHEDULE_NAME,A.ATTENDANCE_WORKSTART, A.ATTENDANCE_WORKEND

@@ -41,7 +41,6 @@ public class HrmMainController {
 		List<Map<String, Object>> AllList = hrmtableService.SelectAllList();
 		System.out.println(AllList);
 		
-		
 		mav.addObject("Alllist", AllList);
 		mav.setViewName("list");
 		return mav;

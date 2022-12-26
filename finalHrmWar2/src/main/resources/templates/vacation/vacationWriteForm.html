@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<div layout:fragment="content">
+<form action="vacationWriting" method="post">
+<span><a th:href="@{/vacationlist}">← 휴가 만들기</a>
+	<input type="submit" value="저장">
+</span><br/>
+	<label>종류</label><br/>
+	<input type="radio" name="vacation" value="203">연차
+	<input type="radio" name="vacation" value="202">반차
+	<input type="radio" name="vacation" value="201">휴가
+	<input type="radio" name="vacation" value="204">병가
+	<input type="radio" name="vacation" value="105">출장
+	<input type="radio" name="vacation" value="106">외근
+	<br/>
+	<label>승인자</label><br/>
+	<select name="employee">
+		<option value="group">그룹</option>
+		<option value="specificEmployee">특정 직원</option>
+	</select><br/><br/>
+	<label>기간</label><br/>
+	시작일 <input type="date" name="start"><br/>
+	종료일 <input type="date" name="end"><br/><br/>
+	<label>상세이유</label><br/>
+	<textarea name="reason" placeholder="상세이유 입력(필수)"></textarea>
+	
+</form>
+</div>
+</html>

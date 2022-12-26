@@ -100,7 +100,7 @@
       </select>
       
       <select id="numDAO" resultType="int">
-      	select e.employee_num from communication c, employee e where c.employee_num=e.employee_num and category_num=10 and employee_email = #{name} and rownum=1
+      	select employee_num from employee where employee_email = #{name} and rownum=1
       </select>
       
       <select id="scheduledTotalDAO" resultType="int">
