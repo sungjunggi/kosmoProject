@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Sign List</title>
+</head>
+<div layout:fragment="content">
+	<div class="sign-list-wrap">
+		<table width=100%>
+			<thead>
+				<tr>
+					<th class="sign-th">번호</th>
+					<th class="sign-th" style="font-size: 16px; font-weight: 600;">제목</th>
+					<th class="sign-th">작성자</th>
+					<th class="sign-th">승인상태</th>
+					<th class="sign-th">작성일</th>
+					<th class="sign-th">결재자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto:${vacationlist}" >
+					<td style="text-align: center; width:50px; font-size:13px; font-weight: 300;" ><span th:text="${dto.sign_num}"></span></td>
+					<td style="width:700px;">
+						<a th:href="@{/vacationPage/{sign_num}(sign_num = ${dto.sign_num})}">
+							<span th:text="${dto.sign_req_title}"></span>
+						</a>
+					</td>
+					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_res_name}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_status}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_begin}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_first}"></span></td>
+				</tr>
+				<tr th:each="dto:${vacationlist1}" >
+					<td style="text-align: center; width:50px; font-size:13px; font-weight: 300;" ><span th:text="${dto.template_board_num}"></span></td>
+					<td style="width:700px;">
+						<a th:href="@{/vacationPage1/{sign_num}(sign_num = ${dto.gettemplate_num})}">
+							<span th:text="${dto.gettemplate_title}"></span>
+						</a>
+					</td>
+					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.employee_name}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.template_board_sign_status}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.template_board_date}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.template_board_sign_name}"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</html>

@@ -16,69 +16,49 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hrm.finalpj.dto.signDTO;
 import com.hrm.finalpj.mapper.IHrmMapper;
+import com.hrm.finalpj.mapper.IVacationMapper;
 import com.hrm.finalpj.report.dto.ReportDTO;
 import com.hrm.finalpj.service.HrmTableService;
 
 @Controller
-public class HrmMainController {
+public class VacationController {
 	
 	@Autowired
-	IHrmMapper imap;
+	IVacationMapper vmap;
 	
-	@Resource
-	private HrmTableService hrmtableService;
-	
-//   @RequestMapping("/")
-//   public String test(Model model) {
-//      System.out.println("guest");
-//      return "/test";
-//   }
-	
-	@RequestMapping(value="list")
-	public ModelAndView AllListView(Map<String, Object> map) throws Exception{
-		ModelAndView mav = new ModelAndView();
-		
-		List<Map<String, Object>> AllList = hrmtableService.SelectAllList();
-		System.out.println(AllList);
-		
-		mav.addObject("Alllist", AllList);
-		mav.setViewName("list");
-		return mav;
-	}
-
-	@RequestMapping("/signlist")
+	@RequestMapping("/vacationlist")
 	   public String getsignlist(Model model) {
 		signDTO dto = new signDTO();
-		model.addAttribute("signlist", imap.SelectSignList(dto));
+		model.addAttribute("vacationlist", vmap.SelectSignList(dto));
 		ReportDTO dto1 = new ReportDTO();
-		model.addAttribute("signlist1", imap.SelectSignList2(dto1));
+		model.addAttribute("vacationlist1", vmap.SelectSignList2(dto1));
 		
-		return "sign/signlist";
+		return "vacation/vacationList";
 	   }
 	
 	
 	
-	@RequestMapping("/signpage/{sign_num}")
+	@RequestMapping("/vacationPage/{sign_num}")
 	   public String getsignpage(@PathVariable("sign_num") int sign_num, Model model,HttpServletRequest req, Principal principal) {
-		String name = imap.numDAO(principal.getName());
+		String name = vmap.numDAO(principal.getName());
 		model.addAttribute("name", name);
 		
-		signDTO dto = imap.SelectSignPage(sign_num);
+		signDTO dto = vmap.SelectSignPage(sign_num);
 		model.addAttribute("dto", dto);
 		
-		String res = imap.resDAO(sign_num);
+		String res = vmap.resDAO(sign_num);
 		model.addAttribute("res", res);
 		
 		String approve = req.getParameter("approve");
 		String deny = req.getParameter("deny");
 		if(approve != null && deny == null) {
-			imap.approveDAO(sign_num);
+			vmap.approveDAO(sign_num);
 		}else if(deny !=null && approve == null) {
-			imap.denyDAO(sign_num);
+			vmap.denyDAO(sign_num);
 		}else {  
 			model.addAttribute("dto", dto);
 		}
 		
-	      return "sign/signpage";
+	      return "vacation/vacationPage";
 	   }
 }
