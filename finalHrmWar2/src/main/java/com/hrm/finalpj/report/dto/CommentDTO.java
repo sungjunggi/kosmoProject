@@ -12,4 +12,6 @@ public class CommentDTO {
 	private String getcomment_writer;
 	private int template_board_num;
 	private int employee_num;
+	private String employee_name;
+	private String employee_email;
 }

@@ -40,9 +40,9 @@ public class ReportServiceImpl implements ReportService{
 		map.put("answer6", ans6);
 		map.put("answer7", ans7);
 		map.put("num", num);
-		dao.writeDAO1(map);
-		dao.writeDAO2(map);
-		dao.writeDAO3(map);
+		/*
+		 * dao.writeDAO1(map); dao.writeDAO2(map); dao.writeDAO3(map);
+		 */
 	}
 	
 	@Override
