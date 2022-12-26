@@ -1,24 +1,23 @@
 package com.hrm.finalpj.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.hrm.finalpj.dto.signDTO;
-import com.hrm.finalpj.mapper.IHrmMapper;
+import com.hrm.finalpj.dto.vacationDTO;
 import com.hrm.finalpj.mapper.IVacationMapper;
-import com.hrm.finalpj.report.dto.ReportDTO;
-import com.hrm.finalpj.service.HrmTableService;
 
 @Controller
 public class VacationController {
@@ -27,15 +26,36 @@ public class VacationController {
 	IVacationMapper vmap;
 	
 	@RequestMapping("/vacationlist")
-	   public String getsignlist(Model model) {
-		signDTO dto = new signDTO();
-		model.addAttribute("vacationlist", vmap.SelectSignList(dto));
-		ReportDTO dto1 = new ReportDTO();
-		model.addAttribute("vacationlist1", vmap.SelectSignList2(dto1));
-		
+	   public String getvacationlist(Model model) {
+		vacationDTO dto = new vacationDTO();
+		model.addAttribute("vacationlist", vmap.vacationList(dto));
+		int total = vmap.vacationTotal();
+		model.addAttribute("total",total);
 		return "vacation/vacationList";
 	   }
 	
+	@GetMapping("/vacationWrite")
+	   public String writeForm() {
+	      return "vacation/vacationwriteForm";
+	   }
+	
+	@PostMapping("/vacationWriting")
+		public String writing(HttpServletRequest req) {
+		String vac = req.getParameter("vacation");
+		String sta = req.getParameter("start");
+		String end = req.getParameter("end");
+		String rea = req.getParameter("reason");
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("vacation", vac);
+		map.put("start", sta);
+		map.put("end", end);
+		map.put("reason", rea);
+		vmap.vacationWriteDAO(map);
+		
+		return "redirect:vacationlist";
+	}
+	   
+	  
 	
 	
 	@RequestMapping("/vacationPage/{sign_num}")
@@ -48,16 +68,8 @@ public class VacationController {
 		
 		String res = vmap.resDAO(sign_num);
 		model.addAttribute("res", res);
-		
-		String approve = req.getParameter("approve");
-		String deny = req.getParameter("deny");
-		if(approve != null && deny == null) {
-			vmap.approveDAO(sign_num);
-		}else if(deny !=null && approve == null) {
-			vmap.denyDAO(sign_num);
-		}else {  
-			model.addAttribute("dto", dto);
-		}
+	
+		model.addAttribute("dto", dto);
 		
 	      return "vacation/vacationPage";
 	   }

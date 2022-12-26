@@ -6,25 +6,14 @@
 <mapper namespace="com.hrm.finalpj.mapper.IVacationMapper">
 
     
-     <select id="SelectSignList" resultType="com.hrm.finalpj.dto.signDTO">
-    	select sign_num,sign_req_title,sign_status,sign_begin,sign_res_name,sign_first from sign
-    </select>
- 
-     <select id="SelectSignList2" resultType="com.hrm.finalpj.report.dto.ReportDTO">
-    	SELECT * FROM LISTVIEW
+     <select id="vacationList" resultType="com.hrm.finalpj.dto.vacationDTO">
+    	select * from dayoff d, type t where d.type_num=t.type_num
     </select>
     
     <select id="SelectSignPage" resultType="com.hrm.finalpj.dto.signDTO">
     	select sign_num,sign_req_title,sign_begin,sign_res_name,sign_req_contents from sign where sign_num = #{0}
     </select>
  	
- 	<update id="approveDAO">
- 		update sign set sign_status='승인완료' where sign_num = #{sign_num}
- 	</update>
- 	
- 	<update id="denyDAO">
- 		update sign set sign_status='반려' where sign_num = #{sign_num}
- 	</update>
  	
  	<select id="numDAO" resultType="String">
  		select employee_name from employee where employee_email = #{name}
@@ -33,5 +22,14 @@
  	<select id="resDAO" resultType="String">
  		select sign_first from sign where sign_num= #{res}
  	</select>
+ 	
+ 	<select id="vacationTotal" resultType="int">
+ 		select count(*) as total from dayoff 
+ 	</select>
+ 	
+ 	<insert id="vacationWriteDAO" parameterType = "hashmap">
+         insert into dayoff (dayoff_num,type_num,dayoff_begin,dayoff_end,dayoff_reason,dayoff_status,dayoff_date)
+       values (seq_dayoff_num.nextval,#{vacation},#{start},#{end},#{reason},'승인대기',sysdate)   
+      </insert>
  	
 </mapper>
