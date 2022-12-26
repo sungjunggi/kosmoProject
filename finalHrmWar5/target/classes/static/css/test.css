@@ -16,7 +16,7 @@
    left: 240px;
    width: 100%;
    height: 100%;
-   max-width: 1660px;
+   max-width: 1550px;
 }
 .content {
    position: absolute;
@@ -729,7 +729,7 @@ li[data-depth="1"] a::before {
 }
 .sign-list-wrap {
     margin-top: 50px;
-
+ 
 }
 .sign-list-wrap thead {
 	padding: 10px;

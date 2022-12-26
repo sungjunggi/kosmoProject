@@ -92,10 +92,10 @@
                  <td colspan="8" align="center">자료가 존재하지 않습니다.</td>
              </tr>
             
-            <th:block th:each="dto : ${list}" >
+            <th:block th:each="dto,i : ${list}" >
                   <tr th:unless="${booleancheck}" > 
                   <td style="text-align: center;"><input type="checkbox" class="chk" name="deleteId" th:value="${dto.communication_num}"></td>
-                  <td th:text="${dto.communication_num}" style="width:50px; font-size:11px; font-weight: 200; text-align: center;"></td>
+                  <td th:text="${total-i.index}" style="width:50px; font-size:11px; font-weight: 200; text-align: center;"></td>
                   <td>
                      <a th:href="@{'/view/'+${dto.communication_num}}">
                         <span th:text="${dto.communication_title}"></span>
@@ -128,6 +128,7 @@
              </div>
    		</div>
    </form>
+   			
 </div>
 
 </body>
