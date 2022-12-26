@@ -7,7 +7,7 @@
 
     
      <select id="vacationList" resultType="com.hrm.finalpj.dto.vacationDTO">
-    	select * from dayoff d, type t where d.type_num=t.type_num
+    	select * from dayoff d, type t where d.type_num=t.type_num and employee_num=#{num} order by dayoff_num desc
     </select>
     
     <select id="SelectSignPage" resultType="com.hrm.finalpj.dto.signDTO">
@@ -15,8 +15,8 @@
     </select>
  	
  	
- 	<select id="numDAO" resultType="String">
- 		select employee_name from employee where employee_email = #{name}
+ 	<select id="numDAO" resultType="int">
+ 		select employee_num from employee where employee_email = #{name} and rownum=1
  	</select>
  	
  	<select id="resDAO" resultType="String">
@@ -28,8 +28,8 @@
  	</select>
  	
  	<insert id="vacationWriteDAO" parameterType = "hashmap">
-         insert into dayoff (dayoff_num,type_num,dayoff_begin,dayoff_end,dayoff_reason,dayoff_status,dayoff_date)
-       values (seq_dayoff_num.nextval,#{vacation},#{start},#{end},#{reason},'승인대기',sysdate)   
+         insert into dayoff (dayoff_num,type_num,dayoff_begin,dayoff_end,dayoff_reason,dayoff_status,dayoff_date,employee_num)
+       values (seq_dayoff_num.nextval,#{vacation},#{start},#{end},#{reason},'승인대기',TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{num})   
       </insert>
  	
 </mapper>
