@@ -21,11 +21,19 @@ public interface IHrmMapper {
     
     public List<signDTO> SelectSignList2(ReportDTO dto);
     
+    public List<signDTO> SelectSignList3(signDTO dto);
+    
     public signDTO SelectSignPage(int dto);
+    
+    public signDTO SelectDayoffPage(int dto);
     
     public void approveDAO(int sign_num); 
     
     public void denyDAO(int sign_num);
+    
+    public void approveDAO1(int dayoff_num); 
+    
+    public void denyDAO1(int dayoff_num);
     
     public String numDAO(String name);
     

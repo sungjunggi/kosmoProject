@@ -9,6 +9,7 @@ public class ReportDTO {
 
 	private int employee_num;
 	private String employee_name;
+	private String employee_email;
 	
 	private int gettemplate_num;
 	private String gettemplate_title;

@@ -52,6 +52,8 @@ public class HrmMainController {
 		model.addAttribute("signlist", imap.SelectSignList(dto));
 		ReportDTO dto1 = new ReportDTO();
 		model.addAttribute("signlist1", imap.SelectSignList2(dto1));
+		signDTO dto2 = new signDTO();
+		model.addAttribute("signlist2", imap.SelectSignList3(dto2));
 		
 		return "sign/signlist";
 	   }
@@ -81,4 +83,12 @@ public class HrmMainController {
 		
 	      return "sign/signpage";
 	   }
+	
+	@RequestMapping("/dayoffpage/{dayoff_num}")
+	   public String getdayoffpage(@PathVariable("dayoff_num") int dayoff_num, Model model) {
+		signDTO dto = imap.SelectDayoffPage(dayoff_num);
+		model.addAttribute("dto", dto);
+		
+		return "dayoff/dayoffpage";
+	}
 }

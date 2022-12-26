@@ -38,7 +38,7 @@
 	
 	<insert id="writeDAO1">
 		INSERT INTO TEMPLATE_BOARD 
-		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, #{employee_num}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
 		 #{template_board_answer1}, null, null, #{template_board_answer4}, #{template_board_answer5}, 
 		 #{template_board_answer6}, #{template_board_answer7}, '승인대기', 
 		 #{template_board_sign_name}, #{template_board_start}, #{template_board_end})
@@ -46,14 +46,14 @@
 	
 	<insert id="writeDAO2">
 		INSERT INTO TEMPLATE_BOARD 
-		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, #{employee_num}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
 		 #{template_board_answer1}, null, null, #{template_board_answer4}, #{template_board_answer5}, 
 		 null, null, '승인대기', #{template_board_sign_name}, #{template_board_start}, #{template_board_end})
 	</insert>
 	
 	<insert id="writeDAO3">
 		INSERT INTO TEMPLATE_BOARD 
-		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, null, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+		VALUES (SEQ_TEMPLATE_BOARD_NUM.NEXTVAL, #{gettemplate_num}, #{employee_num}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
 		 #{template_board_answer1}, null, null, #{template_board_answer4}, #{template_board_answer5}, 
 		 #{template_board_answer6}, null, '승인대기', #{template_board_sign_name}, 
 		 #{template_board_start}, #{template_board_end})
@@ -93,11 +93,7 @@
 	</delete>
 	
 	<select id="numDAO" resultType="int">
-      	SELECT E.EMPLOYEE_NUM
-		FROM EMPLOYEE E, TEMPLATE_BOARD TB
-		WHERE E.EMPLOYEE_NUM = TB.EMPLOYEE_NUM
-		AND EMPLOYEE_EMAIL = #{name} 
-		AND ROWNUM = 1
+      	SELECT EMPLOYEE_NUM FROM EMPLOYEE WHERE EMPLOYEE_EMAIL = #{name} AND ROWNUM = 1
     </select>
 	
 	<insert id="commentDAO" parameterType="com.hrm.finalpj.report.dto.CommentDTO">
@@ -151,7 +147,7 @@
 	</select>
 	
 	<select id="getList" resultType="com.hrm.finalpj.report.dto.ReportDTO" parameterType="com.hrm.finalpj.report.dto.PageDTO">
-    	<![CDATA[
+    <![CDATA[
     	SELECT * FROM(
     		SELECT ROWNUM R, C.* FROM (
     			SELECT E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
@@ -172,20 +168,13 @@
     	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD
     </select>
     
-    <!-- <select id="myReport" resultType="com.hrm.fianlpj.report.dto.ReportDTO" parameterType="com.hrm.finalpj.report.dto.Criteria">
-    	SELECT * FROM (
-    		SELECT ROWNUM R, C.* FROM (
-    			SELECT TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_TITLE, TB.TEMPLATE_BOARD_DATE, E.EMPLOYEE_NAME,
-    					 TB.TEMPLATE_BOARD_SIGN_STATUS, COUNT(GC.TEMPLATE_BOARD_NUM) AS COUNT
-    			FROM GETTEMPLATE GT, EMPLOYEE E, TEMPLATE_BOARD TB, GETCOMMENT GC
-    			WHERE TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM 
-    			AND TB.EMPLOYEE_NUM = E.EMPLOYEE_NUM
-    			AND GC.TEMPLATE_BOARD_NUM(+) = TB.TEMPLATE_BOARD_NUM) C
-    		)
-    </select> -->
     
     <select id="myReportCount" resultType="int">
-    	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD WHERE EMPLOYEE_NUM = #{num}
+    	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD WHERE EMPLOYEE_NUM = #{employee_num}
+    </select>
+    
+    <select id="allReportCount" resultType="int">
+    	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD
     </select>
     
 </mapper>
