@@ -29,10 +29,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<p th:text="${dto.communication_content}"></p>
 			<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
 			<div class="todo-info-content-btn">
-				<input type="button" id="edit" onclick="editPopupShow()" class="notice-edit-btn" value="수정">
+				<input type="button" id="edit" onclick="editPopupShow()" value="수정">
 				<form th:action="@{/ndeleteBoard}" id='frm' method="get">
 					<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
-					<input type="submit" id="delete" class="notice-del-btn" value="삭제">
+					<input type="submit" id="delete"  value="삭제">
 				</form>
 				
 			</div>
