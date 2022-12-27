@@ -41,7 +41,6 @@ public class HrmMainController {
 		List<Map<String, Object>> AllList = hrmtableService.SelectAllList();
 		System.out.println(AllList);
 		
-		
 		mav.addObject("Alllist", AllList);
 		mav.setViewName("list");
 		return mav;
@@ -53,6 +52,8 @@ public class HrmMainController {
 		model.addAttribute("signlist", imap.SelectSignList(dto));
 		ReportDTO dto1 = new ReportDTO();
 		model.addAttribute("signlist1", imap.SelectSignList2(dto1));
+		signDTO dto2 = new signDTO();
+		model.addAttribute("signlist2", imap.SelectSignList3(dto2));
 		
 		return "sign/signlist";
 	   }
@@ -82,4 +83,24 @@ public class HrmMainController {
 		
 	      return "sign/signpage";
 	   }
+	
+		
+	
+	@RequestMapping("/dayoffpage/{dayoff_num}")
+	   public String getdayoffpage(@PathVariable("dayoff_num") int dayoff_num, Model model, HttpServletRequest req) {
+		signDTO dto = imap.SelectDayoffPage(dayoff_num);
+		model.addAttribute("dto", dto);
+		
+		String approve = req.getParameter("approve");
+		String deny = req.getParameter("deny");
+		if(approve != null && deny == null) {
+			imap.approveDAO1(dayoff_num);
+		}else if(deny !=null && approve == null) {
+			imap.denyDAO1(dayoff_num);
+		}else {  
+			model.addAttribute("dto", dto);
+		}
+		
+		return "dayoff/dayoffpage";
+	}
 }

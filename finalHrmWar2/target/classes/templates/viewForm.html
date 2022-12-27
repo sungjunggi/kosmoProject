@@ -58,7 +58,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	<div id="todo-edit-popup">
 		<form th:action="@{'/edit/'+ ${dto.communication_num}}" method="post">
 			<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
-			<input type="submit" value="저장" class="todo-write-save">
+			<input type="submit" value="저장" id="save-btn">
 		
 			<label>타이틀</label><br/>
 			<input type="text" name="title" th:value="${dto.communication_title}" class="edit-title"><br/><br/>
@@ -72,7 +72,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			작업 시작일 <input type="date" name="start" th:value="${dto.communication_start}"><br/>
 			작업 종료일 <input type="date" name="end" th:value="${dto.communication_end}"><br/><br/>
 			<label>작업</label><br/>
-			<input type="text" name="content" th:value="${dto.communication_content}">
+			<textarea type="text" name="content" th:value="${dto.communication_content}"></textarea>
 		</form>
 		
 			

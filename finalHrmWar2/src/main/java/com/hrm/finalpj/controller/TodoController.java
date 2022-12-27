@@ -50,12 +50,12 @@ public class TodoController {
        String starting = req.getParameter("starting");
        String ending = req.getParameter("ending");
        
-       int myNum = dao.numDAO(principal.getName());
+       Integer myNum = dao.numDAO(principal.getName());
        int scheduled = dao.scheduledTotalDAO();
        int proceeding = dao.proceedingTotalDAO();
        int finish = dao.finishTotalDAO();
        int allTodoCount = dao.allTodoCountDAO();
-       int myTodoCount = dao.myTodoCountDAO(myNum);
+       Integer myTodoCount = dao.myTodoCountDAO(myNum);
        
        req.setAttribute("scheduled", scheduled);
        req.setAttribute("proceeding", proceeding);
