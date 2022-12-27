@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>viewtemplate</title>
+	<script type="text/javascript">
+	   window.onload = function() {
+	      today = new Date();
+	      today = today.toISOString().slice(0, 10);
+	     
+	      sysdate = document.getElementById("currentDate");
+	      sysdate.value = today;
+	   }
+	</script>
+</head>
+<div layout:fragment="content">
+	<div style="display: flex; align-items: center; margin-bottom: 10px;">
+      <a th:href="@{/reportlist}" style="display: inline-block;">
+         <span>
+            <i class="back-icon icon"></i>
+         </span>
+      </a>
+      <h4 style="float: left; display: inline-block; margin:0;">보고서 작성</h4>
+   	</div>
+
+	<div class="write-box">
+		<form id="form" name="form" method="post" action="/reportlist">
+			<div th:each="dto : ${template}">
+				<input type="hidden" name="employee_num" th:value="${dto.employee_num}" />
+				<input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}" />
+				<div>
+					<div th:text="${dto.gettemplate_title}"></div>
+				</div>
+				<br/>
+			
+			<th:block th:if="${dto.gettemplate_num}==1">
+				<div>
+					<div th:text="${dto.gettemplate_question1}"></div>
+					<input type="text" name="answer1" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_question2}"></div>
+					<input type="text" name="sign" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>	
+				<div>
+					<div th:text="${dto.gettemplate_question3}"></div>
+					<input type="date" name="start" id="currentDate" style="width: 275px;"/>
+					~
+					<input type="date" name="end" id="endDate" style="width: 275px;"/>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_question4}"></div>
+					<input type="text" name="answer4" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>
+					<div>
+					<div th:text="${dto.gettemplate_question5}"></div>
+					<input type="text" name="answer5" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>	
+				<div>
+					<div th:text="${dto.gettemplate_question6}"></div>
+					<textarea class="report-write-content" name="answer6" placeholder='내용을 작성해주세요.' style="resize: none;"></textarea>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_question7}"></div>
+					<input type="text" name="answer7" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>
+			</th:block>
+			
+			<th:block th:if="${dto.gettemplate_num}==2">
+				<div>
+					<div th:text="${dto.gettemplate_question1}"></div>
+					<input type="text" name="answer1" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_question2}"></div>
+					<input type="text" name="sign" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>	
+				<div>
+					<div th:text="${dto.gettemplate_question3}"></div>
+					<input type="date" name="start" id="currentDate" style="width: 275px;"/>
+					~
+					<input type="date" name="end" id="endDate" style="width: 275px;"/>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_question4}"></div>
+					<textarea class="report-write-content" name="answer4" placeholder='내용을 작성해주세요.' style="resize: none;"></textarea>
+				</div>
+					<br/>
+					<div>
+					<div th:text="${dto.gettemplate_question5}"></div>
+					<input type="text" name="answer5" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>	
+			</th:block>
+			
+			<th:block th:if="${dto.gettemplate_num}==3">
+				<div>
+					<div th:text="${dto.gettemplate_question1}"></div>
+					<input type="text" name="answer1" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_question2}"></div>
+					<input type="text" name="sign" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>	
+				<div>
+					<div th:text="${dto.gettemplate_question3}"></div>
+					<input type="date" name="start" id="currentDate" style="width: 275px;"/>
+					~
+					<input type="date" name="end" id="endDate" style="width: 275px;"/>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_question4}"></div>
+					<input type="text" name="answer4" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>
+					<div>
+					<div th:text="${dto.gettemplate_question5}"></div>
+					<textarea class="report-write-content" name="answer5" placeholder='내용을 작성해주세요.' style="resize: none;"></textarea>
+				</div>
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_question6}"></div>
+					<input type="text" name="answer6" placeholder='내용을 작성해주세요.'/>
+				</div>
+				<br/>
+			</th:block>
+			
+				<br/>
+				<div>
+					<div th:text="${dto.gettemplate_writer}"></div>
+				</div>
+				</div>	
+			<input class="write-submit submit" type="submit" name="제출" value="제출" />
+		</form>	
+	</div>
+</div>
+</html>

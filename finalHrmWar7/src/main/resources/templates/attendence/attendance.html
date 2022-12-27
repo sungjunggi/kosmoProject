@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+</head>
+<div layout:fragment="content">
+	<div class="att-wrap">
+		<div class="att-search-wrap">
+			<input type='date' id='currentDate' value=''/>
+			<select>
+				<option selected>직원</option>
+				<option value="${dao.employee_name}">${dao.employee_name}</option>
+				<option value="${dao.employee_name}"></option>
+				<option value=""></option>
+				<option value=""></option>
+			</select>
+		</div>
+		<div class="att-data-wrap">
+			<div class="att-data-box">
+				<div class="att-data-header">
+					<span style="font-size: 20px; font-weight: bold;">출퇴근 현황</span>
+					<span style="color:#aaaaaa; float:right; font-size:14px;">단위 : 명</span>
+				</div>
+				<div class="att-data-content">
+					<div class="att-data-cate1">
+						<div class="cate1-r">							
+							<p>출근율</p>
+							<p th:text="${average}+'%'"></p>
+							<div>
+								<span th:text="${attRate1}+''"></span>/
+								<span th:text="${attRate2}+''"></span>
+							</div>
+						</div>
+						<div class="cate1-m">
+							<div class="cate1-m-t">
+								<div>출근함</div>
+								<div class="cate1-m-t-b">
+									<div>출근전</div>
+									<div>미출근</div>
+								</div>
+							</div>
+							<div>출근 대상</div>
+						</div>
+						<div class="cate-l">
+							<div>지각</div>
+							<div>조퇴</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="att-data-sch">
+				<div class="att-data-header">
+					<h3>스케줄</h3>
+					<p>단위 : 명</p>
+				</div>
+				<div class="att-data-cate2">
+					<div>출근 대상</div>
+					<div>출장</div>
+					<div>휴가</div>
+					<div>교육</div>
+					<div>기타</div>
+					<div>일정없음</div>
+					<div>전체인원</div>
+				</div>
+			</div>
+		</div>
+		<div class="att-data-board">
+			<table>
+				<tr>
+					<td>이름</td>
+					<td>직급</td>
+					<td>근무상태</td>
+					<td>스케줄</td>
+					<td>출퇴근시각</td>
+					<td></td><td></td>
+					<td>특이사항</td>
+					<td>지각</td>
+					<td>조퇴</td>
+				</tr>
+				<tr th:each="dao : ${totalAtt}">
+					<td th:text="${dao.employee_name}"></td>
+					<td th:text="${dao.job_name}"></td>
+					<td th:text="${dao.type_category}"></td>
+					<td th:text="${dao.schedule_name}"></td>
+					<td th:text="${dao.attendance_workstart}"></td>
+					<td>-</td>
+					<td th:text="${dao.attendance_workend}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+ </div> 
+</html>
