@@ -29,10 +29,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<p th:text="${dto.communication_content}"></p>
 			<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
 			<div class="todo-info-content-btn">
-				<input type="button" id="edit" onclick="editPopupShow()" class="notice-edit-btn" value="수정">
+				<input type="button" id="edit" onclick="editPopupShow()" value="수정">
 				<form th:action="@{/ndeleteBoard}" id='frm' method="get">
 					<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
-					<input type="submit" id="delete" class="notice-del-btn" value="삭제">
+					<input type="submit" id="delete"  value="삭제">
 				</form>
 				
 			</div>
@@ -43,7 +43,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	<div id="todo-edit-popup">
 		<form th:action="@{'/nedit/'+ ${dto.communication_num}}" method="post">
 			<input type="hidden" name="communication_num" th:value="${dto.communication_num}">
-			<input type="submit" value="저장" class="todo-write-save">
+			<input type="submit" value="저장" id="save-btn">
 		
 			<label>타이틀</label><br/>
 			<input type="text" name="title" th:value="${dto.communication_title}" class="edit-title"><br/><br/>

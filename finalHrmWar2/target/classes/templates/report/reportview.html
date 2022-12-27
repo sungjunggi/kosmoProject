@@ -163,31 +163,37 @@
       </div>
       <div class="report-ed-btn-wrap">
          <button class="report-edit-btn" onclick="reportPopupShow()">수정</button>
-            <form action="/deletereport" method="get">
-               <input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
-               <input type="submit" class="report-del-btn" value="삭제" />   
-            </form>
+         <form action="/deletereport" method="get">
+              <input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
+              <input type="submit" class="report-del-btn" value="삭제" />   
+         </form>
       </div>
       <br/>
 	  <div class="report-comment">
-  		 <form th:action="@{'/reportview/'+${view.template_board_num}}" method="post">
-	        <textarea name="content" placeholder="리뷰를 작성해주세요." style="width:90%; height:100px;"></textarea>
+  		 <form th:action="@{'/reportview/'+${view.template_board_num}}" method="post" style="display: flex; justify-content: space-between;">
+	        <textarea name="content" class="report-textbox" placeholder="리뷰를 작성해주세요." ></textarea>
          	<input type="submit" class="report-comment-btn" value="등록" />
         </form>
       </div>
       <input type="hidden" name="num" value="${dto.getcomment_num}"></div>
    </div>
- 
-	      <div class="report-comment-view" th:each="dto2 : ${commentRead}">
-	      	<input type="hidden" name="name" />
-	      	<div th:if="${dto2.getcomment_writer } ">
-	      	<div th:text="${dto2.getcomment_writer}"></div>
-	      	<div th:text="${dto2.getcomment_date}"></div>
-	        <div th:text="${dto2.getcomment_content}"></div>
+	  <div class="report-comment-view" th:each="dto2 : ${commentRead}">
+	     <input type="hidden" name="name" />
+	      	<div th:if="${dto2.getcomment_writer}">
+		      <div th:text="${dto2.getcomment_writer}"></div>
+		      <div th:text="${dto2.getcomment_date}"></div>
+		      <div th:text="${dto2.getcomment_content}"></div>
+		      
+		      <!-- <th:block th:if="${">
+		       	<button class="report-edit-btn" onclick="reportPopupShow()">수정</button>
+         		<form action="/deletereport" method="get">
+              		<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
+              		<input type="submit" class="report-del-btn" value="삭제" />   
+        		</form>
+        	  </th:block> -->
 	        </div>
-	        <br/>
-	       </div>
-
+	      <br/>
+	   </div>
 
    <div class="popup-back"></div>
    <div id="report-update-popup">
@@ -196,7 +202,7 @@
          <input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
          <input type="hidden" name="template_board_num" th:value="${dto.template_board_num}" />
          <th:block th:if="${dto.gettemplate_num}==1">
-               <div>
+               <div id="report-1">
                   <h6><b>참가자</b></h6>
                   <input name="answer1" th:value="${dto.template_board_answer1}" /><br/>
                   <br/>
@@ -222,7 +228,7 @@
                </div>
             </th:block>
             <th:block th:if="${dto.gettemplate_num}==2">
-               <div>
+               <div id="report-2">
                   <h6><b>작성자</b></h6>
                   <input name="answer1" th:value="${dto.template_board_answer1}" /><br/>
                   <br/>
@@ -242,7 +248,7 @@
                </div>
             </th:block>
             <th:block th:if="${dto.gettemplate_num}==3">
-               <div>
+               <div id="report-3">
                   <h6><b>출장자</b></h6>
                   <input name="answer1" th:value="${dto.template_board_answer1}" /><br/>
                   <br/>
@@ -264,7 +270,7 @@
                   <br/>
                </div>
             </th:block>
-            <input type="submit" value="저장" />
+            <input type="submit" id="save-btn" value="저장" />
          </form>
       </div>
    </div>
