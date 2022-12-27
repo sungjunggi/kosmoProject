@@ -49,8 +49,8 @@
 		</div>	
 		<form th:action="@{${sign_num}}" method="get">
 			<div th:if="${name == sign_first}">
-			<input class="sign-ap-btn" type="submit" name="approve" value="승인"> 
-			<input class="sign-rj-btn" type="submit" name="deny" value="반려">
+				<input id="edit" class="sign-ap-btn" type="submit" name="approve" value="승인"> 
+				<input id="delete" class="sign-rj-btn" type="submit" name="deny" value="반려">
 			</div>
 		</form>
 	</div>
