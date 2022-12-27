@@ -93,6 +93,7 @@ public class ReportController {
 	@PostMapping("/reportlist")
 	public String reportWrite(Model model, HttpServletRequest req, Principal principal) {
 		ReportDTO dto = new ReportDTO();
+		
 		int myNum = dao.numDAO(principal.getName());
 		String getName = dao.getName(myNum);
 		
@@ -108,16 +109,15 @@ public class ReportController {
 		dto.setEmployee_num(myNum);
 		dto.setEmployee_name(getName);
 		
-		if(Integer.parseInt(req.getParameter("gettemplate_num")) == 1) {
-			
+		if(Integer.parseInt(req.getParameter("gettemplate_num")) == 1) {	
 			dao.writeDAO1(dto);
 		
 		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 2) {
 			dao.writeDAO2(dto);
-		
+	
 		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 3) {
 			dao.writeDAO3(dto);
-			
+		
 		}
 		
 		return "redirect:reportlist/1";
@@ -128,13 +128,11 @@ public class ReportController {
 		CommentDTO dto = new CommentDTO();
 		
 		dto.setTemplate_board_num(Integer.parseInt(num));
-		
 		model.addAttribute("view", dao.viewDAO(num));
 
-		
 		if(dao.commentReadDAO(num).get(0) != null) {
+			
 			model.addAttribute("commentRead", dao.commentReadDAO(num));
-	
 		}
 		
 		if(req.getParameter("content") != null) {
@@ -143,8 +141,7 @@ public class ReportController {
 			String getName = dao.getName(myNum);
 			dto.setGetcomment_writer(getName);
 			dao.commentDAO(dto);
-			/* model.addAttribute("comment", dao.commentDAO(dto)); */
-			/* dao.boardDAO(num); */
+		
 			model.addAttribute("commentRead", dao.commentReadDAO(num));
 			model.addAttribute("view", dao.viewDAO(num));
 			
@@ -153,6 +150,7 @@ public class ReportController {
 		} else {
 			model.addAttribute("view", dao.viewDAO(num));
 		}
+		
 		return "report/reportview";
 	}
 	
@@ -204,6 +202,7 @@ public class ReportController {
 		
 		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 3) {
 			dao.updateDAO3(dto);
+		
 		}
 		
 		return "redirect:reportview/"+req.getParameter("template_board_num");

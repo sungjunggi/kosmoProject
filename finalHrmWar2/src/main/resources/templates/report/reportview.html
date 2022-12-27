@@ -163,10 +163,10 @@
       </div>
       <div class="report-ed-btn-wrap">
          <button class="report-edit-btn" onclick="reportPopupShow()">수정</button>
-            <form action="/deletereport" method="get">
-               <input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
-               <input type="submit" class="report-del-btn" value="삭제" />   
-            </form>
+         <form action="/deletereport" method="get">
+              <input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
+              <input type="submit" class="report-del-btn" value="삭제" />   
+         </form>
       </div>
       <br/>
 	  <div class="report-comment">
@@ -177,17 +177,23 @@
       </div>
       <input type="hidden" name="num" value="${dto.getcomment_num}"></div>
    </div>
- 
-	      <div class="report-comment-view" th:each="dto2 : ${commentRead}">
-	      	<input type="hidden" name="name" />
-	      	<div th:if="${dto2.getcomment_writer } ">
-	      	<div th:text="${dto2.getcomment_writer}"></div>
-	      	<div th:text="${dto2.getcomment_date}"></div>
-	        <div th:text="${dto2.getcomment_content}"></div>
+	  <div class="report-comment-view" th:each="dto2 : ${commentRead}">
+	     <input type="hidden" name="name" />
+	      	<div th:if="${dto2.getcomment_writer}">
+		      <div th:text="${dto2.getcomment_writer}"></div>
+		      <div th:text="${dto2.getcomment_date}"></div>
+		      <div th:text="${dto2.getcomment_content}"></div>
+		      
+		      <!-- <th:block th:if="${">
+		       	<button class="report-edit-btn" onclick="reportPopupShow()">수정</button>
+         		<form action="/deletereport" method="get">
+              		<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
+              		<input type="submit" class="report-del-btn" value="삭제" />   
+        		</form>
+        	  </th:block> -->
 	        </div>
-	        <br/>
-	       </div>
-
+	      <br/>
+	   </div>
 
    <div class="popup-back"></div>
    <div id="report-update-popup">
