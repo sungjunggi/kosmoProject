@@ -24,7 +24,7 @@ public interface ITodoDAO {
    public List<CommunicationDTO> searchTextDAO(Criteria dto);
    public List<Criteria> searchDateDAO(Criteria criteria);
    public List<CommunicationDTO> searchAllDAO(Criteria dto);
-   public int numDAO(String name);
+   public Integer numDAO(String name);
    public int scheduledTotalDAO();
    public int proceedingTotalDAO();
    public int finishTotalDAO();

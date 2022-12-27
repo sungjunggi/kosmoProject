@@ -12,16 +12,15 @@
    }
 #content-box {
    position: absolute;
-   top:60px;
    left: 240px;
    width: 100%;
    height: 100%;
-   max-width: 1500px;
+   max-width: 1660px;
 }
 .content {
    position: absolute;
    left:0;
-   top:0;
+   top:60px;
    padding: 50px;
    width: 100%;
    min-width: 100%;
@@ -51,6 +50,7 @@
     text-decoration: none;
     color: #eaeaea;  
 }
+
 td a {
    color: #131313;
 }
@@ -60,10 +60,29 @@ li {
 code {
    color: #023064;
 }
+textarea {
+	resize: none;
+}
 .wrap {
     position: relative;
     width: 100%;
     height: 100%;
+}
+#edit {
+	color: #fff;
+  	background: #30afff;
+    transition: 0.3s;
+}
+#edit:hover {
+	background: #259ddd;
+}
+#delete {
+	color: #fff;
+   	background: #ff4545;
+   	transition: 0.3s;
+}
+#delete:hover {
+	background: #cc2828;
 }
 #left-side {
    background: #fff;
@@ -251,15 +270,107 @@ code {
 .lside-scroll-box::-webkit-scrollbar-track {
    background: #e3f1ff;
 }
+.lside-content-table a {
+	color: #374e63;
+}
+.lside-content-table a:hover {
+	text-decoration: none;
+}
+
 li[data-depth="1"] {
     padding: 2px 10px;
 }
 li[data-depth="1"] a {
+	position:relative;
     font-size: 13px;
     line-height: 18px;
     padding: 9px 0 9px 37px;
-    color: #374e63;
     display: block;
+}
+
+.nav-att::before {
+	background-image: url(../img/att_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-sch::before {
+	background-image: url(../img/sch_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-off::before {
+	background-image: url(../img/off_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-todo::before {
+	background-image: url(../img/todo_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-cte::before {
+	background-image: url(../img/cte_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-rep::before {
+	background-image: url(../img/rep_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-aprv::before {
+	background-image: url(../img/aprv_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
 }
 #content-side {
    position: absolute;
@@ -377,8 +488,7 @@ li[data-depth="1"] a {
     top: 50%;
     padding: 30px;
     width : 700px;
-    margin-left:-18%;
-    margin-top: -200px;
+    transform: translate(-50%, -50%);
     z-index: 1000;
     background: white;
     box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
@@ -400,7 +510,7 @@ li[data-depth="1"] a {
    border-radius: 50px;
    box-shadow:5px 10px 20px 0 rgb(0 0 0 /20%);
 }
-#todo-write-popup input:not(.write-title,.todo-write-save) {
+#todo-write-popup input:not(.write-title,#save-btn) {
    border: 1px solid #d3d3d3;
    border-radius: 8px;
    padding:10px;
@@ -414,8 +524,11 @@ li[data-depth="1"] a {
 .write-content {
    width: 500px;
    height: 100px;
+   border:1px solid #d3d3d3;
+   border-radius: 10px;
+   padding: 10px;
 }
-.todo-write-save {
+#save-btn {
    position: absolute;
    right : 20px;
    top: 20px;
@@ -505,8 +618,7 @@ li[data-depth="1"] a {
     top: 50%;
     padding: 30px;
     width : 700px;
-    margin-left:-18%;
-    margin-top: -200px;
+    transform: translate(-50%, -50%);
     z-index: 1000;
     background: white;
     box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
@@ -516,13 +628,35 @@ li[data-depth="1"] a {
     border-radius: 10px;
     border:none;
 }
-#todo-edit-popup input:not(.edit-title,.todo-write-save) {
+#todo-edit-popup input:not(.edit-title,#save-btn) {
    border: 1px solid #d3d3d3;
    border-radius: 8px;
    padding:10px;
    margin: 5px;
 }
-
+#todo-edit-popup textarea {
+	width:500px;
+	height:100px;
+	border: 1px solid #d3d3d3;
+	border-radius: 10px;
+	padding:10px;
+}
+#ready-btn {
+	color: #fff;
+   	background: #f8ca3f;
+   	transition: 0.3s;
+}
+#ready-btn:hover {
+	background: #e6ae09;
+}
+#compl-btn {
+	color: #fff;
+   	background: #61da18;
+   	transition: 0.3s;
+}
+#compl-btn:hover {
+	background: #4dac13;
+}
 .edit-title {
    border:none;
    border-bottom: 1px solid #d3d3d3;
@@ -587,8 +721,7 @@ li[data-depth="1"] a {
     left: 50%;
     top: 50%;
     width : 400px;
-    margin-left:-10%;
-    margin-top: -200px;
+    transform: translate(-50%, -50%);
     z-index: 1000;
     background: white;
     box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
@@ -672,29 +805,72 @@ li[data-depth="1"] a {
    	background: #fafafa;
    	margin-bottom : 20px;
 }
-
+.report-ed-btn-wrap {
+	display: flex;
+}
 
 .report-edit-btn, .report-del-btn {
 	border:none;
    	border-radius: 10px;
    	width: 80px;
    	height: 40px;
+   	
 }
-.report-edit-btn {
+.report-del-btn {
    color: #fff;
    background: #ff4545;
    transition: 0.3s;
 }
-.report-edit-btn:hover {
+.report-del-btn:hover {
    background: #cc2828;
 }
-.report-del-btn{
+.report-edit-btn{
    color: #fff;
    background: #30afff;
+   margin-right : 20px;
    transition: 0.3s;
 }
-.report-del-btn:hover {
+.report-edit-btn:hover {
    background: #259ddd;
+}
+.report-textbox {
+	width:90%; 
+	height:100px; 
+	border:1px solid #d3d3d3; 
+	border-radius: 10px 0 0 10px; 
+	padding:10px;
+	flex-grow: 1;
+}
+.report-comment-btn {
+	width: 100px;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    background: #30afff;
+    color: #fff;
+}
+#report-update-popup {
+	visibility: hidden;
+    opacity : 0;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    padding: 30px;
+    width : 700px;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
+    font-size: 16px;
+    font-weight: 100;
+    transition: 0.3s;
+    border-radius: 10px;
+    border:none;
+}
+#report-1 input, #report-2 input, #report-3 input {
+	border: 1px solid #d3d3d3;
+   	border-radius: 8px;
+   	padding:10px;
+   	margin: 5px;
 }
 .sign-list-wrap {
     margin-top: 50px;
@@ -736,20 +912,20 @@ li[data-depth="1"] a {
    	width: 80px;
    	height: 40px;
 }
-.sign-ap-btn {
+.sign-rj-btn {
    color: #fff;
    background: #ff4545;
    transition: 0.3s;
 }
-.sign-ap-btn:hover {
+.sign-rj-btn:hover {
    background: #cc2828;
 }
-.sign-rj-btn{
+.sign-ap-btn{
    color: #fff;
    background: #30afff;
    transition: 0.3s;
 }
-.sign-rj-btn:hover {
+.sign-ap-btn:hover {
    background: #259ddd;
 }
 .sign-list-wrap {
@@ -761,4 +937,50 @@ li[data-depth="1"] a {
 .sign-info h5 {
 	margin: 0;
 }
-
+#edit {
+	color: #fff;
+  	background: #30afff;
+    transition: 0.3s;
+}
+#edit:hover {
+	background: #259ddd;
+}
+#delete {
+	color: #fff;
+   	background: #ff4545;
+   	transition: 0.3s;
+}
+#delete:hover {
+	background: #cc2828;
+}
+.vac-popup {
+	visibility: hidden;
+    opacity : 0;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    padding: 30px;
+    width : 700px;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
+    font-size: 16px;
+    font-weight: 100;
+    transition: 0.3s;
+    border-radius: 10px;
+    border:none;
+}
+.vac-popup input:not(#save-btn) {
+	border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    padding:10px;
+    margin: 5px;
+}
+.vac-popup textarea {
+	width: 500px;
+	height: 100px;
+	border:1px solid #d3d3d3;
+	border-radius: 10px;
+	padding: 10px;
+}

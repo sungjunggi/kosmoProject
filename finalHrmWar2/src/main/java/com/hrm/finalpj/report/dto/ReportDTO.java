@@ -9,6 +9,7 @@ public class ReportDTO {
 
 	private int employee_num;
 	private String employee_name;
+	private String employee_email;
 	
 	private int gettemplate_num;
 	private String gettemplate_title;
@@ -39,6 +40,7 @@ public class ReportDTO {
 	private String template_board_start;
 	private String template_board_end;
 	private String getcomment_content;
+	private String template_board_sign_name;
 	private String count;
 	
 }

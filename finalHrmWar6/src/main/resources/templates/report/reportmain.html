@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<title>reportlist</title>
+	<script type="text/javascript">
+	   window.onload = function() {
+	      today = new Date();
+	      today = today.toISOString().slice(0, 10);
+	     
+	      sysdate = document.getElementById("currentDate");
+	      sysdate.value = today;
+	   }
+	</script>
+</head>
+
+<div layout:fragment="content">
+	<div class="report-btn-wrap">
+	   	<form action="/reportlist" method="get">
+		   <input type="date" name="start" id="currentDate" style="border:1px solid #d3d3d3; border-radius: 10px; padding:5px;">
+		   ~
+		   <input type="date" name="end" style="border:1px solid #d3d3d3; border-radius: 10px; padding:5px;">
+		<input type="submit" value="검색" class="report-search-btn"/>
+		</form>
+		<div class="report-btn-all">
+			<button type="button" id="all" onclick="location.href='/reportlist'">전체 보고서</button>
+			<button type="button" id="mine" onclick="">내 보고서</button>
+		</div>
+	</div>
+
+	<table width="100%" class="report-table">
+		<tr>
+			<th style="width: 50px; padding-left:20px;">No.</th>
+			<th id="temnumlink" style="width: 500px; padding:20px;">보고서</th>
+			<th style="width:200px; text-align: center; padding:10px;">작성일</th>
+			<th style="width:100px; text-align: center; padding:10px;">작성자</th>
+			<th style="width:80px; text-align: center; padding:10px;">승인상태</th>
+			<th style="width:80px; text-align: center; padding:10px;">댓글</th>
+		</tr>
+		<tr th:if="${booleancheck}" >
+            <td colspan="8" align="center">자료가 존재하지 않습니다.</td>
+        </tr>
+		<th:block th:each="dto:${list}">
+			<tr th:unless="${booleancheck}" > 
+			<td th:text="${dto.template_board_num}" style="padding-left: 20px;"></td>
+			<td style="padding-left: 20px;">
+				<a id="temnumlink" th:href="@{'/reportview/'+${dto.template_board_num}}">
+					<span id="temnumlink" th:text="${dto.gettemplate_title}"></span>
+				</a>
+			</td>
+			<td th:text="${dto.template_board_date}" style="text-align: center;"></td>
+			<td th:text="${dto.employee_name}" style="text-align: center;"></td>
+			<td th:text="${dto.template_board_sign_status}" style="text-align: center;"></td>
+			<td th:text="'💬'+${dto.count}" style="text-align: center;"></td>
+		</th:block>	
+	</table>
+	
+	<button class="report-mkbtn"type="button" onclick="popupShow()">보고서 작성</button>
+	<div class="popup-back"></div>
+		<table width="500" cellpadding="0" cellspacing="0" id="popup-content">
+			<tr th:each="dto:${select}">
+				<td>
+					<a th:href="@{/templateview/{tnum}(tnum=${dto.gettemplate_num})}">
+						<span th:text="${dto.gettemplate_title}"></span>
+					</a>
+				</td>
+			</tr>	
+		</table>
+	</div>
+
+	<div th:object="${pageMaker}" id="paging">
+		<div class="big-width" style="text-align: center">
+		    <a class="changePage" th:if="*{prev}" th:href="*{startPage - 1}"><code>&lt;</code></a>
+			<th:block th:each="num : ${#numbers.sequence(pageMaker.getStartPage(), pageMaker.getEndPage())}">
+				<code th:if="${pageMaker.criteria.getPageNum() == num}" th:text="${num}"></code>
+			    <a class="changePage" th:unless="${pageMaker.criteria.getPageNum() == num}" th:href="@{/reportlist/{num}(num=${num})}"><code th:text="${num}"></code></a>
+			</th:block>
+			<a class="changePage" th:if="*{next}" th:href="*{endPage + 1}"><code>&gt;</code></a>
+		
+			<form action="/reportlist" th:object="${criteria}" name="pageForm">
+				<input type="hidden" name="pageNum" th:field="*{pageNum}">
+				<input type="hidden" name="amount" th:field="*{amount}">
+		    </form>         
+		</div>
+	</div>
+	
+	<th:block layout:fragment="script">
+		<script type="text/javascript">
+			function popupShow(){
+				$("#popup-content").css('opacity','100').css('visibility','visible');
+				$(".popup-back").css('opacity','0.6').css('z-index','100');
+	
+			}	
+		</script>
+		<script>
+			$(document).mouseup(function(e){;
+				if($("#popup-content").has(e.target).length === 0){
+					$("#popup-content").css('opacity','0').css('visibility','hidden');
+					$(".popup-back").css('opacity','0').css('z-index','-1');
+				}
+			});
+		</script>
+		
+	</th:block>
+</html>

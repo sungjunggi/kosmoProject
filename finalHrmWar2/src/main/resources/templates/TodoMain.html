@@ -17,12 +17,7 @@
                 <input id="todo-date" type="date" name="end">
             </div>            
             <div class="todo-search-bar-wrap">
-                <select>
-                   <option value="${communication_title}">제목</option>
-                   <option value="${communication_assign}">배정대상</option>
-                   <option value="${communication_state}">상태</option>
-               </select>
-                <input class="todo-search-bar" name="searchText" type="text" placeholder="검색어를 입력하세요.">
+                <input class="todo-search-bar" name="searchText" type="text" placeholder="제목을 입력하세요.">
                 <input class="todo-search-btn" type="submit" value="검색"/>
             </div>
          </div>
@@ -69,8 +64,8 @@
             작업 시작일 <input type="date" name="start"><br/>
             작업 종료일 <input type="date" name="end"><br/><br/>
             <label>작업</label><br/>
-            <input class="write-content" type="text" name="content" placeholder="지시사항 입력(필수)">
-            <input type="submit" value="저장" class="todo-write-save">
+            <textarea class="write-content" name="content" placeholder="지시사항 입력(필수)"></textarea>
+            <input type="submit" value="저장" id="save-btn">
          </form>
       </div>      
    </div>
