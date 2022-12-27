@@ -14,10 +14,11 @@
 		<td>작성자</td>
 		<td>승인상태</td>
 		<td>작성일</td>
+		<td>결재자</td>
 	</tr>
 </thead>
 <tbody>
-	<tr th:each="dto:${signlist}" >
+    <tr th:each="dto:${signlist}">
 		<td><span th:text="${dto.sign_num}"></span></td>
 		<td>
 		<a th:href="@{/signpage/{sign_num}(sign_num = ${dto.sign_num})}">
@@ -27,7 +28,22 @@
 		<td><span th:text="${dto.sign_res_name}"></span></td>
 		<td><span th:text="${dto.sign_status}"></span></td>
 		<td><span th:text="${dto.sign_begin}"></span></td>
+		<td><span th:text="${dto.sign_first}"></span></td>
 	</tr>
+	
+	<tr th:each="dto:${signlist1}" >
+		<td><span th:text="${dto.template_board_num}"></span></td>
+		<td>
+		<a th:href="@{/signpage/{sign_num}(sign_num = ${dto.gettemplate_title})}">
+			<span th:text="${dto.gettemplate_title}"></span>
+		</a>
+		</td>
+		<td><span th:text="${dto.employee_name}"></span></td>
+		<td><span th:text="${dto.template_board_sign_status}"></span></td>
+		<td><span th:text="${dto.template_board_date}"></span></td>
+		<td><span th:text="${dto.template_board_sign_name}"></span></td>
+	</tr>
+	
 </tbody>
 </table>
 </body>

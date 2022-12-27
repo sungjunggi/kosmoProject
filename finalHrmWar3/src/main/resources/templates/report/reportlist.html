@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+    
+<title>reportlist</title>
+</head>
+
+<div layout:fragment="content">
+	<div class="report-btn-wrap">
+		
+		<input class="todo-search-bar" name="searchText" type="text" placeholder="검색어를 입력하세요.">
+		<input class="todo-search-btn" type="submit" value="검색"/>
+		<div class="report-btn-all">
+			<button type="button" id="all" onclick="">전체 보고서</button>
+			<button type="button" id="bookmark" onclick="">북마크</button>
+			<button type="button" id="mine" onclick="">내 보고서</button>
+		</div>
+	</div>
+
+	<table width="100%" class="report-table">
+		<tr>
+			<th style="width:600px; padding-left:20px;">보고서</th>
+			<th style="width:200px; text-align: center; padding:10px;">작성일</th>
+			<th style="width:100px; text-align: center; padding:10px;">작성자</th>
+			<th style="width:80px; text-align: center; padding:10px;">리포트 번호</th>
+			<th style="width:80px; text-align: center; padding:10px;">댓글</th>
+		</tr>
+		<tr th:each="dto:${list}">
+			<td style="padding-left: 20px;">
+				<a th:href="@{'/reportview/'+${dto.template_board_num}}">
+					<span th:text="${dto.gettemplate_title}"></span>
+				</a>
+			</td>
+			<td th:text="${dto.template_board_date}" style="text-align: center;"></td>
+			<td th:text="${dto.employee_name}" style="text-align: center;"></td>
+			<td th:text="${dto.template_board_num}" style="text-align: center;"></td>
+			<td th:text="'💬'+${dto.count}" style="text-align: center;"></td>
+		</tr>	
+	</table>
+	<!-- <p><a href="/templateselect">보고서 작성</a></p> -->
+	<button class="report-mkbtn" type="button" onclick="popupShow()">보고서 작성</button>
+	<div class="popup-back"></div>
+	<table width="500" cellpadding="0" cellspacing="0" id="popup-content">
+		<tr th:each="dto:${select}">
+			<td>
+				<a th:href="@{/templateview/{tnum}(tnum=${dto.gettemplate_num})}">
+					<span th:text="${dto.gettemplate_title}"></span>
+				</a>
+			</td>
+		</tr>	
+	</table>
+</div>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<th:block layout:fragment="script">
+		<script type="text/javascript">
+			function popupShow(){
+				$("#popup-content").css('opacity','100').css('visibility','visible');
+				$(".popup-back").css('opacity','0.6').css('z-index','100');
+			}
+		</script>
+		<script>
+			$(document).mouseup(function(e){;
+				if($("#popup-content").has(e.target).length === 0){
+					$("#popup-content").css('opacity','0').css('visibility','hidden');
+					$(".popup-back").css('opacity','0').css('z-index','-1');
+				}
+			});
+		</script>
+		
+		<!-- <script type="text/javascript">
+			$('#demo').daterangepicker({
+			    "locale": {
+			        "format": "YYYY-MM-DD",
+			        "separator": " ~ ",
+			        "applyLabel": "확인",
+			        "cancelLabel": "취소",
+			        "fromLabel": "From",
+			        "toLabel": "To",
+			        "customRangeLabel": "Custom",
+			        "weekLabel": "W",
+			        "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+			        "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+			    },
+			    "startDate": new Date(),
+			    "endDate": new Date(),
+			    "drops": "down"
+			}, function (start, end, label) {
+				
+			    console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+			});
+		</script> -->
+	</th:block>
+</html>

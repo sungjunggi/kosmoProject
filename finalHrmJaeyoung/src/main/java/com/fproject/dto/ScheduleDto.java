@@ -13,5 +13,11 @@ public class ScheduleDto {
 	private String schedule_contents;
 	private String schedule_writer;
 	private int type_num;
+	
+	private String type_category;
 
+	private int employee_num;
+	private String employee_name;
+	
+	private String attendance_workstart;
 }
