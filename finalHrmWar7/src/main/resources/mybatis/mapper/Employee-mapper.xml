@@ -21,6 +21,8 @@
 			select DEPARTMENT_NAME FROM DEPARTMENT D, EMPLOYEE E WHERE D.DEPARTMENT_NUM = E.DEPARTMENT_NUM GROUP BY DEPARTMENT_NAME
    	</select>
    	
+   	
+   	
   	<select id="listDname" resultType="com.hrm.finalpj.dto.EmployeeDTO">
 			select *  from department d, employee e, job j, position p, member m
 			where d.department_num = e.department_num and j.job_num = d.job_num and d.position_num = p.position_num and m.id = e.id and d.department_name = #{Dname} order by d.job_num  
@@ -33,8 +35,9 @@
    	</select>
 
    	<select id="deptCount" resultType="com.hrm.finalpj.dto.EmployeeDTO" >
-		select count(*) as dept, d.job_num, d.department_name, j.job_name from department d , job j  where d.job_num = j.job_num and department_name=#{Dname}
-		group by d.job_num, d.department_name, j.job_name 
+		select count(*) as dept, d.job_num, d.department_name, j.job_name from department d , job j, employee e
+		where d.job_num = j.job_num and e.department_num = d.department_num and department_name=#{Dname}
+		group by d.job_num, d.department_name, j.job_name  order by job_num asc
    	</select>
    	
    	<select id="deptCount2" resultType="com.hrm.finalpj.dto.EmployeeDTO" >
