@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.hrm.finalpj.dao.ITodoDAO">
+      
+      <insert id="writeDAO" parameterType = "hashmap">
+         insert into communication (communication_num,communication_title,communication_start,communication_end,communication_content,EMPLOYEE_NUM,communication_state,category_num)
+       values (seq_communication_num.nextval,#{title},#{start},#{end},#{content},#{num},'진행예정',10)   
+      </insert>
+      
+      <select id="viewDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO">
+      select * from communication where communication_num=#{0} <!-- 인덱스값 -->
+   	</select>
+   
+   <delete id="deleteDAO">
+      delete from communication where communication_num = #{param1}
+   </delete>
+   
+   <update id="updateDAO" parameterType="com.hrm.finalpj.dto.CommunicationDTO">
+      update communication set communication_start=#{communication_start,jdbcType=VARCHAR},communication_end=#{communication_end,jdbcType=VARCHAR}
+      , communication_assign=#{communication_assign,jdbcType=VARCHAR},communication_content=#{communication_content,jdbcType=VARCHAR}
+      , communication_title=#{communication_title,jdbcType=VARCHAR} where communication_num=#{communication_num,jdbcType=NUMERIC}
+   </update>
+   
+   <update id="startingDAO" parameterType="com.hrm.finalpj.dto.CommunicationDTO">
+   		update communication set communication_state = '진행중' where communication_state = '진행예정' and communication_num = #{0}
+   </update>
+   <update id="endingDAO" parameterType="com.hrm.finalpj.dto.CommunicationDTO">
+   		update communication set communication_state = '진행완료' where communication_state = '진행중' and communication_num = #{0}
+   </update>
+   
+   <delete id="deleteBoardDAO" parameterType="int">
+      delete from communication where communication_num=#{param1}
+   </delete>
+   
+   <select id="getList" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.PageDTO">
+       <![CDATA[
+       select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,communication_end,communication_assign,communication_state,employee_name,category_num
+        from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc) C WHERE rownum <=#{pageNum} * #{amount} and category_num=10 )
+       where r>(#{pageNum}-1) * #{amount}
+       ]]>
+      </select>
+      
+      <select id="getTotal" resultType="int">
+       select count(*) as total from communication where category_num=10
+      </select>
+      
+      <select id="searchTextDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO">
+      <![CDATA[
+               select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name,category_num
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} and communication_title like '%'||#{communication_search}||'%' and category_num=10) 
+       where r>(#{pageNum}-1) * #{amount}
+        
+    ]]>
+    </select>
+      
+    
+      <select id="searchDateDAO" resultType="com.hrm.finalpj.dto.Criteria" parameterType="com.hrm.finalpj.dto.PageDTO">
+      <![CDATA[
+               select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name,category_num
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} and communication_start >= #{communication_start} and communication_end <= #{communication_end} and category_num=10) 
+       where r>(#{pageNum}-1) * #{amount}
+        
+        union all
+    select null,null,null,null,null,null,null,null
+    from dual
+    where not exists (select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name,category_num
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} and communication_start >= #{communication_start} and communication_end <= #{communication_end} and category_num=10) 
+       where r>(#{pageNum}-1) * #{amount}
+         )
+    ]]>
+    </select>
+    
+      <select id="searchAllDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO">
+       <![CDATA[
+               select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name,category_num
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} and communication_title like '%'||#{communication_search}||'%' and communication_start >= #{communication_start} and communication_end <= #{communication_end}  and category_num=10 ) 
+       where r>(#{pageNum}-1) * #{amount}
+        
+        union all
+    select null,null,null,null,null,null,null,null
+    from dual
+    where not exists (select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
+    communication_end,communication_assign,communication_state,employee_name,category_num
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} and communication_title like '%'||#{communication_search}||'%' and communication_start >= #{communication_start} and communication_end <= #{communication_end} and category_num=10) 
+       where r>(#{pageNum}-1) * #{amount}
+         )
+    ]]>
+      </select>
+      
+      <select id="numDAO" resultType="int">
+      	select employee_num from employee where employee_email = #{name} and rownum=1
+      </select>
+      
+      <select id="scheduledTotalDAO" resultType="int">
+       select count(*) as total from communication where communication_state='진행예정'
+      </select>
+      
+      <select id="proceedingTotalDAO" resultType="int">
+       select count(*) as total from communication where communication_state='진행중'
+      </select>
+      
+      <select id="finishTotalDAO" resultType="int">
+       select count(*) as total from communication where communication_state='진행완료'
+      </select>
+      
+      <select id="allTodoCountDAO" resultType="int">
+       select count(*) as total from communication where category_num=10
+      </select>
+      
+      <select id="myTodoCountDAO" resultType="int">
+       select count(*) as total from communication where employee_num= #{num} and category_num=10
+      </select>
+      
+       <select id="myTodoDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
+       <![CDATA[
+       select * from( select rownum r, C.* from(
+       select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num,category_num
+       from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
+       WHERE rownum <=(#{cri.pageNum}) * #{cri.amount} and employee_num = #{num} and category_num=10 )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
+       ]]>
+      </select>
+      
+       <select id="clickScheduledDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
+       <![CDATA[
+       select * from( select rownum r, C.* from(
+       select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num,category_num
+       from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
+       WHERE rownum <=#{cri.pageNum} * #{cri.amount} and communication_state= #{clickScheduled} and category_num=10 )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
+       ]]>
+      </select>
+      
+       <select id="clickProceedingDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
+       <![CDATA[
+       select * from( select rownum r, C.* from(
+       select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num,category_num
+       from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
+       WHERE rownum <=#{cri.pageNum} * #{cri.amount} and communication_state= #{clickProceeding} and category_num=10 )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
+       ]]>
+      </select>
+      
+       <select id="clickFinishDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
+       <![CDATA[
+       select * from( select rownum r, C.* from(
+       select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num,category_num
+       from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
+       WHERE rownum <=#{cri.pageNum} * #{cri.amount} and communication_state= #{clickFinish} and category_num=10 )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
+       ]]>
+      </select>
+      
+</mapper>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Vacation List</title>
+</head>
+<div layout:fragment="content">
+	<div class="sign-list-wrap">
+		<table width=100%>
+			<thead>
+				<tr>
+					<th class="sign-th" style="border-right:1px solid #d3d3d3;">번호</th>
+					<th class="sign-th">종류</th>
+					<th class="sign-th" style="font-size: 16px; font-weight: 600;">상세이유</th>
+					<th class="sign-th">시작일</th>
+					<th class="sign-th">종료일</th>
+					<th class="sign-th">승인 여부</th>
+					<th class="sign-th">작성일</th>
+					<th class="sign-th">승인자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto,i:${vacationlist}" >
+					<td style="text-align:center; width:50px; font-size:13px; font-weight: 300; border-right: 1px solid #d3d3d3;" ><span th:text="${total-i.index}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.type_category}"></span></td>
+					<td style="width:600px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_reason}"></span></td>
+					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_begin}"></span></td>
+					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_end}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_status}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_date}"></span></td>
+					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_approver}"></span></td>
+				</tr>
+			</tbody>
+		</table>
+		<button class="todo-write-btn" onclick="vacPopupShow()">+ 휴가 만들기</button>
+		<div class="popup-back"></div>
+		<div class="vac-popup">
+			<form action="vacationWriting" method="post">
+				<input type="submit" value="저장" id="save-btn">
+				<label>종류</label><br/>
+				<input type="radio" name="vacation" value="203">연차
+				<input type="radio" name="vacation" value="202">반차
+				<input type="radio" name="vacation" value="201">휴가
+				<input type="radio" name="vacation" value="204">병가
+				<input type="radio" name="vacation" value="105">출장
+				<input type="radio" name="vacation" value="106">외근
+				<br/>
+				<label>승인자</label><br/>
+				<select name="employee">
+					<option value="group">그룹</option>
+					<option value="specificEmployee">특정 직원</option>
+				</select><br/><br/>
+				<label>기간</label><br/>
+				시작일 <input type="datetime-local" name="start" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}/[0-9]{2}:[0-9]{2}" required><br/>
+				종료일 <input type="datetime-local" name="end" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}/[0-9]{2}:[0-9]{2}" required><br/><br/>
+				<label>상세이유</label><br/>
+				<textarea name="reason" placeholder="상세이유 입력(필수)"></textarea>
+			</form>
+		</div>
+	</div>
+</div>
+<th:block layout:fragment="script">
+      <script type="text/javascript">
+         function vacPopupShow(){
+            $(".vac-popup").css('opacity','100').css('visibility','visible');
+            $(".popup-back").css('opacity','0.6').css('z-index','100');
+   
+         }   
+      </script>
+      <script>
+         $(document).mouseup(function(e){;
+            if($(".vac-popup").has(e.target).length === 0){
+               $(".vac-popup").css('opacity','0').css('visibility','hidden');
+               $(".popup-back").css('opacity','0').css('z-index','-1');
+            }
+         });
+      </script>
+      
+   </th:block>
+</html>
