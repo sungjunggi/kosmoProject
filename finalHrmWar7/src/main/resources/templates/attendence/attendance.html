@@ -26,27 +26,55 @@
 				</div>
 				<div class="att-data-content">
 					<div class="att-data-cate1">
-						<div class="cate1-r">							
-							<p>출근율</p>
-							<p th:text="${average}+'%'"></p>
-							<div>
+						<div class="cate1-r">		
+							<div class="cate1-r-t">
+								<p style="margin:0; text-align: center;">출근율</p>
+								<p th:text="${average}+'%'" style="margin:0;"></p>
+							</div>					
+							<div class="cate-r-b">
 								<span th:text="${attRate1}+''"></span>/
 								<span th:text="${attRate2}+''"></span>
 							</div>
 						</div>
 						<div class="cate1-m">
-							<div class="cate1-m-t">
-								<div>출근함</div>
-								<div class="cate1-m-t-b">
-									<div>출근전</div>
-									<div>미출근</div>
+							<div class="state">
+								<div class="cate1-m-t">
+									<div class="cate-m-t-t" >
+										<div class="cate-m-t-t-wrap" style="height:81px;">
+											<p class="cate-m-att" style="margin:0;">출근함</p>
+											<span style="float:right;  margin-top:20px;">-</span>
+										</div>
+									</div>
+									<div class="cate1-m-t-b">
+										<div class="cate1-m-t-b-l">
+											<p>출근전</p>
+											<span style="float:right;">-</span>
+										</div>
+										<div class="cate1-m-t-b-r">
+											<p>미출근</p>
+											<span style="float:right;">-</span>
+										</div>
+									</div>
+								</div>
+								<div class="cate1-m-b">
+									<div class="cate1-m-b-wrap">
+										<p style="margin:0;">출근 대상</p>
+										<p style="margin:0;">-</p>
+									</div>
 								</div>
 							</div>
-							<div>출근 대상</div>
 						</div>
-						<div class="cate-l">
-							<div>지각</div>
-							<div>조퇴</div>
+						<div class="cate1-l">
+							<div class="cate1-l-wrap">
+								<div class="cate1-punch">
+									<p class="punch1">지각</p>
+									<p class="punch2">-</p>
+								</div>
+								<div class="cate1-early cate1ldata">
+									<p class="early1">조퇴</p>
+									<p class="early2">-</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -54,41 +82,71 @@
 			
 			<div class="att-data-sch">
 				<div class="att-data-header">
-					<h3>스케줄</h3>
-					<p>단위 : 명</p>
+					<span style="font-size: 20px; font-weight: bold;">스케줄</span>
+					<span style="color:#aaaaaa; float:right; font-size:14px;">단위 : 명</span>
 				</div>
-				<div class="att-data-cate2">
-					<div>출근 대상</div>
-					<div>출장</div>
-					<div>휴가</div>
-					<div>교육</div>
-					<div>기타</div>
-					<div>일정없음</div>
-					<div>전체인원</div>
+				<div class="att-data-cate2" style="width: 100%; margin-top:20px;">
+					<div class="att-data-cate2-box">
+						<div class="att-data-cate2-t">
+							<div class="cate2-t-1">
+								<p>출근 대상</p>
+								<span style="float:right;">-</span>
+							</div>
+							<div class="cate2-t-2">
+								<p>출장</p>
+								<span style="float:right;">-</span>
+							</div>
+							<div class="cate2-t-3">
+								<p>휴가</p>
+								<span style="float:right;">-</span>
+							</div>
+						</div>
+						<div class="att-data-cate2-b">
+							<div class="cate2-b-1">
+								<p>교육</p>
+								<span style="float:right;">-</span>
+							</div>
+							<div class="cate2-b-2">
+								<p>기타</p>
+								<span style="float:right;">-</span>
+							</div>
+							<div class="cate2-b-3">
+								<p>일정없음</p>
+								<p style="float:right;">-</p>
+							</div>
+							
+						</div>
+					</div>
+					<div class="att-data-cate2-total">
+						<span>전체인원</span>
+						<span>-</span>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="att-data-board">
-			<table>
-				<tr>
-					<td>이름</td>
-					<td>직급</td>
-					<td>근무상태</td>
-					<td>스케줄</td>
-					<td>출퇴근시각</td>
-					<td></td><td></td>
-					<td>특이사항</td>
-					<td>지각</td>
-					<td>조퇴</td>
+			<table width="100%">
+				<tr class="att-data-table" >
+					<th style="width:100px;">이름</th>
+					<th style="width:100px;">직급</th>
+					<th style="width:70px;">근무상태</th>
+					<th style="width:100px;">스케줄</th>
+					<th style="width:300px;">출근시각</th>
+					<th style="width:300px;">퇴근시각</th>
+					<th style="width:300px;">특이사항</th>
+					<th style="width:50px;">지각</th>
+					<th style="width:50px;">조퇴</th>
 				</tr>
-				<tr th:each="dao : ${totalAtt}">
+				<tr th:each="dao : ${totalAtt}" class="att-table-body">
 					<td th:text="${dao.employee_name}"></td>
 					<td th:text="${dao.job_name}"></td>
 					<td th:text="${dao.type_category}"></td>
 					<td th:text="${dao.schedule_name}"></td>
 					<td th:text="${dao.attendance_workstart}"></td>
-					<td>-</td>
 					<td th:text="${dao.attendance_workend}"></td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
 				</tr>
 			</table>
 		</div>
