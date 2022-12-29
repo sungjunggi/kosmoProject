@@ -40,20 +40,16 @@ public class ReportServiceImpl implements ReportService{
 		map.put("answer6", ans6);
 		map.put("answer7", ans7);
 		map.put("num", num);
-		/*
-		 * dao.writeDAO1(map); dao.writeDAO2(map); dao.writeDAO3(map);
-		 */
 	}
 	
 	@Override
 	public List<ReportDTO> getList(Criteria criteria) {
-		
 		return dao.getList(criteria);
 	}
 
 	@Override
 	public Integer getTotal() {
-		System.out.println();
+		System.out.println( "get total");
 		return dao.getTotal();
 	}
 }

@@ -984,3 +984,46 @@ li[data-depth="1"] a {
 	border-radius: 10px;
 	padding: 10px;
 }
+.nocomment {
+	text-align: center;
+    position: relative;
+    top: 20%;
+    margin-top: 20px;
+    left: 40%;
+    font-size: 18px;
+    color: #6a6a6a;
+}
+.comment-del {
+	border:none;
+	background: inherit;
+	color: #30afff;
+}
+.comment-del:hover {
+	color: #2099f5;
+}
+.deletechk {
+	visibility: hidden;
+    opacity : 0;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    padding: 30px;
+    width : 300px;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 0 6px 1px rgb(0 0 0 / 30%);
+    font-size: 16px;
+    font-weight: 100;
+    transition: 0.3s;
+    border-radius: 10px;
+    border:none;
+}
+.cancel {
+	border:none;
+   	border-radius: 10px;
+   	width: 80px;
+   	height: 40px;
+   	background: #d3d3d3;
+   	font-weight: 500;
+}

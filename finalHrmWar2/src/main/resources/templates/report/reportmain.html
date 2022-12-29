@@ -16,25 +16,27 @@
 	   }
 	</script>
 </head>
-
+<body>
 <div layout:fragment="content">
 	<div class="report-btn-wrap">
-	   	<form action="/reportlist" method="get">
+	   	<form th:action="@{/reportlist/1}" method="get">
 		   <input type="date" name="start" id="currentDate" style="border:1px solid #d3d3d3; border-radius: 10px; padding:5px;">
 		   ~
 		   <input type="date" name="end" style="border:1px solid #d3d3d3; border-radius: 10px; padding:5px;">
 		<input type="submit" value="검색" class="report-search-btn"/>
 		</form>
+		<form th:action="@{/reportlist/1}" method="get">
 		<div class="report-btn-all">
-			<button class="" type="submit" name="all">
+			<button type="submit" name="allReport" >
 				<span>전체 보고서</span>
-				<span th:text=${allReportCount}></span>
+				<span th:text="${allReportCount}"></span>
 			</button>
-			<button class="" type="submit" name="myReport">
+			<button type="submit" name="myReport">
 				<span>내 보고서</span>
-				<span th:text=${myReportCount}></span>
+				<span th:text="${myReportCount}"></span>
 			</button>
 		</div>
+		</form>
 	</div>
 
 	<table width="100%" class="report-table">
@@ -49,9 +51,9 @@
 		<tr th:if="${booleancheck}" >
             <td colspan="8" align="center">자료가 존재하지 않습니다.</td>
         </tr>
-		<th:block th:each="dto:${list}">
+		<th:block th:each="dto,i:${list}">
 			<tr th:unless="${booleancheck}" > 
-			<td th:text="${dto.template_board_num}" style="padding-left: 20px;"></td>
+			<td th:text="${total-i.index}" style="padding-left: 20px;"></td>
 			<td style="padding-left: 20px;">
 				<a id="temnumlink" th:href="@{'/reportview/'+${dto.template_board_num}}">
 					<span id="temnumlink" th:text="${dto.gettemplate_title}"></span>
@@ -75,8 +77,8 @@
 				</td>
 			</tr>	
 		</table>
-	</div>
 
+	
 	<div th:object="${pageMaker}" id="paging">
 		<div class="big-width" style="text-align: center">
 		    <a class="changePage" th:if="*{prev}" th:href="*{startPage - 1}"><code>&lt;</code></a>
@@ -85,16 +87,24 @@
 			    <a class="changePage" th:unless="${pageMaker.criteria.getPageNum() == num}" th:href="@{/reportlist/{num}(num=${num})}"><code th:text="${num}"></code></a>
 			</th:block>
 			<a class="changePage" th:if="*{next}" th:href="*{endPage + 1}"><code>&gt;</code></a>
-		
-			<form action="/reportlist" th:object="${criteria}" name="pageForm">
-				<input type="hidden" name="pageNum" th:field="*{pageNum}">
-				<input type="hidden" name="amount" th:field="*{amount}">
-		    </form>         
-		</div>
+		 </div>
+        <!--  <div class="small-width" style="text-align: center">
+            <a class="changePage" th:if="*{criteria.pageNum > 1}" th:href="*{criteria.pageNum - 1}"><code>&lt;</code></a>
+            <code th:text="*{criteria.pageNum}"></code>
+            <a class="changePage" th:if="*{criteria.pageNum < realEnd}" th:href="*{criteria.pageNum + 1}"><code>&gt;</code></a>
+         </div> -->
+		 <form action="reportlist" th:object="${criteria}" name="pageForm">
+			<input type="hidden" name="pageNum" th:field="*{pageNum}">
+			<input type="hidden" name="amount" th:field="*{amount}">
+		 </form>         
 	</div>
+		</div>
+</body>
 	
 	<th:block layout:fragment="script">
 		<script type="text/javascript">
+
+			
 			function popupShow(){
 				$("#popup-content").css('opacity','100').css('visibility','visible');
 				$(".popup-back").css('opacity','0.6').css('z-index','100');
@@ -109,6 +119,5 @@
 				}
 			});
 		</script>
-		
 	</th:block>
 </html>
