@@ -9,8 +9,19 @@ import com.hrm.finalpj.dto.AttendanceDto2;
 @Mapper
 public interface IAttendanceDao2 {
 	
-	public List<AttendanceDto2> totalAtt();
-	public List<AttendanceDto2> attRate1();
-	public List<AttendanceDto2> attRate2();
-	 
+	public List<AttendanceDto2> defaultList();
+	public List<AttendanceDto2> beforeWork();
+
+	public int todayWorkCount();
+	public int scheduleWorkCount();
+	public int beforeWorkCount();
+	public int notWorkCount();
+	public int lateWorkCount();
+	public int leftEarlierCount();
+	public int businessTripCount();
+	public int vacationCount();
+	public int educationCount();
+	public int etcCount();
+	public int noScheduleCount();
+	public int defaultCount();
 }

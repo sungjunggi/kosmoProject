@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	
+	<script th:inline="javascript">
+		//heder checkbox event
+	$(document).ready(function() {
+	$("#chkAll").click(function() {
+		if($("#chkAll").is(":checked")) $("input[name=deleteId]").prop("checked", true);
+		else $("input[name=deleteId]").prop("checked", false);
+	});
+
+	$("input[name=deleteId]").click(function() {
+		var total = $("input[name=deleteId]").length;
+		var checked = $("input[name=deleteId]:checked").length;
+
+		if(total != checked) $("#chkAll").prop("checked", false);
+		else $("#chkAll").prop("checked", true); 
+	});
+});
+		//body checkbox event
+		$("input[name='deleteId']").click(function(){
+			let dellnpLen = $("input[name='deleteId']").length;
+			let dellnpChkLen = $("input[name='deleteId']:checked").length;
+			if(dellnpLen == dellnpChkLen){
+				$("#chkAll").prop("checked",true);
+			}else{
+				$("#chkAll").prop("checked",false);
+			}
+		});
+		
+		function fnDelete(){
+			let dellnpChkLen = $("input[name='deleteId']:checked").length;
+			if(dellnpChkLen > 0){
+				if(confirm("삭제하시겠습니까?")){
+					let frm = $("#frm");
+					frm.attr("action","/delete");
+					frm.attr("method","post");
+					frm.submit();
+				}
+			}else{
+				alert("선택해주세요.");
+			}
+			var idList=[];
+		$.each($checked, function(k,v){
+			idList.push($(this).val());
+		});
+		console.log(idList);
+		console.log(idList.join(','));
+		}
+		
+		
+		
+	</script>
+	<script type="text/javascript">
+    	function inputValueChange(){
+        var inputValue = document.getElementById('inputValue').value;
+        console.log(inputValue)
+        
+    }
+    
+    $(function() {
+    	
+        $('#test').click(function() {
+        	var inputValue = document.getElementById('inputValue').value;
+        	console.log(document.getElementById('inputValue').value);
+           $.ajax({
+              url : "/employee",
+              type : "get",
+              async: false,
+              data : {inputValue : inputValue},
+              contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function(data){
+                     console.log("데이터 넘기기 성공")
+                     },
+            	 error: function (request, status, error){        
+                 console.log("데이터 넘기기 실패")
+                     }
+           })
+        })
+     });
+    </script>
+</head>
+
+
+<body>
+	
+
+	 
+	<table th:each="dto : ${list3}" border="1">
+			<tr>
+				<td >
+					<a th:href="@{'/employee/'+${dto.DEPARTMENT_NAME}}">
+					<span th:text="${dto.DEPARTMENT_NAME}"></span>
+					</a>
+				</td>
+			</tr>		
+	</table>
+
+</body>
+</html>
