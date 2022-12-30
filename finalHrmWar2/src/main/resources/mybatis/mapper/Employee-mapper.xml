@@ -33,8 +33,9 @@
    	</select>
 
    	<select id="deptCount" resultType="com.hrm.finalpj.dto.EmployeeDTO" >
-		select count(*) as dept, d.job_num, d.department_name, j.job_name from department d , job j  where d.job_num = j.job_num and department_name=#{Dname}
-		group by d.job_num, d.department_name, j.job_name 
+	select count(*) as dept, d.job_num, d.department_name, j.job_name from department d , job j, employee e
+		where d.job_num = j.job_num and e.department_num = d.department_num and department_name=#{Dname}
+		group by d.job_num, d.department_name, j.job_name  order by job_num asc
    	</select>
    	
    	<select id="deptCount2" resultType="com.hrm.finalpj.dto.EmployeeDTO" >
