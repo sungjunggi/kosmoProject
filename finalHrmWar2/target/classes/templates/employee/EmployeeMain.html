@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	
+	
+</head>
+
+
+<div layout:fragment="content">
+	<button type="button" class="btn btn-primary" onClick="location.href='/members/new'">구성원 추가</button>
+	<form method="get" action="/employee" id="Rsubmit">
+		<input type="hidden" id="reading" name="reading">
+	</form>
+	<div class="emp-part" >
+		<a th:each="dto : ${list3}" th:href="@{'/employee/'+${dto.DEPARTMENT_NAME}}" class="emp-partbox">
+			<span th:text="${dto.DEPARTMENT_NAME}" style="text-decoration: none;"></span>					
+		</a>	
+	</div>
+	<hr>
+	<div class="deptall">
+		<div class="emp-total-count">
+				<span style="font-size: 14px; font-weight: bold;">총원:</span>
+				<span style="font-size:14px;" th:text="${total}"></span>
+		</div>
+		<div class="emp-job">
+			<div class="emp-job-count" th:each="dto,i: ${dept}">
+				<span th:text="${dto.JOB_NAME}"></span>
+				<span th:text="${dto.dept}"></span>
+			</div>
+		</div>
+	
+		<p style="margin-top:30px;">구성원</p>
+		<table id="emp-table">
+			<tr class="emp-table-header">
+				<th width="15%">이름</th>
+				<th width="30%">휴대전화</th>
+				<th width="15%">상태</th>
+				<th width="30%">이메일</th>
+				<th width="5%">직급</th>
+				<th width="5%">직무</th>
+			</tr>
+			<tr th:each="dto : ${list}" class="emp-table-content">
+				<td th:text="${dto.EMPLOYEE_NAME}"></td>
+				<td th:text="${dto.EMPLOYEE_PHONE}"></td>
+				<td th:text="${dto.EMPLOYEE_TYPE}"></td>
+				<td th:text="${dto.EMAIL}"></td>
+				<td th:text="${dto.JOB_NAME}"></td>
+				<td th:text="${dto.POSITION_NAME}"></td>
+			</tr>
+		</table>
+	</div>
+	<script th:inline="javascript">
+	
+	$(".emp-partbox").click(function(){
+		
+		const read = event.target.textContent;
+		$('#reading').val(read);
+		$('#Rsubmit').submit();
+	});
+
+		//heder checkbox event
+	$(document).ready(function() {
+	$("#chkAll").click(function() {
+		if($("#chkAll").is(":checked")) $("input[name=deleteId]").prop("checked", true);
+		else $("input[name=deleteId]").prop("checked", false);
+	});
+
+	$("input[name=deleteId]").click(function() {
+		var total = $("input[name=deleteId]").length;
+		var checked = $("input[name=deleteId]:checked").length;
+
+		if(total != checked) $("#chkAll").prop("checked", false);
+		else $("#chkAll").prop("checked", true); 
+	});
+});
+		//body checkbox event
+		$("input[name='deleteId']").click(function(){
+			let dellnpLen = $("input[name='deleteId']").length;
+			let dellnpChkLen = $("input[name='deleteId']:checked").length;
+			if(dellnpLen == dellnpChkLen){
+				$("#chkAll").prop("checked",true);
+			}else{
+				$("#chkAll").prop("checked",false);
+			}
+		});
+		
+		function fnDelete(){
+			let dellnpChkLen = $("input[name='deleteId']:checked").length;
+			if(dellnpChkLen > 0){
+				if(confirm("삭제하시겠습니까?")){
+					let frm = $("#frm");
+					frm.attr("action","/delete");
+					frm.attr("method","post");
+					frm.submit();
+				}
+			}else{
+				alert("선택해주세요.");
+			}
+			var idList=[];
+		$.each($checked, function(k,v){
+			idList.push($(this).val());
+		});
+		console.log(idList);
+		console.log(idList.join(','));
+		}
+		
+		
+		
+	</script>
+	<script type="text/javascript">
+    	function inputValueChange(){
+        var inputValue = document.getElementById('inputValue').value;
+        console.log(inputValue)
+        
+    }
+    
+    $(function() {
+    	
+        $('#test').click(function() {
+        	var inputValue = document.getElementById('inputValue').value;
+        	console.log(document.getElementById('inputValue').value);
+           $.ajax({
+              url : "/employee",
+              type : "get",
+              async: false,
+              data : {inputValue : inputValue},
+              contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function(data){
+                     console.log("데이터 넘기기 성공")
+                     },
+            	 error: function (request, status, error){        
+                 console.log("데이터 넘기기 실패")
+                     }
+           })
+        })
+     });
+    </script>
+</div>
+</html>

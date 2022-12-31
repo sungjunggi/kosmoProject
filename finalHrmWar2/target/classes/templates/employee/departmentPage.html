@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+.deptall{
+	border-style: solid;
+	width: 10%;
+	display: inline-block;
+}
+</style>
+</head>
+<body>
+
+	<div class = "deptall">
+		<table>	
+		
+		<tr >
+			<td>
+			총원:
+			</td>
+			<td th:text="${total}">
+			</td>
+		</tr>
+		</table>
+	</div>
+	<div class = "deptall" th:each="dto,i: ${dept}">
+		<table>
+		<tr>
+			<td th:text =" ${dto.JOB_NAME}">
+			</td>
+
+			<td  th:text= "${dto.dept}"></td>
+		</tr>
+		</table>
+	</div>
+
+	<p><span class='icon'></span>구성원</p>
+	<table border="1" id="table">
+		<tr>
+
+			<th>이름</th>
+			<th>휴대전화</th>
+			<th>상태</th>
+			<th>이메일</th>
+			<th>직급</th>
+			<th>직무</th>
+		</tr>
+		<tr th:each="dto : ${list}" >
+			<td th:text="${dto.EMPLOYEE_NAME}"></td>
+			<td th:text="${dto.EMPLOYEE_PHONE}"></td>
+			<td th:text="${dto.EMPLOYEE_TYPE}"></td>
+			<td th:text="${dto.EMAIL}"></td>
+			<td th:text="${dto.JOB_NAME}"></td>
+			<td th:text="${dto.POSITION_NAME}"></td>
+		</tr>
+	</table>
+
+<!-- 	<form action="http://google.com"> -->
+<!--     <input type="submit" value="Go to Google" />
+</form> -->
+</body>
+</html>
