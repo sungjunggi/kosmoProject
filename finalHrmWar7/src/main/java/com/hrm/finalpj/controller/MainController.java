@@ -22,7 +22,7 @@ public class MainController {
 		if(principal != null) {
 			model.addAttribute("name",principal.getName());
 		}
-		return "index";
+		return "redirect:/members/login";
 	}
 	
 	@GetMapping("/test")
