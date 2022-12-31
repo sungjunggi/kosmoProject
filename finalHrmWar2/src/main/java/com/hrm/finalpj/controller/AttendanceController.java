@@ -1,5 +1,7 @@
 package com.hrm.finalpj.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,13 @@ public class AttendanceController {
 	@Autowired IAttendanceDao2 dao;
 //	@ResponseBody
 	@RequestMapping("/attMain")
-	public String attMain(Model model, HttpServletRequest req) {
+	public String attMain(Model model, HttpServletRequest req, Principal principa) {
 		model.addAttribute("defaultList",dao.defaultList());
-		String asd = req.getParameter("attendance");
+		String name = principa.getName();
+		String atten = req.getParameter("atten");
+		String exist = req.getParameter("exist");
+		int num = dao.getNum(name);
+	
 		
 		model.addAttribute("todayWorkCount",dao.todayWorkCount());
 		model.addAttribute("scheduleWorkCount",dao.scheduleWorkCount());
@@ -40,7 +46,17 @@ public class AttendanceController {
 		if(rate2==0)
 			average2="-";
 		model.addAttribute("average",average2);
-		System.out.println(asd);
+		if(atten != null) {
+			if(dao.check(num) == null) {
+			dao.atten(num);
+			System.out.println("출근");
+			}
+		};
+		if(exist != null) {
+			dao.exist(num);
+			System.out.println("퇴근");
+		};
+		
 		return "attendence/attendance";
 	}
 	
@@ -71,4 +87,6 @@ public class AttendanceController {
 		model.addAttribute("defaultList",dao.defaultList());
 		return "attendence/attendance";
 	}
+	
+	
 }

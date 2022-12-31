@@ -7,7 +7,7 @@
 <title>Dashboard</title>
 </head>
 <div layout:fragment="content">
-	<form id="content">
+	<form id="content" href="/attMain">
 	   <div class="att-wrap">
 	      <div class="att-search-wrap">
 	         <input type='date' id='currentDate' value=''/>
@@ -19,6 +19,9 @@
 	            <option value=""></option>
 	         </select>
 	      </div>
+	      <button type="submit" name="atten" id="atten" value="atten" > 출근 </button>
+	      <button type="submit" name="exist" id="exist" value="exist" > 퇴근 </button>
+
 	      <div class="att-data-wrap">
 	         <div class="att-data-box">
 	            <div class="att-data-header">

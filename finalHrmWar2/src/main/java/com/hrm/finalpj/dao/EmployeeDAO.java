@@ -10,16 +10,19 @@ import com.hrm.finalpj.dto.EmployeeDTO;
 
 @Mapper
 public interface EmployeeDAO {
-	
-	public List<EmployeeDTO> listDAO(); 
-	public List<EmployeeDTO> listDname(String Dname); 
-	public EmployeeDTO viewDAO(String num);
-	public int writeDAO(Map<String,String> map);
-	public int deleteDAO(int employee_num);
-	public EmployeeDTO DepartSearch(String DepartID);
-	public List<EmployeeDTO> listDAO2(); 
-	public List<EmployeeDTO> listDAO3(); 
-	
-	
-	public List<EmployeeDTO> deptCount(String Dname);
+   
+   public List<EmployeeDTO> listDAO(); 
+   public List<EmployeeDTO> listDname(String Dname); 
+   public EmployeeDTO viewDAO(String num);
+   public int writeDAO(Map<String,String> map);
+   public int deleteDAO(int employee_num);
+   public EmployeeDTO DepartSearch(String DepartID);
+   public List<EmployeeDTO> listDAO2(); 
+   public List<EmployeeDTO> listDAO3(); 
+   public int employeeAdd(EmployeeDTO dto );
+   
+   public List<EmployeeDTO> Mypage(String Username);    
+   public List<EmployeeDTO> deptCount(String Dname);
+   public List<EmployeeDTO> todolist();
+
 }

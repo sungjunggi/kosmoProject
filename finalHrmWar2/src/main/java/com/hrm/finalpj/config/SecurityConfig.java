@@ -34,7 +34,7 @@ public class SecurityConfig{
 		;
         http.formLogin()
 	        .loginPage("/members/login")
-	        .defaultSuccessUrl("/")
+	        .defaultSuccessUrl("/attMain")
 	        .usernameParameter("email")
 	        .passwordParameter("password")
 	        .failureUrl("/members/login/error")

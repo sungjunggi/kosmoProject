@@ -22,6 +22,14 @@ public class MainController {
 		if(principal != null) {
 			model.addAttribute("name",principal.getName());
 		}
+		return "index2";
+	}
+	@GetMapping("/2")
+	public String index2(Model model, Principal principal) {
+		model.addAttribute("posts",postsService.findAllDesc());
+		if(principal != null) {
+			model.addAttribute("name",principal.getName());
+		}
 		return "index";
 	}
 	

@@ -11,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hrm.finalpj.dto.ScheduleDTO;
 import com.hrm.finalpj.service.ScheduleServiceImp;
@@ -26,25 +30,28 @@ public class AttendenceController {
 	@Autowired
 	ScheduleServiceImp ScheduleService;
 	
-	@GetMapping("/att2")
-	@ResponseBody
+	@RequestMapping(value = "/att", method = { RequestMethod.POST })
 	public String TodayAtt(Model model, HttpServletRequest req) {
 		List<Integer> cali  = new ArrayList<>();
-
+		
 		if(req.getParameter("year")!= null) {
 		 int year = Integer.parseInt(req.getParameter("year")); 
 		 int month =Integer.parseInt(req.getParameter("month"));
-			 
-		System.out.println(req.getParameter("year"));
-		System.out.println(req.getParameter("month"));
-
+		if(month == -1) {
+			month = 1;
+		}
 		
 		cali = ScheduleService.day(year, month);
 		System.out.println(cali);
-		model.addAttribute("calisize",cali);
+		model.addAttribute("userlist",ScheduleService.UserList());
+		 
+			System.out.println(req.getParameter("year"));
+			System.out.println(req.getParameter("month"));
+			System.out.println(month + "변환 달");
+		model.addAttribute("calisize", cali);
 		}
 		
-		return "/att :: #calisize";
+		return "/attendence/schedule :: #calisize";
 		
 		
 	}

@@ -23,21 +23,19 @@
     <div class="divTableRow">
     </div>
   </div>
-  <div class="divTableBody" >
+  <div class="divTableBody">
     <div class="divTableRow divCheck">
       <div class="divTableCell">근무인원</div>
 	  <div class="divTableCell"></div>
     </div>
-  
-	    <div class="divTableRow divName" id="calisize" th:each="dto : ${userlist}" >
+	    <div class="divTableRow divName"  id="calisize" th:each="dto : ${userlist}" >
 	    	<div class="divTableCell divNa"  th:text="${dto.employee_name}"></div>
 	    	<div class="divTableCell"> dasdasd</div>
 	    	<div class="divTableCell"  th:each="cali :${calisize}" >
 		    	<div th:text="${cali}">
 		    	</div>
 	    	</div>  		
-
-	</div>
+	   </div>
    </div>
     
 </div>
