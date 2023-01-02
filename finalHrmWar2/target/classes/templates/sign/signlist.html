@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layouts/layout1}">
@@ -7,12 +7,31 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 <title>Sign List</title>
 </head>
 <div layout:fragment="content">
+
+	 <div id="todo-btn-wrap">
+         <form th:action="@{/signlist}" method="get"> 
+            <button class="todo-btns" type="submit" name="TestDAO" value="테스트용">
+               <span>테스트용</span>
+               <span th:text="${TestDAO}"></span>
+            </button>
+            <button class="todo-btns" type="submit" name="ReportDAO" value="보고서">
+               <span>보고서</span>
+               <span th:text="${ReportDAO}"></span>
+            </button>
+            <button class="todo-btns" type="submit" name="DayoffDAO" value="근태">
+               <span>근태</span>
+                <span th:text="${DayoffDAO}"></span>
+            </button>
+         </form>
+      </div>
+
 	<div class="sign-list-wrap">
 		<table width=100%>
 			<thead>
 				<tr>
 					<th class="sign-th">번호</th>
 					<th class="sign-th" style="font-size: 16px; font-weight: 600;">제목</th>
+					<th class="sign-th">분류</th>
 					<th class="sign-th">작성자</th>
 					<th class="sign-th">승인상태</th>
 					<th class="sign-th">작성일</th>
@@ -27,6 +46,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							<span th:text="${dto.sign_req_title}"></span>
 						</a>
 					</td>
+					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="테스트용"></span></td>
 					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_res_name}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_status}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.sign_begin}"></span></td>
@@ -35,10 +55,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				<tr th:each="dto:${signlist1}" >
 					<td style="text-align: center; width:50px; font-size:13px; font-weight: 300;" ><span th:text="${dto.template_board_num}"></span></td>
 					<td style="width:700px;">
-						<a th:href="@{/signpage1/{sign_num}(sign_num = ${dto.gettemplate_num})}">
+						<a th:href="@{/reportviewsign/{template_board_num}(template_board_num = ${dto.template_board_num})}">
 							<span th:text="${dto.gettemplate_title}"></span>
 						</a>
 					</td>
+					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="보고서"></span></td>
 					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.employee_name}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.template_board_sign_status}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.template_board_date}"></span></td>
@@ -51,6 +72,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							<span th:text="${dto.type_category}"></span>
 						</a>
 					</td>
+					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="근태"></span></td>
 					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.employee_name}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_status}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_date}"></span></td>
@@ -59,5 +81,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			</tbody>
 		</table>
 	</div>
+	
+	
 </div>
 </html>

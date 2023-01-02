@@ -11,7 +11,7 @@
     </select>
  
      <select id="SelectSignList2" resultType="com.hrm.finalpj.report.dto.ReportDTO">
-    	SELECT * FROM LISTVIEW
+    	SELECT * FROM LISTVIEW2
     </select>
     
     <select id="SelectSignList3" resultType="com.hrm.finalpj.dto.signDTO">
@@ -32,6 +32,10 @@
         and d.type_num = t.type_num
         and dayoff_num = #{0}
     </select>
+    
+    <select id="SelectReportViewSign" resultType="com.hrm.finalpj.dto.signDTO">
+    	select * from template_board where template_board_num = #{0}
+    </select>
  	
  	<update id="approveDAO">
  		update sign set sign_status='승인완료' where sign_num = #{sign_num}
@@ -49,6 +53,14 @@
  		update dayoff set dayoff_status='반려' where dayoff_num = #{dayoff_num}
  	</update>
  	
+ 	<update id="approveDAO2">
+ 		update template_board set template_board_sign_status='승인완료' where template_board_num = #{template_board_num}
+ 	</update>
+ 	
+ 	<update id="denyDAO2">
+ 		update template_board set template_board_sign_status='반려' where template_board_num = #{template_board_num}
+ 	</update>
+ 	
  	<select id="numDAO" resultType="String">
  		select employee_name from employee where employee_email = #{name}
  	</select>
@@ -56,6 +68,40 @@
  	<select id="resDAO" resultType="String">
  		select sign_first from sign where sign_num= #{res}
  	</select>
+ 	
+ 	<select id="numDAO1" resultType="String">
+ 		select employee_name from employee where employee_email = #{name1}
+ 	</select>
+ 	
+ 	<select id="resDAO1" resultType="String">
+ 		select TEMPLATE_BOARD_SIGN_NAME from TEMPLATE_BOARD where TEMPLATE_BOARD_NUM= #{res1}
+ 	</select>
+ 	
+ 	<select id="viewDAO1" resultType="com.hrm.finalpj.report.dto.ReportDTO">
+		SELECT TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE, E.EMPLOYEE_NAME, 
+    			TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_ANSWER1, TB.TEMPLATE_BOARD_SIGN_NAME,
+    			TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END, TB.TEMPLATE_BOARD_ANSWER4, 
+    			TB.TEMPLATE_BOARD_ANSWER5, TB.TEMPLATE_BOARD_ANSWER6, TB.TEMPLATE_BOARD_ANSWER7 
+		FROM TEMPLATE_BOARD TB, GETTEMPLATE GT, EMPLOYEE E
+		WHERE TB.EMPLOYEE_NUM = E.EMPLOYEE_NUM 
+		AND TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM
+		AND TB.TEMPLATE_BOARD_NUM = #{template_board_num} 
+	</select>
+	
+	<select id="TestDAO" resultType="com.hrm.finalpj.dto.signDTO">
+    	select sign_num,sign_req_title,sign_status,sign_begin,sign_res_name,sign_first from sign
+    </select>
+	
+	<select id="ReportDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
+    	SELECT * FROM LISTVIEW2
+    </select>
+    
+    <select id="DayoffDAO" resultType="com.hrm.finalpj.dto.signDTO">
+    	select e.employee_name, d.dayoff_status, d.dayoff_date, d.dayoff_approver, d.dayoff_num, t.type_category 
+    	from dayoff d, employee e, type t
+    	where e.employee_num = d.employee_num
+        and d.type_num = t.type_num
+    </select>
  
  	
 </mapper>

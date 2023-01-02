@@ -3,6 +3,7 @@ package com.hrm.finalpj.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hrm.finalpj.dao.IReportDAO;
+import com.hrm.finalpj.dto.signDTO;
+import com.hrm.finalpj.mapper.IHrmMapper;
 import com.hrm.finalpj.report.dto.PageDTO;
 import com.hrm.finalpj.report.dto.CommentDTO;
 import com.hrm.finalpj.report.dto.Criteria;
 import com.hrm.finalpj.report.dto.ReportDTO;
+import com.hrm.finalpj.service.HrmTableService;
 import com.hrm.finalpj.service.ReportServiceImpl;
 
 @Controller
@@ -26,6 +30,12 @@ public class ReportController {
 
 	@Autowired
 	IReportDAO dao; 
+	
+	@Autowired
+	IHrmMapper imap;
+	
+	@Resource
+	private HrmTableService hrmtableService;
 	
 	@Autowired
 	ReportServiceImpl reportservice;

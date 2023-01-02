@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.hrm.finalpj.dto.CommunicationDTO;
+import com.hrm.finalpj.dto.signDTO;
 import com.hrm.finalpj.report.dto.CommentDTO;
 import com.hrm.finalpj.report.dto.Criteria;
 import com.hrm.finalpj.report.dto.ReportDTO;
@@ -35,4 +37,5 @@ public interface IReportDAO {
 	public int myReportCount(int num);  // 내 보고서 개수 세기
 	public List<ReportDTO> myReportDAO(int num);  // 내 보고서 보기
 	public String getName(int myNum); // 회원 이름 가져오기
+	
 }
