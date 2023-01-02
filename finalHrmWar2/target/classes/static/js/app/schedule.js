@@ -126,23 +126,39 @@ $(document).ready(function() {
 		        renderCalender(thisMonth);
 		        
  			$.ajax({
-					url:'/att2',
-					type : 'get',
+ 					url:'/att',
+					type : 'post',
 					data : {"year": currentYear,
 							"month" : currentMonth -1 },
-					success: function(frag){
-						 $("#calisize").replaceWith(frag);
-						alert("이전달")
-					}
-				});
+					
+				}) 
+				.done(function (fragment){
+				 $("#calisize").replaceWith(fragment);
+				 alert("이전달")
+			}); 
+			
 		 
-		    });
+		    })
+		    
+		   
 
 	      	
 		    // 다음달로 이동
 		    $('.go-next').on('click', function() {
 		        thisMonth = new Date(currentYear, currentMonth + 1, 1);
 		        renderCalender(thisMonth); 
+		        
+		        $.ajax({
+ 					url:'/att',
+					type : 'post',
+					data : {"year": currentYear,
+							"month" : currentMonth +1 },
+					
+				}) 
+				.done(function (fragment){
+				 $("#calisize").replaceWith(fragment);
+				 alert("다음달")
+			}) 
 		    });
 		    
 

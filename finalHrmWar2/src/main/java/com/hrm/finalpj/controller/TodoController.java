@@ -122,6 +122,7 @@ public class TodoController {
           model.addAttribute("list", todoservice.getList(test));
        }
        model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+     
        return "TodoMain";
     }
    

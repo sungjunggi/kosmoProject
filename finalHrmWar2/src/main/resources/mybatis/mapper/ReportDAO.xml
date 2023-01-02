@@ -87,24 +87,26 @@
       	SELECT EMPLOYEE_NUM FROM EMPLOYEE WHERE EMPLOYEE_EMAIL = #{name} AND ROWNUM = 1
     </select>
 	
+	<select id="getName" resultType="String">
+		SELECT EMPLOYEE_NAME FROM EMPLOYEE WHERE EMPLOYEE_NUM = #{myNum}
+	</select>
+	
 	<insert id="commentDAO" parameterType="com.hrm.finalpj.report.dto.CommentDTO">
 		INSERT INTO GETCOMMENT(GETCOMMENT_NUM, GETCOMMENT_CONTENT, GETCOMMENT_DATE, GETCOMMENT_WRITER, TEMPLATE_BOARD_NUM)
 		VALUES (SEQ_COMMENT_NUM.NEXTVAL, #{getcomment_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{getcomment_writer}, #{template_board_num})
 	</insert>
 	
-	<select id="getName" resultType="String">
-		SELECT EMPLOYEE_NAME FROM EMPLOYEE WHERE EMPLOYEE_NUM = #{myNum}
+	<select id="commentReadDAO" resultType="com.hrm.finalpj.report.dto.CommentDTO">
+		SELECT GC.GETCOMMENT_CONTENT, GC.GETCOMMENT_DATE, GC.GETCOMMENT_WRITER, GC.GETCOMMENT_NUM, TB.TEMPLATE_BOARD_NUM
+		FROM TEMPLATE_BOARD TB, GETCOMMENT GC
+		WHERE GC.TEMPLATE_BOARD_NUM(+) = TB.TEMPLATE_BOARD_NUM
+		AND TB.TEMPLATE_BOARD_NUM = #{num} 
+		ORDER BY GC.GETCOMMENT_NUM DESC
 	</select>
 	
-	<select id="commentReadDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO">
-		SELECT GC.GETCOMMENT_CONTENT, GC.GETCOMMENT_DATE, GC.GETCOMMENT_WRITER
-		FROM TEMPLATE_BOARD TB, GETTEMPLATE GT, EMPLOYEE E, GETCOMMENT GC
-		WHERE TB.EMPLOYEE_NUM = E.EMPLOYEE_NUM 
-		AND TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM
-		AND GC.TEMPLATE_BOARD_NUM(+) = TB.TEMPLATE_BOARD_NUM
-		AND TB.TEMPLATE_BOARD_NUM = #{template_board_num}
-		<!-- ORDER BY GC.GETCOMMENT_NUM DESC -->
-	</select>
+	<delete id="commentDeleteDAO" >
+		DELETE FROM GETCOMMENT WHERE GETCOMMENT_NUM = #{gnum}
+	</delete>
 	
 	<select id="boardDAO" resultType="com.hrm.finalpj.report.dto.CommentDTO">
 		SELECT * FROM GETCOMMENT WHERE TEMPLATE_BOARD_NUM = #{template_board_num}
@@ -123,10 +125,10 @@
         		GROUP BY E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
               		 	TB.TEMPLATE_BOARD_NUM, TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_SIGN_STATUS, 
                		 	TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END) C
-   			WHERE ROWNUM <=#{pageNum} * #{amount} 
-    		AND TEMPLATE_BOARD_DATE >= #{template_board_start}
-    		AND TEMPLATE_BOARD_DATE <= #{template_board_end})
-		WHERE R> (#{pageNum}-1) * #{amount}
+   			WHERE ROWNUM <=#{cri.pageNum} * #{cri.amount} 
+    		AND TEMPLATE_BOARD_DATE >= #{start}
+    		AND TEMPLATE_BOARD_DATE <= #{end})
+		WHERE R> (#{cri.pageNum}-1) * #{cri.amount}
 		
 		 UNION ALL
 		SELECT NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
@@ -143,17 +145,17 @@
         			GROUP BY E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
               		 		TB.TEMPLATE_BOARD_NUM, TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_SIGN_STATUS, 
                		 		TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END) C
-   				WHERE ROWNUM < #{pageNum} * #{amount} 
-    			AND TEMPLATE_BOARD_DATE >= #{template_board_start} 
-    			AND TEMPLATE_BOARD_DATE <= #{template_board_end}) 
-			WHERE R> (#{pageNum}-1) * #{amount}
+   				WHERE ROWNUM < #{cri.pageNum} * #{cri.amount} 
+    			AND TEMPLATE_BOARD_DATE >= #{start} 
+    			AND TEMPLATE_BOARD_DATE <= #{end}) 
+			WHERE R> (#{cri.pageNum}-1) * #{cri.amount}
 		) 
 	]]>
 	</select>
 	
 	<select id="getList" resultType="com.hrm.finalpj.report.dto.ReportDTO" parameterType="com.hrm.finalpj.report.dto.PageDTO">
     <![CDATA[
-    	SELECT * FROM(
+    	SELECT * FROM (
     		SELECT ROWNUM R, C.* FROM (
     			SELECT E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
                				TB.TEMPLATE_BOARD_NUM, TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_SIGN_STATUS, 
@@ -163,8 +165,9 @@
         			AND TB.GETTEMPLATE_NUM = GT.GETTEMPLATE_NUM
         			GROUP BY E.EMPLOYEE_NUM, E.EMPLOYEE_NAME, GT.GETTEMPLATE_NUM, GT.GETTEMPLATE_TITLE,
               		 		TB.TEMPLATE_BOARD_NUM, TB.TEMPLATE_BOARD_DATE, TB.TEMPLATE_BOARD_SIGN_STATUS, 
-               		 		TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END) C
-   			WHERE ROWNUM <=(#{pageNum}) * #{amount} )
+               		 		TB.TEMPLATE_BOARD_START, TB.TEMPLATE_BOARD_END ORDER BY TEMPLATE_BOARD_NUM DESC) C
+   			WHERE ROWNUM <= #{pageNum} * #{amount} 
+   			 )
    		WHERE R>(#{pageNum}-1) * #{amount}
      ]]>
     </select>
@@ -173,7 +176,7 @@
     	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD
     </select>
     
-   <!--  <select id="myReportDAO" resultType="com.hrm.fianlpj.report.dto.ReportDTO" parameterType="com.hrm.finalpj.report.dto.Criteria">
+   	<select id="myReportDAO" resultType="com.hrm.finalpj.report.dto.ReportDTO" parameterType="com.hrm.finalpj.report.dto.Criteria">
    		SELECT TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_TITLE, TB.TEMPLATE_BOARD_DATE, E.EMPLOYEE_NAME,
         		TB.TEMPLATE_BOARD_SIGN_STATUS, COUNT(GC.TEMPLATE_BOARD_NUM) AS COUNT
 		FROM GETTEMPLATE GT, EMPLOYEE E, TEMPLATE_BOARD TB, GETCOMMENT GC
@@ -183,14 +186,15 @@
 		AND E.EMPLOYEE_NUM = #{employee_num}
 		GROUP BY TB.TEMPLATE_BOARD_NUM, GT.GETTEMPLATE_TITLE, TB.TEMPLATE_BOARD_DATE, 
         		E.EMPLOYEE_NAME, TB.TEMPLATE_BOARD_SIGN_STATUS
-    </select> -->
-    
-    <select id="myReportCount" resultType="int">
-    	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD WHERE EMPLOYEE_NUM = #{employee_num}
+        ORDER BY TB.TEMPLATE_BOARD_NUM DESC
     </select>
     
     <select id="allReportCount" resultType="int">
     	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD
+    </select>
+    
+    <select id="myReportCount" resultType="int">
+    	SELECT COUNT(*) AS TOTAL FROM TEMPLATE_BOARD WHERE EMPLOYEE_NUM = #{employee_num}
     </select>
     
 </mapper>

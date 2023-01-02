@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div style="display: flex; align-items: center; margin-bottom: 10px;">
+			<a th:href="@{/signlist}" style="display: inline-block;">
+				<span>
+					<i class="back-icon icon"></i>
+				</span>
+			</a>
+			<h4 style="float: left; display: inline-block; margin:0;">승인 정보</h4>
+		</div>
+		<div class="sign-info-wrap">
+		  	<div class="sign-info">
+				<div class="sign-info-title">
+					<div class="sign-info-block">
+						<h5>제목</h5>
+						<span th:text="${dto.type_category}"></span>
+					</div>
+					<div class="sign-info-block">
+						<h5>번호</h5>
+						<span th:text="${dto.dayoff_num}"></span>
+					</div>
+					<div class="sign-info-block">
+						<h5>작성자</h5>
+						<span th:text="${dto.employee_name}"></span>
+					</div>
+					<div class="sign-info-block">
+						<h5>작성일</h5>
+						<span th:text="${dto.dayoff_date}"></span>
+					</div>
+					<div class="sign-info-block">
+						<h5>결재자</h5>
+						<span th:text="${dto.dayoff_approver}"></span>
+					</div>
+				</div>
+				<hr>
+				<div class="sign-info-content">
+					<h5 style="margin-bottom:5px;">내용</h5>
+					<span th:text="${dto.dayoff_reason}"></span>
+				</div>
+			</div>
+		</div>	
+		<form th:action="@{${dayoff_num}}" method="get">
+			<div th:if="${name == res}">
+			<input class="sign-ap-btn" type="submit" name="approve" value="승인"> 
+			<input class="sign-rj-btn" type="submit" name="deny" value="반려">
+			</div>
+		</form>
+	</div>
+</body>
+</html>

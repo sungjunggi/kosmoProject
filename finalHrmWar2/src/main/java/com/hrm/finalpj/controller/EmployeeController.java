@@ -2,6 +2,8 @@ package com.hrm.finalpj.controller;
 
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +21,20 @@ public class EmployeeController {
 	EmployeeService employeeservice;
 	
 	@GetMapping("/employee")
-	public String todoMain(Model model) {
+	public String todoMain(Model model, HttpServletRequest req) {
 		model.addAttribute("list3",dao.listDAO3());
-		
+		String title = req.getParameter("reading");
+		System.out.println(title);
 		return "employee/EmployeeMain";
 	}
 	
 	@GetMapping("/employee/{Dname}")
-	public String todoMain2(@PathVariable("Dname") String Dname ,Model model) {
+	public String todoMain2(@PathVariable("Dname") String Dname ,Model model, HttpServletRequest req) {
+		model.addAttribute("list3",dao.listDAO3());
+		String title = req.getParameter("reading");
+		System.out.println(title);
+		
+		
 		int a = 0;
 		for(int i=0; i<dao.deptCount(Dname).size(); i++) {
 			
@@ -37,7 +45,7 @@ public class EmployeeController {
 		model.addAttribute("dept",dao.deptCount(Dname));
 		model.addAttribute("list",dao.listDname(Dname));
 
-		return "employee/departmentPage";
+		return "employee/EmployeeMain";
 	}
 	
 

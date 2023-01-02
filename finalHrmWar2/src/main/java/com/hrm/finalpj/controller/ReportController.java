@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,26 +30,20 @@ public class ReportController {
 	@Autowired
 	ReportServiceImpl reportservice;
 	
-	@GetMapping("/reportlist")
-	public String report( Model model, HttpServletRequest req) {
-		model.addAttribute("list", dao.listDAO());
-		model.addAttribute("select", dao.selectDAO());
-
-		return "report/reportmain";
-	}
-	
 	@GetMapping("/reportlist/{num}")
-	public String reportList(@PathVariable("num") int num, Model model, HttpServletRequest req, Principal principal) {
+	public String reportList(@PathVariable("num") int num, Criteria criteria, Model model, HttpServletRequest req, Principal principal) {
 		
-		Criteria test = new Criteria(num, 15);
+		Criteria test = new Criteria(num, 10);
+		
 		String start = req.getParameter("start");
 	    String end = req.getParameter("end");
-	     
+	    
 	    test.setTemplate_board_start(start);
 	    test.setTemplate_board_end(end);
-	   
+	    
 	    String myReport = req.getParameter("myReport");
 	    String allReport = req.getParameter("allReport");
+	    
 	    int mynum = dao.numDAO(principal.getName());
 	    int myReportCount = dao.myReportCount(mynum);
 	    int allReportCount = dao.allReportCount();
@@ -56,41 +51,49 @@ public class ReportController {
 	    req.setAttribute("myReportCount", myReportCount);
 	    req.setAttribute("allReportCount", allReportCount);
 	    
+	    int total = reportservice.getTotal();
+	    model.addAttribute("total", total);
+	    
 	    if(start!=null && end!=null) {
-	    	List<Criteria> check = dao.searchDateDAO(test);
-	        System.out.println(check.get(0) + "커뮤넘");
+	    	List<Criteria> check = dao.searchDateDAO(test,start,end);
 		    	if(check.get(0) == null ) {
 		    		Criteria test1 = new Criteria(num,0);
-		        	model.addAttribute("pageMaker", new PageDTO(reportservice.getTotal(), 1, test1));
+		        	model.addAttribute("pageMaker", new PageDTO(reportservice.getTotal(), 10, test1));
 		        	model.addAttribute("booleancheck",true);
-		            
 		        	return "report/reportmain";
-		       }else {
-		    	   model.addAttribute("list",dao.searchDateDAO(test));
-		    	   model.addAttribute("pageMaker", new PageDTO(reportservice.getTotal(), 10, test));
+		       } else {
+		    	   model.addAttribute("list",dao.searchDateDAO(test,start,end));
 		    	   model.addAttribute("booleancheck",false);
 		       }
+	    
+	    } else {
+//	    	model.addAttribute("list", reportservice.getList(test));
+		    model.addAttribute("list", dao.listDAO());
+		    System.out.println("여기먹냐");
 	    }
+//	    model.addAttribute("pageMaker", new PageDTO(reportservice.getTotal(), 10, test));
 	    
 	    if(allReport != null) {
-	    	model.addAttribute("list", reportservice.getList(test));
+//	    	model.addAttribute("list", reportservice.getList(test));
+	    	model.addAttribute("list", dao.listDAO());
 	    
 	    } else if(myReport != null) {
 	    	mynum = dao.numDAO(principal.getName());
+//	    	model.addAttribute("list", dao.listDAO());
 	    	model.addAttribute("list", dao.myReportDAO(mynum));
 	    	model.addAttribute("pageMaker", new PageDTO(reportservice.getTotal(), 10, test));
 	    	
 	    	return "report/reportmain";
 	    }
-	    
+	    model.addAttribute("list", reportservice.getList(test));
 	    model.addAttribute("select", dao.selectDAO());
-	    model.addAttribute("list", dao.listDAO());
 	    model.addAttribute("pageMaker", new PageDTO(reportservice.getTotal(), 10, test));
+	
 	    
 		return "report/reportmain";
 	 }
 	
-	@PostMapping("/reportlist")
+	@PostMapping("/reportwrite")
 	public String reportWrite(Model model, HttpServletRequest req, Principal principal) {
 		ReportDTO dto = new ReportDTO();
 		
@@ -124,21 +127,29 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/reportview/{num}")
-	public String detailView(@PathVariable("num") String num, Model model,HttpServletRequest req, Principal principal) {
+	public String reportView(@PathVariable("num") String num, Model model, HttpSession session, HttpServletRequest req, Principal principal) {
 		CommentDTO dto = new CommentDTO();
 		
 		dto.setTemplate_board_num(Integer.parseInt(num));
 		model.addAttribute("view", dao.viewDAO(num));
+		model.addAttribute("logincheck", false);
+		
+		int myNum = dao.numDAO(principal.getName());
+		String getName = dao.getName(myNum);
+		
+		model.addAttribute("num", myNum);
+		model.addAttribute("commentcheck", getName);
+		
+		if(myNum == 2 || dao.viewDAO(num).getEmployee_name().equals(getName)) {
+			model.addAttribute("logincheck", true);
+		}
 
 		if(dao.commentReadDAO(num).get(0) != null) {
-			
 			model.addAttribute("commentRead", dao.commentReadDAO(num));
 		}
 		
 		if(req.getParameter("content") != null) {
 			dto.setGetcomment_content(req.getParameter("content"));
-			int myNum = dao.numDAO(principal.getName());
-			String getName = dao.getName(myNum);
 			dto.setGetcomment_writer(getName);
 			dao.commentDAO(dto);
 		
@@ -155,29 +166,17 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/templateselect")
-	public String selectTemplate(Model model) {
+	public String templateSelect(Model model) {
 		model.addAttribute("select", dao.selectDAO());
 		
 		return "report/templateselect";
 	}
 	
 	@RequestMapping("/templateview/{tnum}")
-	public String viewTemplate(@PathVariable("tnum") String tnum, Model model) {
+	public String templateView(@PathVariable("tnum") String tnum, Model model) {
 		model.addAttribute("template", dao.templateDAO(tnum));
 		
 		return "report/reportwrite";
-	}
-	
-	@GetMapping("/updatereport")
-	public String update(Model model, HttpServletRequest req) {
-		ReportDTO dto = new ReportDTO();
-		
-		req.getParameter("template_board_num");
-		model.addAttribute("update", dao.updateDAO1(dto));
-		model.addAttribute("update", dao.updateDAO2(dto));
-		model.addAttribute("update", dao.updateDAO3(dto));
-		
-		return "report/reportview";
 	}
 	
 	@PostMapping("/updatereport")
@@ -202,9 +201,9 @@ public class ReportController {
 		
 		} else if(Integer.parseInt(req.getParameter("gettemplate_num")) == 3) {
 			dao.updateDAO3(dto);
-		
+		  
 		}
-		
+		 
 		return "redirect:reportview/"+req.getParameter("template_board_num");
 	}
 	
@@ -213,7 +212,16 @@ public class ReportController {
 		template_board_num =Integer.parseInt(req.getParameter("template_board_num"));
 		dao.deleteDAO(template_board_num);
 		
-		return "redirect:reportlist";
+		return "redirect:reportlist/1";
+	}
+	
+	@GetMapping("/deletecomment")
+	public String deleteComment(String gnum, HttpServletRequest req, Model model, Principal principal) {
+		int getcomment_num = Integer.parseInt(req.getParameter("getcomment_num"));
+		int template_board_num = Integer.parseInt(req.getParameter("template_board_num"));
+		dao.commentDeleteDAO(getcomment_num);
+		
+		return "redirect:reportview/"+ template_board_num;
 	}
 	
 }
