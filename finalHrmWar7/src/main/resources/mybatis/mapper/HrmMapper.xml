@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hrm.finalpj.mapper.IHrmMapper">
+
+    
+     <select id="SelectSignList" resultType="com.hrm.finalpj.dto.signDTO">
+    	select sign_num,sign_req_title,sign_status,sign_begin,sign_res_name,sign_first from sign
+    </select>
+ 
+     <select id="SelectSignList2" resultType="com.hrm.finalpj.report.dto.ReportDTO">
+    	SELECT * FROM LISTVIEW
+    </select>
+    
+    <select id="SelectSignList3" resultType="com.hrm.finalpj.dto.signDTO">
+    	select e.employee_name, d.dayoff_status, d.dayoff_date, d.dayoff_approver, d.dayoff_num, t.type_category 
+    	from dayoff d, employee e, type t
+    	where e.employee_num = d.employee_num
+        and d.type_num = t.type_num
+    </select>
+    
+    <select id="SelectSignPage" resultType="com.hrm.finalpj.dto.signDTO">
+    	select sign_num,sign_req_title,sign_begin,sign_res_name,sign_req_contents from sign where sign_num = #{0}
+    </select>
+ 	
+ 	<select id="SelectDayoffPage" resultType="com.hrm.finalpj.dto.signDTO">
+    	select t.type_category, d.dayoff_num, e.employee_name, d.dayoff_date, d.dayoff_approver, d.dayoff_reason 
+    	from dayoff d, employee e, type t
+    	where e.employee_num = d.employee_num
+        and d.type_num = t.type_num
+        and dayoff_num = #{0}
+    </select>
+ 	
+ 	<update id="approveDAO">
+ 		update sign set sign_status='승인완료' where sign_num = #{sign_num}
+ 	</update>
+ 	
+ 	<update id="denyDAO">
+ 		update sign set sign_status='반려' where sign_num = #{sign_num}
+ 	</update>
+ 	
+ 	<update id="approveDAO1">
+ 		update dayoff set dayoff_status='승인완료' where dayoff_num = #{dayoff_num}
+ 	</update>
+ 	
+ 	<update id="denyDAO1">
+ 		update dayoff set dayoff_status='반려' where dayoff_num = #{dayoff_num}
+ 	</update>
+ 	
+ 	<select id="numDAO" resultType="String">
+ 		select employee_name from employee where employee_email = #{name}
+ 	</select>
+ 	
+ 	<select id="resDAO" resultType="String">
+ 		select sign_first from sign where sign_num= #{res}
+ 	</select>
+ 
+ 	
+</mapper>
