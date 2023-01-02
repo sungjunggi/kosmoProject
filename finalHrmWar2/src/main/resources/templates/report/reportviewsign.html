@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+<head>
+<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>reportview</title>
+</head>
+<div layout:fragment="content">
+   <div th:each="dto:${view}">
+   	  <input type="hidden" name="name" th:value="${dto.employee_name}" />
+   	  <input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}" />
+      <input type="hidden" name="template_board_num" th:value="${dto.template_board_num}" />
+      <a th:href="@{'/updateview/'+${dto.template_board_num}}"></a>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <a th:href="@{/reportlist}" style="display: inline-block;">
+            <span>
+               <i class="back-icon icon"></i>
+            </span>
+        </a>
+        <h4 style="float: left; display: inline-block; margin:0;">보고서 정보</h4>
+    	</div>
+   <div class="report-view-wrap">
+        <div class="report-info">
+         <th:block th:if="${dto.gettemplate_num}==1">
+            <div>
+               <h5>교육보고서</h5>
+            </div>
+            <br/>
+            <div>
+               <h5>작성자</h5>
+               <div th:text="${dto.employee_name}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>작성일</h5>
+               <div th:text="${dto.template_board_date}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>참가자</h5>
+               <div th:text="${dto.template_board_answer1}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>결재자</h5>
+               <div th:text="${dto.template_board_sign_name}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>교육기간</h5>
+               <span th:text="${dto.template_board_start}"></span> ~ <span th:text="${dto.template_board_end}"></span>   
+            </div>
+            <br/>
+            <div>
+               <h5>교육장소</h5>
+               <div th:text="${dto.template_board_answer4}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>교육명</h5>
+               <div th:text="${dto.template_board_answer5}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>교육내용</h5>
+               <div th:text="${dto.template_board_answer6}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>비고</h5>
+               <div th:text="${dto.template_board_answer7}"></div>
+            </div>
+         </th:block>
+         
+         <th:block th:if="${dto.gettemplate_num}==2">
+            <div>
+               <h5>업무보고서</h5>
+            </div>
+            <br/>
+            <div>
+               <h5>작성자</h5>
+               <div th:text="${dto.employee_name}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>작성일</h5>
+               <div th:text="${dto.template_board_date}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>결재자</h5>
+               <div th:text="${dto.template_board_sign_name}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>업무기간</h5>
+               <span th:text="${dto.template_board_start}"></span>
+               ~
+               <span th:text="${dto.template_board_end}"></span>
+            </div>
+            <br/>
+            <div>
+               <h5>업무내용</h5>
+               <div th:text="${dto.template_board_answer4}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>비고</h5>
+               <div th:text="${dto.template_board_answer5}"></div>
+            </div>
+         </th:block>
+         
+         <th:block th:if="${dto.gettemplate_num}==3">
+            <div>
+               <h5>출장보고서</h5>
+            </div>
+            <br/>
+            <div>
+               <h5>작성자</h5>
+               <div th:text="${dto.employee_name}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>작성일</h5>
+               <div th:text="${dto.template_board_date}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>출장자</h5>
+               <div th:text="${dto.template_board_answer1}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>결재자</h5>
+               <div th:text="${dto.template_board_sign_name}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>출장기간</h5>
+               <div>
+                  <span th:text="${dto.template_board_start}"></span>
+                  ~
+                  <span th:text="${dto.template_board_end}"></span>
+               </div>
+            </div>
+            <br/>
+            <div>
+               <h5>출장지</h5>
+               <div th:text="${dto.template_board_answer4}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>출장내용</h5>
+               <div th:text="${dto.template_board_answer5}"></div>
+            </div>
+            <br/>
+            <div>
+               <h5>비고</h5>
+               <div th:text="${dto.template_board_answer6}"></div>
+            </div>
+         </th:block>
+      </div>
+      <form th:action="@{${template_board_num}}" method="get">
+			<div th:if="${name1 == res1}">
+			<input class="sign-ap-btn" type="submit" name="approve" value="승인"> 
+			<input class="sign-rj-btn" type="submit" name="deny" value="반려">
+			</div>
+	  </form>
+      <br/>
+	  <div class="report-comment">
+  		 <form th:action="@{'/reportview/'+${view.template_board_num}}" method="post" style="display: flex; justify-content: space-between;">
+	        <textarea name="content" class="report-textbox" placeholder="리뷰를 작성해주세요." ></textarea>
+         	<input type="submit" class="report-comment-btn" value="등록" />
+        </form>
+      </div>
+      <input type="hidden" name="num" value="${dto.getcomment_num}"></div>
+   </div>
+	  <div class="report-comment-view" th:each="dto2 : ${commentRead}">
+	     <input type="hidden" name="name" />
+	      	<div th:if="${dto2.getcomment_writer}">
+		      <div th:text="${dto2.getcomment_writer}"></div>
+		      <div th:text="${dto2.getcomment_date}"></div>
+		      <div th:text="${dto2.getcomment_content}"></div>
+		      
+		      <!-- <th:block th:if="${">
+		       	<button class="report-edit-btn" onclick="reportPopupShow()">수정</button>
+         		<form action="/deletereport" method="get">
+              		<input type="hidden" name="template_board_num" th:value="${dto.template_board_num}">
+              		<input type="submit" class="report-del-btn" value="삭제" />   
+        		</form>
+        	  </th:block> -->
+	        </div>
+	      <br/>
+	   </div>
+
+   <div class="popup-back"></div>
+   <div id="report-update-popup">
+      <div th:each="dto:${view}">
+         <form action="/updatereport" method="post">
+         <input type="hidden" name="gettemplate_num" th:value="${dto.gettemplate_num}"/>
+         <input type="hidden" name="template_board_num" th:value="${dto.template_board_num}" />
+         <th:block th:if="${dto.gettemplate_num}==1">
+               <div id="report-1">
+                  <h6><b>참가자</b></h6>
+                  <input name="answer1" th:value="${dto.template_board_answer1}" /><br/>
+                  <br/>
+                  <h6><b>결재자</b></h6>
+                  <input name="sign" th:value="${dto.template_board_sign_name}" /><br/>
+                  <br/>
+                  <h6><b>교육기간</b></h6>
+                  <input type="date" name="start" th:value="${dto.template_board_start}" /><br/>
+                  <input type="date" name="end" th:value="${dto.template_board_end}" /><br/>
+                  <br/>
+                  <h6><b>교육장소</b></h6>
+                  <input name="answer4" th:value="${dto.template_board_answer4}" /><br/>
+                  <br/>
+                  <h6><b>교육명</b></h6>
+                  <input name="answer5" th:value="${dto.template_board_answer5}" /><br/>
+                  <br/>
+                  <h6><b>교육내용</b></h6>
+                  <input name="answer6" th:value="${dto.template_board_answer6}" /><br/>
+                  <br/>
+                  <h6><b>비고</b></h6>
+                  <input name="answer7" th:value="${dto.template_board_answer7}" /><br/>
+                  <br/>
+               </div>
+            </th:block>
+            <th:block th:if="${dto.gettemplate_num}==2">
+               <div id="report-2">
+                  <h6><b>작성자</b></h6>
+                  <input name="answer1" th:value="${dto.template_board_answer1}" /><br/>
+                  <br/>
+                  <h6><b>결재자</b></h6>
+                  <input name="sign" th:value="${dto.template_board_sign_name}" /><br/>
+                  <br/>
+                  <h6><b>업무기간</b></h6>
+                  <input type="date" name="start" th:value="${dto.template_board_start}" /><br/>
+                  <input type="date" name="end" th:value="${dto.template_board_end}" /><br/>
+                  <br/>
+                  <h6><b>업무내용</b></h6>
+                  <input name="answer4" th:value="${dto.template_board_answer4}" /><br/>
+                  <br/>
+                  <h6><b>비고</b></h6>
+                  <input name="answer5" th:value="${dto.template_board_answer5}" /><br/>
+                  <br/>
+               </div>
+            </th:block>
+            <th:block th:if="${dto.gettemplate_num}==3">
+               <div id="report-3">
+                  <h6><b>출장자</b></h6>
+                  <input name="answer1" th:value="${dto.template_board_answer1}" /><br/>
+                  <br/>
+                  <h6><b>결재자</b></h6>
+                  <input name="sign" th:value="${dto.template_board_sign_name}" /><br/>
+                  <br/>
+                  <h6><b>출장기간</b></h6>
+                  <input type="date" name="start" th:value="${dto.template_board_start}" /><br/>
+                  <input type="date" name="end" th:value="${dto.template_board_end}" /><br/>
+                  <br/>
+                  <h6><b>출장지</b></h6>
+                  <input name="answer4" th:value="${dto.template_board_answer4}" /><br/>
+                  <br/>
+                  <h6><b>출장내용</b></h6>
+                  <input name="answer5" th:value="${dto.template_board_answer5}" /><br/>
+                  <br/>
+                  <h6><b>비고</b></h6>
+                  <input name="answer6" th:value="${dto.template_board_answer6}" /><br/>
+                  <br/>
+               </div>
+            </th:block>
+            <input type="submit" id="save-btn" value="저장" />
+         </form>
+      </div>
+   </div>
+</div>
+<th:block layout:fragment="script">
+      <script type="text/javascript">
+         function reportPopupShow(){
+            $("#report-update-popup").css('opacity','100').css('visibility','visible');
+            $(".popup-back").css('opacity','0.6').css('z-index','100');
+   
+         }   
+      </script>
+      <script>
+         $(document).mouseup(function(e){;
+            if($("#report-update-popup").has(e.target).length === 0){
+               $("#report-update-popup").css('opacity','0').css('visibility','hidden');
+               $(".popup-back").css('opacity','0').css('z-index','-1');
+            }
+         });
+      </script>
+      
+   </th:block>
+</html>
