@@ -1,5 +1,7 @@
+
 $(document).ready(function() {
 		    calendarInit();
+		         
 		});
 		/*
 		    달력 렌더링 할 때 필요한 정보 목록 
@@ -10,6 +12,7 @@ $(document).ready(function() {
 		*/
 
 		function calendarInit() {
+
 
 		    // 날짜 정보 가져오기
 		    var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
@@ -25,6 +28,7 @@ $(document).ready(function() {
 		    var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
 		    var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
 
+ 			
 		    // kst 기준 현재시간
 		    // console.log(thisMonth);
 
@@ -40,14 +44,16 @@ $(document).ready(function() {
 		    //return dayOfWeek;
 
 			//}
-
+		
 		    function renderCalender(thisMonth) {
-
+ 				 
 		        // 렌더링을 위한 데이터 정리
 		        currentYear = thisMonth.getFullYear();
 		        currentMonth = thisMonth.getMonth();
 		        currentDate = thisMonth.getDate();
 		        
+		        
+		     
 		         const week = ['일', '월', '화', '수', '목', '금', '토'];
 
 		        // 이전 달의 마지막 날 날짜와 요일 구하기
@@ -59,7 +65,7 @@ $(document).ready(function() {
 		        var endDay = new Date(currentYear, currentMonth + 1, 0);
 		        var nextDate = endDay.getDate();
 		        var nextDay = endDay.getDay();
-
+	
 		        // console.log(prevDate, prevDay, nextDate, nextDay);
 
 		        // 현재 월 표기
@@ -69,40 +75,93 @@ $(document).ready(function() {
 		        calendar = document.querySelector('.dates')
 		        calendar.innerHTML = '';
 		        
+		        calendar1 = document.querySelector('.divTableHeading .divTableRow')
+		        calendar1.innerHTML = '';
+		        calendar2 = document.querySelector('.divCheck')
+		        calendar2.innerHTML = '';
+		//        calendar3 = document.querySelector('.divName')
 		        
 		        // 지난달
 		        //for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
 		        //    calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
 		        //}
+		        
 		        // 이번달
-		        calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + "총 근무 시간" + '</div>'
+		        calendar1.innerHTML = calendar1.innerHTML + '<div class="divTableHead">' + "공백 " + '</div>' 
+		        calendar1.innerHTML = calendar1.innerHTML + '<div class="divTableHead">' + "총 근무 시간" + '</div>'
+		        calendar2.innerHTML = calendar2.innerHTML + '<div class="divTableCell">' + "근무인원" + '</div>'	
+		        calendar2.innerHTML = calendar2.innerHTML + '<div class="divTableCell">' + '</div>'	
+		         
+		        
+		           
 		        for (var i = 1; i <= nextDate; i++) {
 					var day = getweek+'-'+ i;
+					calendar1.innerHTML = calendar1.innerHTML + '<div class="divTableHead">' + (currentMonth + 1)+'.' + i+(week[new Date(day).getDay()]) + '</div>'
+		         //   calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + (currentMonth + 1)+'.' + i+(week[new Date(day).getDay()]) + '</div>'
+					calendar2.innerHTML = calendar2.innerHTML + '<div class="divTableCell">' + "tt" + '</div>'		
+		//			calendar3.innerHTML = calendar3.innerHTML + '<div class="divTableCell">'+'dd' + '</div>'        
 					
-		            calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + (currentMonth + 1)+'.' + i+(week[new Date(day).getDay()]) + '</div>'
 		        }
+		//        for (var i = 1; i <= nextDate; i++) {
+		//			var day = getweek+'-'+ i;
+		//			calendar1.innerHTML = calendar1.innerHTML + '<div class="divTableHead">' + (currentMonth + 1)+'.' + i+(week[new Date(day).getDay()]) + '</div>'
+		//            calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + (currentMonth + 1)+'.' + i+(week[new Date(day).getDay()]) + '</div>'
+		//        }
 		        // 다음달
 		        for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
 		            calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
 		        }
 
 		        // 오늘 날짜 표기
-		        if (today.getMonth() == currentMonth) {
-		            todayDate = today.getDate();
-		            var currentMonthDate = document.querySelectorAll('.dates .current');
-		            currentMonthDate[todayDate -1].classList.add('today');
-		        }
+	//	        if (today.getMonth() == currentMonth) {
+	//	            todayDate = today.getDate();
+	//	            var currentMonthDate = document.querySelectorAll('.dates .current');
+	//	            currentMonthDate[todayDate -1].classList.add('today');
+	//	        }
 		    }
 
 		    // 이전달로 이동
 		    $('.go-prev').on('click', function() {
 		        thisMonth = new Date(currentYear, currentMonth - 1, 1);
 		        renderCalender(thisMonth);
-		    });
+		        
+ 			$.ajax({
+ 					url:'/att',
+					type : 'post',
+					data : {"year": currentYear,
+							"month" : currentMonth -1 },
+					
+				}) 
+				.done(function (fragment){
+				 $("#calisize").replaceWith(fragment);
+				 alert("이전달")
+			}); 
+			
+		 
+		    })
+		    
+		   
 
+	      	
 		    // 다음달로 이동
 		    $('.go-next').on('click', function() {
 		        thisMonth = new Date(currentYear, currentMonth + 1, 1);
 		        renderCalender(thisMonth); 
+		        
+		        $.ajax({
+ 					url:'/att',
+					type : 'post',
+					data : {"year": currentYear,
+							"month" : currentMonth +1 },
+					
+				}) 
+				.done(function (fragment){
+				 $("#calisize").replaceWith(fragment);
+				 alert("다음달")
+			}) 
 		    });
+		    
+
+
+		    
 		}

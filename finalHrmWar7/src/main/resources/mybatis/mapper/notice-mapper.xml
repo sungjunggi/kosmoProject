@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.hrm.finalpj.dao.INoticeDAO">
+      
+      <insert id="nwriteDAO" parameterType = "hashmap">
+         insert into communication (communication_num,communication_title,communication_date,communication_content,EMPLOYEE_NUM,category_num)
+       values (seq_communication_num.nextval,#{title},#{today},#{content},#{num},20)   
+      </insert>
+      
+      <select id="nviewDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO">
+      select * from communication where communication_num=#{0} <!-- 인덱스값 -->
+   	</select>
+   	
+   	<select id="ngetTotal" resultType="int">
+       select count(*) as total from communication where category_num=20
+      </select>
+   
+   <delete id="ndeleteDAO">
+      delete from communication where communication_num = #{param1}
+   </delete>
+   
+   <update id="nupdateDAO" parameterType="com.hrm.finalpj.dto.CommunicationDTO">
+      update communication set communication_date=#{communication_date},communication_content=#{communication_content}
+      , communication_title=#{communication_title} where communication_num=#{communication_num}
+   </update>
+   
+   <delete id="ndeleteBoardDAO" parameterType="int">
+      delete from communication where communication_num=#{param1}
+   </delete>
+   
+   <select id="ngetList" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.PageDTO">
+       <![CDATA[
+       select * from( select rownum r, C.* from(select communication_num,communication_title,communication_date,employee_name,category_num
+        from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc) C WHERE rownum <=#{pageNum} * #{amount} and category_num=20 )
+       where r>(#{pageNum}-1) * #{amount}
+       ]]>
+      </select>
+      
+      <select id="nsearchTextDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO">
+      <![CDATA[
+               select * from( select rownum r, C.* from(select communication_num,communication_title,communication_date
+    	,employee_name,category_num
+        from communication c, employee e where c.employee_num=e.employee_num order by rownum desc)
+        C WHERE rownum <=(#{pageNum}) * #{amount} and communication_title like '%'||#{communication_search}||'%' and category_num=20) 
+       where r>(#{pageNum}-1) * #{amount}
+        
+    ]]>
+    </select>
+      
+      <select id="nnumDAO" resultType="int">
+      	select e.employee_num from communication c, employee e where c.employee_num=e.employee_num and category_num=20 and employee_email = #{name} and rownum=1
+      </select>
+      
+</mapper>

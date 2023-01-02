@@ -24,9 +24,6 @@ public class ReportDTO {
 	private String gettemplate_question6;
 	private String gettemplate_question7;
 	
-	private int getfile_num;
-	private String getfile_old_name;
-	
 	private int template_board_num;
 	private String template_board_date;
 	private String template_board_answer1;
@@ -39,8 +36,9 @@ public class ReportDTO {
 	private String template_board_sign_status;
 	private String template_board_start;
 	private String template_board_end;
-	private String getcomment_content;
 	private String template_board_sign_name;
 	private String count;
+	
+	private int getcomment_num;
 	
 }

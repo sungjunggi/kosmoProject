@@ -33,7 +33,7 @@ public class Criteria {
    //생성자로 무조건 실행된다 1번은
    //기본 페이지를 1페이지에 10개씩 보여준다는 의미
    public Criteria() {
-      this(2,20);
+      this(1,10);
 
    }
    public Criteria(int num, int pageNum, int amount){
