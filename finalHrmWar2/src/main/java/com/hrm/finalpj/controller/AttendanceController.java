@@ -27,8 +27,8 @@ public class AttendanceController {
 		String education=req.getParameter("education");
 		String etc=req.getParameter("etc");
 		String noSchedule=req.getParameter("noSchedule");
-		String total=req.getParameter("total");
 		
+		// 파라미터에 따른 표출할 list 지정
 		if(working!=null) {
 			model.addAttribute("list",dao.working());
 		}else if(beforeWork!=null) {
@@ -51,7 +51,7 @@ public class AttendanceController {
 			model.addAttribute("list",dao.etc());
 		}else if(noSchedule!=null) {
 			model.addAttribute("list",dao.noSchedule());
-		}else if(total!=null) {
+		}else {
 			model.addAttribute("list",dao.total());
 		}
 		
