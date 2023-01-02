@@ -27,6 +27,8 @@ public interface IHrmMapper {
     
     public signDTO SelectDayoffPage(int dto);
     
+    public signDTO SelectReportViewSign(int template_board_num);
+    
     public void approveDAO(int sign_num); 
     
     public void denyDAO(int sign_num);
@@ -35,8 +37,31 @@ public interface IHrmMapper {
     
     public void denyDAO1(int dayoff_num);
     
+    public void approveDAO2(int template_board_num); 
+    
+    public void denyDAO2(int template_board_num);
+    
     public String numDAO(String name);
     
     public String resDAO(int res);
+    
+    public String numDAO1(String name1);
+    
+    public String resDAO1(int res1);
+
+	public signDTO SelectReportViewSign1(String num);
+	
+	public ReportDTO viewDAO1(int num);  // 게시물 보기
+	
+	public String TestDAO();
+	public String ReportDAO();
+	public String DayoffDAO();
+	public Object clickTestDAO1(String clickTestDAO);
+	public Object clickReportDAO1(String clickReportDAO);
+	public Object clickDayoffDAO1(String clickDayoffDAO);
+	public List<signDTO> TestDAO(String TestDAO);
+	public List<ReportDTO> ReportDAO(String ReportDAO);
+	public List<signDTO> DayoffDAO(String DayoffDAO);
+
    
 }
