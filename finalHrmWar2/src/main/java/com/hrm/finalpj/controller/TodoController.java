@@ -78,17 +78,17 @@ public class TodoController {
        if(clickScheduled != null) {
     	   System.out.println("진행예정");
     	   model.addAttribute("list",dao.clickScheduledDAO(test,clickScheduled));
-    	   model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+    	   model.addAttribute("pageMaker", new PageDTO(dao.ScheduledDAO(clickScheduled), 10, test));
            return "TodoMain";
        }else if(clickProceeding != null) {
     	   System.out.println("진행중");
     	   model.addAttribute("list",dao.clickProceedingDAO(test,clickProceeding));
-    	   model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+    	   model.addAttribute("pageMaker", new PageDTO(dao.ProceedingDAO(clickProceeding), 10, test));
            return "TodoMain";
        }else if(clickFinish != null) {
     	   System.out.println("진행완료");
     	   model.addAttribute("list",dao.clickFinishDAO(test,clickFinish));
-    	   model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+    	   model.addAttribute("pageMaker", new PageDTO(dao.FinishDAO(clickFinish), 10, test));
            return "TodoMain";
        }
       if(allTodo != null ) {
@@ -96,7 +96,7 @@ public class TodoController {
       }else if(myTodo != null) {
           myNum = dao.numDAO(principal.getName());
     	  model.addAttribute("list",dao.myTodoDAO(test, myNum));
-    	  model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+    	  model.addAttribute("pageMaker", new PageDTO(dao.myTodoDAO2(myNum), 10, test));
           return "TodoMain";
       }
       

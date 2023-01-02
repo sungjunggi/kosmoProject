@@ -36,7 +36,10 @@ public interface ITodoDAO {
    public List<CommunicationDTO> clickFinishDAO(@Param("cri") Criteria criteria,String clickFinish);
    public void startingDAO(int num);
    public void endingDAO(int num);
-   
+   public int myTodoDAO2(int num);
+   public int ScheduledDAO(String ScheduledDAO);
+   public int ProceedingDAO(String ProceedingDAO);
+   public int FinishDAO(String FinishDAO);
 
 }
 

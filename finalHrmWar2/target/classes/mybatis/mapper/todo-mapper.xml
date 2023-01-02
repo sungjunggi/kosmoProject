@@ -68,7 +68,7 @@
        where r>(#{pageNum}-1) * #{amount}
         
         union all
-    select null,null,null,null,null,null,null,null
+    select null,null,null,null,null,null,null,null,null
     from dual
     where not exists (select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
     communication_end,communication_assign,communication_state,employee_name,category_num
@@ -88,7 +88,7 @@
        where r>(#{pageNum}-1) * #{amount}
         
         union all
-    select null,null,null,null,null,null,null,null
+    select null,null,null,null,null,null,null,null,null
     from dual
     where not exists (select * from( select rownum r, C.* from(select communication_num,communication_title,communication_start,
     communication_end,communication_assign,communication_state,employee_name,category_num
@@ -132,6 +132,48 @@
        where r>(#{cri.pageNum}-1) * #{cri.amount}
        ]]>
       </select>
+      
+       <select id="myTodoDAO2" resultType="int" >
+       <![CDATA[
+       select count(*) from( select rownum r, C.* from(
+       select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num,category_num
+       from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
+       WHERE rownum <=(#{cri.pageNum}) * #{cri.amount} and employee_num = #{num} and category_num=10 )
+       where r>(#{cri.pageNum}-1) * #{cri.amount}
+       ]]>
+      </select>
+      
+       <select id="ScheduledDAO" resultType="int" >
+       <![CDATA[
+       select count(*) from( select rownum r, C.* from(
+       select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num,category_num
+       from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
+       WHERE rownum <=999 and communication_state = #{ScheduledDAO} and category_num=10 )
+       where r>0
+       ]]>
+      </select>
+      
+           <select id="ProceedingDAO" resultType="int" >
+       <![CDATA[
+       select count(*) from( select rownum r, C.* from(
+       select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num,category_num
+       from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
+       WHERE rownum <=999 and communication_state = #{ProceedingDAO} and category_num=10 )
+       where r>0
+       ]]>
+      </select>
+      
+           <select id="FinishDAO" resultType="int" >
+       <![CDATA[
+       select count(*) from( select rownum r, C.* from(
+       select c.communication_num,c.communication_title,c.communication_start,c.communication_end,c.communication_assign,c.communication_state,e.employee_name,c.employee_num,category_num
+       from communication c, employee e where c.employee_num=e.employee_num order by communication_num desc)C 
+       WHERE rownum <=999 and communication_state = #{FinishDAO} and category_num=10 )
+       where r>0
+       ]]>
+      </select>
+      
+      
       
        <select id="clickScheduledDAO" resultType="com.hrm.finalpj.dto.CommunicationDTO" parameterType="com.hrm.finalpj.dto.Criteria">
        <![CDATA[
