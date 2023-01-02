@@ -34,7 +34,9 @@
     font-family: 'Pretendard';
     outline: none;
 }
-
+button:focus{
+	outline: none;
+}
 *::-webkit-scrollbar {
    width: 10px;
    height:10px;
@@ -363,6 +365,18 @@ li[data-depth="1"] a {
 }
 .nav-aprv::before {
 	background-image: url(../img/aprv_icon.png);
+	background-position: 50% 50%;
+	background-size:cover;
+	object-fit: contain;
+	content: '';
+    position: absolute;
+    left: 15px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+}
+.nav-user::before {
+	background-image: url(../img/emp_icon.png);
 	background-position: 50% 50%;
 	background-size:cover;
 	object-fit: contain;
@@ -1096,9 +1110,14 @@ li[data-depth="1"] a {
 	display: flex;
 	height:110px;
 }
-.cate-m-t-t-wrap {
+.cate1-btn {
 	flex:1;
+	background: #fff;
+	border: none;
+	outline: none;
 }
+
+
 .cate-m-att {
     line-height: 14px;
     height: 14px;
@@ -1120,6 +1139,7 @@ li[data-depth="1"] a {
 	flex: 1 1 0%;
 }
 .cate1-m-b {
+	display:flex;
 	margin-top:10px;
 }
 .cate1-m-b-wrap {
@@ -1140,7 +1160,11 @@ li[data-depth="1"] a {
 .cate1-l-wrap {
 	color: #fff;
 }
-
+.cate1-l-btn {
+	width: 100%;
+	color: #fff;
+	transition:0.5s;
+}
 .cate1-punch {
 	height:134px;
 	background: #4dc9aa;
@@ -1150,6 +1174,10 @@ li[data-depth="1"] a {
 	padding:0 24px 0 24px;
 	position: relative;
 	margin:0;
+	transition: 0.5s;
+}
+.cate1-punch:hover {
+	background: #2c8f77;
 }
 .punch1, .early1{
 	margin: 0;
@@ -1170,8 +1198,11 @@ li[data-depth="1"] a {
 	line-height:16px;
 	padding:0 24px 0 24px;
 	position: relative;
+	transition:0.5s;
 }
-
+.cate1-early:hover {
+	background: #aa7b00;
+}
 .att-data-sch {
 	flex:0 0 calc(45%);
 	max-width: calc(45%);
@@ -1194,6 +1225,12 @@ li[data-depth="1"] a {
 	height:110px;
 	border-top: 1px solid #d3d3d3;
 }
+.cate2-btn {
+	flex:1;
+	border: none;
+	background: #fff;
+	
+}
 .att-data-cate2-t>div, .att-data-cate2-b>div {
 	flex:1;
 }
@@ -1202,7 +1239,7 @@ li[data-depth="1"] a {
 	border-right: 1px solid #d3d3d3;
 }
 .cate2-t-2, .cate2-b-2 {
-	padding:0 1.875rem;
+	padding-right:1.875rem;
 	border-right: 1px solid #d3d3d3;
 }
 .cate2-t-3, .cate2-b-3 {

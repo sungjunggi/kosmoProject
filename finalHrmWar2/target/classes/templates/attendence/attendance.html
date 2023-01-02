@@ -7,177 +7,192 @@
 <title>Dashboard</title>
 </head>
 <div layout:fragment="content">
-	<form id="content" href="/attMain">
-	   <div class="att-wrap">
-	      <div class="att-search-wrap">
-	         <input type='date' id='currentDate' value=''/>
-	         <select>
-	            <option selected>직원</option>
-	            <option value="${dao.employee_name}">${dao.employee_name}</option>
-	            <option value="${dao.employee_name}"></option>
-	            <option value=""></option>
-	            <option value=""></option>
-	         </select>
-	      </div>
-	      <button type="submit" name="atten" id="atten" value="atten" > 출근 </button>
-	      <button type="submit" name="exist" id="exist" value="exist" > 퇴근 </button>
-
-	      <div class="att-data-wrap">
-	         <div class="att-data-box">
-	            <div class="att-data-header">
-	               <span style="font-size: 20px; font-weight: bold;">출퇴근 현황</span>
-	               <span style="color:#aaaaaa; float:right; font-size:14px;">단위 : 명</span>
-	            </div>
-	            <div class="att-data-content">
-	               <div class="att-data-cate1">
-	                  <div class="cate1-r">      
-	                     <div class="cate1-r-t">
-	                        <p style="margin:0; text-align: center;">출근율</p>
-	                        <p th:if="${average!=null}" th:text="${average}+'%'" style="margin:0;"></p>
-	                        <p th:unless="${average!=null}" th:text="'-%'" style="margin:0;"></p>  
-	                     </div>
-	                     <div class="cate-r-b">
-	                        <span th:text="${todayWorkCount}"></span> /
-	                        <span th:text="${scheduleWorkCount}"></span>
-	                     </div>
-	                  </div>
-	                  <div class="cate1-m">
-	                     <div class="state">
-	                        <div class="cate1-m-t">
-	                           <div class="cate-m-t-t" >
-	                              <div class="cate-m-t-t-wrap" style="height:81px;">
-	                                 <p class="cate-m-att" style="margin:0;">출근함</p>
-	                              	 <a href="/attMain/att">
-	                                 <span th:text="${todayWorkCount}" style="float:right;  margin-top:20px;">-</span>
-	                                 <input type="hidden" name="todayWork" value="todayWork">
-	                           		 </a>   
-	                           	  </div>
-	                           </div>
-	                           <div class="cate1-m-t-b">
-	                              <div class="cate1-m-t-b-l">
-	                                 <p>출근전</p>
-	                                 <span th:text="${beforeWorkCount}" style="float:right;">-</span>
-	                              </div>
-	                              <div class="cate1-m-t-b-r">
-	                                 <p>비출근</p>
-	                                 <span th:text="${notWorkCount}" style="float:right;">-</span>
-	                              </div>
-	                           </div>
-	                        </div>
-	                        <div class="cate1-m-b">
-	                           <div class="cate1-m-b-wrap">
-	                              <p style="margin:0;">출근 대상</p>
-	                              <p th:text="${scheduleWorkCount}" style="margin:0;">-</p>
-	                           </div>
-	                        </div>
-	                     </div>
-	                  </div>
-	                  <div class="cate1-l">
-	                     <div class="cate1-l-wrap">
-	                        <div class="cate1-punch">
-	                           <p class="punch1">지각</p>
-	                           <p th:text="${lateWorkCount}" class="punch2">-</p>
-	                        </div>
-	                        <div class="cate1-early cate1ldata">
-	                           <p class="early1">조퇴</p>
-	                           <p th:text="${leftEarlierCount}" class="early2">-</p>
-	                        </div>
-	                     </div>
-	                  </div>
-	               </div>
-	            </div>
-	         </div>
+	<form action="/attMain">
+	   	<div class="att-wrap">
+	      	<div class="att-search-wrap">
+	        	<input type='date' id='currentDate' value=''/>
+	         	<select>
+	            	<option selected>직원</option>
+	            	<option value="${dao.employee_name}">${dao.employee_name}</option>
+	            	<option value="${dao.employee_name}"></option>
+	            	<option value=""></option>
+	            	<option value=""></option>
+	         	</select>
+	      	</div>
+	      
+	     	<div class="att-data-wrap">
+	        	<div class="att-data-box">
+	            	<div class="att-data-header">
+	               		<span style="font-size: 20px; font-weight: bold;">출퇴근 현황</span>
+	               		<span style="color:#aaaaaa; float:right; font-size:14px;">단위 : 명</span>
+	            	</div>
+	            	<div class="att-data-content">
+	               		<div class="att-data-cate1">
+	                  		<div class="cate1-r">      
+	                     		<div class="cate1-r-t">
+			                        <p style="margin:0; text-align: center;">출근율</p>
+			                        <p th:if="${average!=null}" th:text="${average}+'%'" style="margin:0;"></p>
+			                        <p th:unless="${average!=null}" th:text="'-%'" style="margin:0;"></p>  
+	                     		</div>
+	                     		<div class="cate-r-b">
+		                        <span th:text="${workingCount}"></span> /
+		                        <span th:text="${scheduleWorkCount}"></span>
+	                     		</div>
+	                  		</div>
+	                  		<div class="cate1-m">
+	                     		<div class="state">
+	                        		<div class="cate1-m-t">
+	                           			<div class="cate-m-t-t" >
+	                           				<button type="submit" name="working" class="cate1-btn">
+				                              	<div class="cate-m-t-t-wrap" style="height:81px;">
+				                                 	<p class="cate-m-att" style="margin:0; text-align: left;">출근함</p>
+				                               		<span th:text="${workingCount}" style="float:right; margin-top:20px;">-</span>
+				                           	  	</div>
+	                           				</button>
+	                           			</div>
+	                           			<div class="cate1-m-t-b">
+	                                 		<button type="submit" name="beforeWork" class="cate1-btn" >
+		                              			<div class="cate1-m-t-b-l" style="height: 100%;">
+			                                 		<p style="margin:0; text-align: left;">출근전</p>
+			                                 		<span th:text="${beforeWorkCount}" style="float:right; margin-top:20px;">-</span>
+		                              			</div>
+	                                 		</button>
+	                                 		<button type="submit" name="notWork" value="비출근" class="cate1-btn">
+		                              			<div class="cate1-m-t-b-r" style="height: 100%;">
+		                                 			<p style="margin:0; text-align: left;">비출근</p>
+		                                 			<span th:text="${notWorkCount}" style="float:right; margin-top:20px;">-</span>
+		                              			</div>
+	                                 		</button>
+	                           			</div>
+	                        		</div>
+	                        		<div class="cate1-m-b">
+		                        		<button type="submit" name="scheduleWork" class="cate1-btn" style="margin:0;">
+		                           			<div class="cate1-m-b-wrap">
+		                              			<p style="margin:0;">출근 대상</p>
+		                              			<span th:text="${scheduleWorkCount}">-</span>
+		                           			</div>
+		                        		</button>
+	                        		</div>
+	                     		</div>
+	                  		</div>
+	                  		<div class="cate1-l">
+	                     		<div class="cate1-l-wrap">
+	                     			<button type="submit" name="lateWork" class="cate1-btn cate1-l-btn cate1-p-btn" >
+		                        		<div class="cate1-punch">
+		                           			<p class="punch1">지각</p>
+		                           	 		<p th:text="${lateWorkCount}" class="punch2">-</p>
+		                        		</div>
+	                     			</button>
+	                     			<button type="submit" name="leftEarlier" class="cate1-btn cate1-l-btn cate1-e-btn">
+		                        		<div class="cate1-early cate1ldata">
+		                           			<p class="early1">조퇴</p>
+			                           		<p th:text="${leftEarlierCount}" class="early2">-</p>
+		                        		</div>
+	                     			</button>
+	                     		</div>
+	                  		</div>
+	               		</div>
+	            	</div>
+	         	</div>
 	         
-	         <div class="att-data-sch">
-	            <div class="att-data-header">
-	               <span style="font-size: 20px; font-weight: bold;">스케줄</span>
-	               <span style="color:#aaaaaa; float:right; font-size:14px;">단위 : 명</span>
-	            </div>
-	            <div class="att-data-cate2" style="width: 100%; margin-top:20px;">
-	               <div class="att-data-cate2-box">
-	                  <div class="att-data-cate2-t">
-	                     <div class="cate2-t-1">
-	                        <p>출근 대상</p>
-	                        <span th:text="${scheduleWorkCount}" style="float:right;">-</span>
-	                     </div>
-	                     <div class="cate2-t-2">
-	                        <p>출장</p>
-	                        <span th:text="${businessTripCount}" style="float:right;">-</span>
-	                     </div>
-	                     <div class="cate2-t-3">
-	                        <p>휴가</p>
-	                        <span th:text="${vacationCount}" style="float:right;">-</span>
-	                     </div>
-	                  </div>
-	                  <div class="att-data-cate2-b">
-	                     <div class="cate2-b-1">
-	                        <p>교육</p>
-	                        <span th:text="${educationCount}" style="float:right;">-</span>
-	                     </div>
-	                     <div class="cate2-b-2">
-	                        <p>기타</p>
-	                        <span th:text="${etcCount}" style="float:right;">-</span>
-	                     </div>
-	                     <div class="cate2-b-3">
-	                        <p>일정없음</p>
-	                        <p th:text="${noScheduleCount}" style="float:right;">-</p>
-	                     </div>
-	                     
-	                  </div>
-	               </div>
-	               <div class="att-data-cate2-total">
-	                  <span>전체인원</span>
-	                  <span th:text="${defaultCount}">-</span>
-	               </div>
-	            </div>
-	         </div>
-	      </div>
-	      <div class="att-data-board">
-	         <table width="100%">
-	            <tr class="att-data-table" >
-	               <th style="width:100px;">이름</th>
-	               <th style="width:100px;">직급</th>
-	               <th style="width:70px;">근무상태</th>
-	               <th style="width:100px;">스케줄</th>
-	               <th style="width:300px;">출근시각</th>
-	               <th style="width:300px;">퇴근시각</th>
-	               <th style="width:300px;">특이사항</th>
-	               <th style="width:50px;">지각</th>
-	               <th style="width:50px;">조퇴</th>
-	            </tr>
-	            <tr th:each="dao : ${defaultList}" class="att-table-body">
-	               <td th:text="${dao.employee_name}"></td>
-	               <td th:text="${dao.job_name}"></td>
-	               <td th:text="${dao.type_category}"></td>
-	               <td th:text="${dao.schedule_name}"></td>
-	               <td th:text="${dao.attendance_workstart}"></td>
-	               <td th:text="${dao.attendance_workend}"></td>
-	               <td>-</td>
-	               <td>-</td>
-	               <td>-</td>
-	            </tr>
-	         </table>
-	      </div>
-	   </div>
+	         	<div class="att-data-sch">
+	            	<div class="att-data-header">
+	               		<span style="font-size: 20px; font-weight: bold;">스케줄</span>
+	               		<span style="color:#aaaaaa; float:right; font-size:14px;">단위 : 명</span>
+	            	</div>
+	            	<div class="att-data-cate2" style="width: 100%; margin-top:20px;">
+	               		<div class="att-data-cate2-box">
+	                  		<div class="att-data-cate2-t">
+	                  			<button type="submit" name="scheduleWork" class="cate2-btn" style="padding-right: 1.875rem;">
+		                     		<div class="cate2-t-1" style="height: 100%;">
+		                        		<p style="margin:0; text-align: left;">출근 대상</p>
+		                        		<span th:text="${scheduleWorkCount}" style="float:right; margin-top:20px;">-</span>
+		                     		</div>
+	                  			</button>
+	                  			<button type="submit" name="businessTrip" class="cate2-btn">	                  			
+		                     		<div class="cate2-t-2" style="height: 100%;">
+		                        		<p style="margin:0; text-align: left;">출장</p>
+		                               	<span th:text="${businessTripCount}" style="float:right; margin-top:20px;">-</span>
+		                     		</div>
+	                  			</button>
+	                  			<button type="submit" name="vacation" class="cate2-btn">
+	                     			<div class="cate2-t-3" style="height: 100%;">
+	                        			<p style="margin:0; text-align: left;">휴가</p>
+	           	   	 	    			<span th:text="${vacationCount}" style="float:right; margin-top:20px;">-</span>
+	                     			</div>
+	                  			</button>
+	                  		</div>
+	                  		<div class="att-data-cate2-b">
+		                  		<button type="submit" name="education" class="cate2-btn" style="padding-right: 1.875rem;">
+		                     		<div class="cate2-b-1" style="height: 100%;">
+		                        		<p style="margin:0; text-align: left;">교육</p>
+		                        		<span th:text="${educationCount}" style="float:right; margin-top:20px;">-</span>
+		                     		</div>
+		                  		</button>
+		                  		<button type="submit" name="etc" class="cate2-btn">
+	                     			<div class="cate2-b-2" style="height: 100%;">
+	                        			<p style="margin:0; text-align: left;">기타</p>
+		                        		<span th:text="${etcCount}" style="float:right; margin-top:20px;">-</span>
+	                     			</div>
+		                  		</button>
+		                  		<button type="submit" name="noSchedule" class="cate2-btn">
+	                     			<div class="cate2-b-3" style="height: 100%;">
+	                        			<p style="margin:0; text-align: left;">일정없음</p>
+		                        		<span th:text="${noScheduleCount}" style="float:right; margin-top:20px;">-</span>
+	                     			</div>
+		                  		</button>
+	                  		</div>
+	               		</div>
+	               		<div class="att-data-cate2-total">
+	               			<button style="flex:1; border:none; background:inherit; display: flex; justify-content: space-between;">
+	                  			<span>전체인원</span>
+		                  		<span th:text="${totalCount}">-</span>
+	               			</button>
+	               		</div>
+	            	</div>
+	         	</div>
+	      	</div>
+	      	<div class="att-data-board">
+	         	<table width="100%">
+	            	<tr class="att-data-table" >
+	               		<th style="width:100px;">이름</th>
+	               		<th style="width:100px;">직급</th>
+	               		<th style="width:70px;">근무상태</th>
+	               		<th style="width:100px;">스케줄</th>
+	               		<th style="width:300px;">출근시각</th>
+		                <th style="width:300px;">퇴근시각</th>
+		                <th style="width:300px;">특이사항</th>
+		                <th style="width:50px;">지각</th>
+		                <th style="width:50px;">조퇴</th>
+	            	</tr>
+	   	            <tr th:each="dao : ${list}" class="att-table-body">
+		               	<td th:text="${dao.employee_name}"></td>
+		               	<td th:text="${dao.job_name}"></td>
+		               	<td th:text="${dao.type_category}"></td>
+		               	<td th:text="${dao.schedule_name}"></td>
+		               	<td th:text="${dao.attendance_workstart}"></td>
+		               	<td th:text="${dao.attendance_workend}"></td>
+		               	<td>-</td>
+		               	<td>-</td>
+		               	<td>-</td>
+	            	</tr>
+	            
+<!--                 <p th:unless="${average!=null}" th:text="'-%'" style="margin:0;"></p>   -->
+	            
+<!-- 	            <tr th:if="${scheduleType=todayWork}" th:each="dao : ${todayWork}" class="att-table-body"> -->
+<!-- 	               <td th:text="${dao.employee_name}"></td> -->
+<!-- 	               <td th:text="${dao.job_name}"></td> -->
+<!-- 	               <td th:text="${dao.type_category}"></td> -->
+<!-- 	               <td th:text="${dao.schedule_name}"></td> -->
+<!-- 	               <td th:text="${dao.attendance_workstart}"></td> -->
+<!-- 	               <td th:text="${dao.attendance_workend}"></td> -->
+<!-- 	               <td>-</td> -->
+<!-- 	               <td>-</td> -->
+<!-- 	               <td>-</td> -->
+<!-- 	            </tr> -->
+	         	</table>
+	      	</div>
+	   	</div>
 	</form>
-</div> 
-<th:block layout:fragment="script">
-	<script>
-// 	 		document.getElementById('ddd').submit();
-	var attType = document.getElementById('todayWork')
-		function attType(){
-			$.ajax({
-				url: "/attMain",
-				data: "attType="+attType,
-				type: "POST",
-				success : function(data){
-					alert("성공")
-				},
-				error : function(){
-					alert("에러")
-				}
-			});
-	 	}
-	</script>
-</th:block>
+</div>
 </html>
