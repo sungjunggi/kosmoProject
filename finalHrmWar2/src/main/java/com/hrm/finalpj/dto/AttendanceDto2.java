@@ -45,10 +45,10 @@ public class AttendanceDto2 {
 	private String type_category;
 	
 	private double average;
-	private int scheduleWorkCount;
-	private int todayWorkCount;
+	private int workingCount;
 	private int beforeWorkCount;
 	private int notWorkCount;
+	private int scheduleWorkCount;
 	private int lateWorkCount;
 	private int leftEarlierCount;
 	private int businessTripCount;
@@ -56,6 +56,6 @@ public class AttendanceDto2 {
 	private int educationCount;
 	private int etcCount;
 	private int noScheduleCount;
-	private int defaultCount;
+	private int totalCount;
 	
 }

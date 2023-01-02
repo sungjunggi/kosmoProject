@@ -51,9 +51,9 @@
       <tr th:if="${booleancheck}" >
             <td colspan="8" align="center">자료가 존재하지 않습니다.</td>
         </tr>
-      <th:block th:each="dto,i:${list}">
+      <th:block th:each="dto,iterator :${list}">
          <tr th:unless="${booleancheck}" > 
-         <td th:text="${total-i.index}" style="padding-left: 20px;"></td>
+         <td th:text="${total-iterator.index}" style="padding-left: 20px;"></td>
          <td style="padding-left: 20px;">
             <a id="temnumlink" th:href="@{'/reportview/'+${dto.template_board_num}}">
                <span id="temnumlink" th:text="${dto.gettemplate_title}"></span>
@@ -101,8 +101,7 @@
    
    <th:block layout:fragment="script">
       <script type="text/javascript">
-
-         
+   
          function popupShow(){
             $("#popup-content").css('opacity','100').css('visibility','visible');
             $(".popup-back").css('opacity','0.6').css('z-index','100');
