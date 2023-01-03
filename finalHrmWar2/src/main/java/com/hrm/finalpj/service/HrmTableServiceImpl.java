@@ -20,4 +20,5 @@ public class HrmTableServiceImpl implements HrmTableService{
 		// TODO Auto-generated method stub
 		return ihrmMapper.SelectAllList();
 	}
+	
 }

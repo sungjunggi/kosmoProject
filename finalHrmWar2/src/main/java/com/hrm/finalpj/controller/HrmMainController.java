@@ -7,16 +7,20 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hrm.finalpj.dao.IReportDAO;
 import com.hrm.finalpj.dto.PageDTO;
 import com.hrm.finalpj.dto.signDTO;
+import com.hrm.finalpj.dto.signpageDTO;
 import com.hrm.finalpj.mapper.IHrmMapper;
 import com.hrm.finalpj.report.dto.CommentDTO;
 import com.hrm.finalpj.report.dto.ReportDTO;
@@ -30,9 +34,12 @@ public class HrmMainController {
 	
 	@Autowired
 	IHrmMapper imap;
+	
 
 	@Resource
 	private HrmTableService hrmtableService;
+
+	private Object IHrmMapper;
 
 //   @RequestMapping("/")
 //   public String test(Model model) {
@@ -54,6 +61,14 @@ public class HrmMainController {
 
 	@RequestMapping("/signlist")
 	public String getsignlist(Model model, HttpServletRequest req) {
+		//@RequestParam(defaultValue="1") int currentPage
+		//List<signDTO> content = this.IHrmMapper.content();
+		//int total = this.IHrmMapper.listCount();
+		
+		//model.addAttribute("list", new signpageDTO());
+		//model.addAttribute("total", total);
+	
+		
 		signDTO dto = new signDTO();
 		model.addAttribute("signlist", imap.SelectSignList(dto));
 		ReportDTO dto1 = new ReportDTO();
@@ -159,6 +174,9 @@ public class HrmMainController {
 	 return "report/reportviewsign"; 
 	 
 	 	}
-	}
+
+  
+}
+ 
 
 

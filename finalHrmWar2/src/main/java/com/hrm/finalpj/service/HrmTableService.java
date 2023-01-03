@@ -6,4 +6,6 @@ import java.util.Map;
 public interface HrmTableService {
 	//select * from Test_Table
 	public List<Map<String, Object>> SelectAllList() throws Exception;
+
+	
 }

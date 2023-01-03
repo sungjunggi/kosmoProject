@@ -9,6 +9,8 @@ import com.hrm.finalpj.dto.signDTO;
 import com.hrm.finalpj.report.dto.ReportDTO;
 
 
+
+
 @Mapper
 public interface IHrmMapper {
 
@@ -62,6 +64,12 @@ public interface IHrmMapper {
 	public List<signDTO> TestDAO(String TestDAO);
 	public List<ReportDTO> ReportDAO(String ReportDAO);
 	public List<signDTO> DayoffDAO(String DayoffDAO);
+	
+	public int listCount();
+	public List<signDTO> content();
+
+	
+	
 
    
 }
