@@ -34,4 +34,9 @@ public interface IAttendanceDao2 {
 	public int etcCount();
 	public int noScheduleCount();
 	public int totalCount();
+	
+	public int atten(int num);
+	public int exist(int num);
+	public String check(int num);
+	public int getNum(String name);
 }

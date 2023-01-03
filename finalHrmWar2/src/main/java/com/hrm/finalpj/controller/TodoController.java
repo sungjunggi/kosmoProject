@@ -72,9 +72,10 @@ public class TodoController {
     	   int communication_num=Integer.parseInt(req.getParameter("communication_num"));
     	   dao.endingDAO(communication_num);
        }
-       
+       int totalx = 0;
        int total = todoservice.getTotal();
        model.addAttribute("total",total);
+     
        if(clickScheduled != null) {
     	   System.out.println("진행예정");
     	   model.addAttribute("list",dao.clickScheduledDAO(test,clickScheduled));
@@ -84,7 +85,7 @@ public class TodoController {
     	   System.out.println("진행중");
     	   model.addAttribute("list",dao.clickProceedingDAO(test,clickProceeding));
     	   model.addAttribute("pageMaker", new PageDTO(dao.ProceedingDAO(clickProceeding), 10, test));
-           return "TodoMain";
+           return "TodoMainProc";
        }else if(clickFinish != null) {
     	   System.out.println("진행완료");
     	   model.addAttribute("list",dao.clickFinishDAO(test,clickFinish));
@@ -122,6 +123,19 @@ public class TodoController {
           model.addAttribute("list", todoservice.getList(test));
        }
        model.addAttribute("pageMaker", new PageDTO(todoservice.getTotal(), 10, test));
+    
+       if(num%2 == 0) {
+    	   totalx = total - num*10;
+    	   model.addAttribute("total",totalx);
+    	   System.out.println(totalx + " 2의배수로 ?");
+       }else if(num%3 == 0) {
+    	   totalx = (total - num*10) - 10;
+    	   model.addAttribute("total",totalx);
+    	   System.out.println(totalx + " 3의배수로 ?");
+    	   System.out.println(total + "total ?");
+    	   System.out.println(num + " num?");
+    	   
+       }
      
        return "TodoMain";
     }

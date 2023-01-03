@@ -23,7 +23,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			</thead>
 			<tbody>
 				<tr th:each="dto,i:${vacationlist}" >
-					<td style="text-align:center; width:50px; font-size:13px; font-weight: 300; border-right: 1px solid #d3d3d3;" ><span th:text="${total-i.index}"></span></td>
+					<td style="text-align:center; width:50px; font-size:13px; font-weight: 300; border-right: 1px solid #d3d3d3;" ><span th:text="${total-i.count}"></span></td>
 					<td style="width:100px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.type_category}"></span></td>
 					<td style="width:600px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_reason}"></span></td>
 					<td style="width:200px; text-align: center; font-size:14px; font-weight: 200;"><span th:text="${dto.dayoff_begin}"></span></td>

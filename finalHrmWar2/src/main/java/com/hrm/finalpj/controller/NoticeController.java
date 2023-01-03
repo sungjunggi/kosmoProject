@@ -44,8 +44,17 @@ public class NoticeController {
        test.setCommunication_search(search);
        test.setCommunication_start(start);
        test.setCommunication_end(end);
+       int totalx = 0;
        int total = nservice.ngetTotal();
        model.addAttribute("total",total);
+       
+       if(num%2 == 0) {
+    	   totalx = total - num*10;
+    	   model.addAttribute("total",totalx);
+       }else if(num%3 == 0) {
+    	   totalx = (total - num*10) - 10;
+    	   model.addAttribute("total",totalx);
+       }
        
        if(search !=null) {
           model.addAttribute("list",dao.nsearchTextDAO(test));

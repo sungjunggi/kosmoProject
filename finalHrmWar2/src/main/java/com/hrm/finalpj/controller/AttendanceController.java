@@ -1,5 +1,7 @@
 package com.hrm.finalpj.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ public class AttendanceController {
 	
 	@Autowired IAttendanceDao2 dao;
 	@RequestMapping("/attMain")
-	public String attMain(Model model, HttpServletRequest req) {
+	public String attMain(Model model, HttpServletRequest req, Principal principa) {
 		// View에서 직원 상태 분류 파라미터 전달
 		String working=req.getParameter("working");
 		String beforeWork=req.getParameter("beforeWork");
@@ -27,6 +29,12 @@ public class AttendanceController {
 		String education=req.getParameter("education");
 		String etc=req.getParameter("etc");
 		String noSchedule=req.getParameter("noSchedule");
+		
+		String name = principa.getName();
+		String atten = req.getParameter("atten");
+		String exist = req.getParameter("exist");
+		int num = dao.getNum(name);
+		
 		
 		// 파라미터에 따른 표출할 list 지정
 		if(working!=null) {
@@ -77,6 +85,17 @@ public class AttendanceController {
 		if(rate2==0)
 			average2="-";
 		model.addAttribute("average",average2);
+		
+		if(atten != null) {
+			if(dao.check(num) == null) {
+			dao.atten(num);
+			System.out.println("출근");
+			}
+		};
+		if(exist != null) {
+			dao.exist(num);
+			System.out.println("퇴근");
+		};
 		
 		return "attendence/attendance";
 	}

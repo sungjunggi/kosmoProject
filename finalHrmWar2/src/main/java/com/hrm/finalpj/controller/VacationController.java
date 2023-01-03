@@ -30,8 +30,11 @@ public class VacationController {
 		vacationDTO dto = new vacationDTO();
 		int num = vmap.numDAO(principal.getName());
 		model.addAttribute("vacationlist", vmap.vacationList(dto,num));
+		int totalx = 0;
 		int total = vmap.vacationTotal();
+		System.out.println(total);
 		model.addAttribute("total",total);
+		
 		model.addAttribute("num",num);
 		return "vacation/vacationList";
 	   }

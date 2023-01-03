@@ -4,6 +4,7 @@
     font-weight: 500;
     font-style: normal;
 }
+
 [placeholder]:empty:before {
      display: block;
      content: attr(placeholder);
@@ -1047,6 +1048,29 @@ li[data-depth="1"] a {
 	display: flex;
 	flex-direction: column;
 }
+
+.att-search-wrap button {
+	width: 100px;
+	height: 50px;
+	border: none;
+	border-radius: 10px;
+	color:#fff;
+}
+#atten {
+	background: #30afff;
+	transition:0.5s;
+}
+#atten:hover {
+	background: #006dae;
+}
+
+#exist {
+	background: #ff4545;
+	transition:0.5s;
+}
+#exist:hover {
+	background: #a20000;
+}
 .att-data-wrap {
 	display:flex;
 	margin: 30px 0;
@@ -1371,4 +1395,16 @@ li[data-depth="1"] a {
 	font-size: 14px;
 	height:50px;
 	text-align: center
+}
+.btn-primary {
+	    position: fixed;
+	    bottom: 100px;
+	    right: 100px;
+	    width: 100px;
+	    color: #fff;
+	    background: #30afff;
+	    height: 50px;
+	    border: none;
+	    border-radius: 50px;
+	    box-shadow: 5px 10px 20px 0 rgb(0 0 0 / 20%);
 }

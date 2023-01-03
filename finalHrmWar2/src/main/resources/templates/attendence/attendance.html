@@ -10,14 +10,9 @@
 	<form action="/attMain">
 	   	<div class="att-wrap">
 	      	<div class="att-search-wrap">
-	        	<input type='date' id='currentDate' value=''/>
-	         	<select>
-	            	<option selected>직원</option>
-	            	<option value="${dao.employee_name}">${dao.employee_name}</option>
-	            	<option value="${dao.employee_name}"></option>
-	            	<option value=""></option>
-	            	<option value=""></option>
-	         	</select>
+		      <button type="submit" name="atten" id="atten" value="atten" > 출근 </button>
+		      <button type="submit" name="exist" id="exist" value="exist" > 퇴근 </button>
+	        	
 	      	</div>
 	      
 	     	<div class="att-data-wrap">
